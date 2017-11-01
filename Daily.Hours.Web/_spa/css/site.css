@@ -1,4 +1,4 @@
-﻿.posterImage {
+﻿/*.posterImage {
     height: 100px;
     width: 75px;
 }
@@ -21,4 +21,8 @@
 
 .text {
     font-size: 12px;
+}*/
+
+.validationMessage{
+    color: red;
 }

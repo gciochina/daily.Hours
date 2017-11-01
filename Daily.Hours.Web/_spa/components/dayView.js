@@ -10,13 +10,14 @@
             }
 
             self.activities = ko.observableArray();
+            self.filterDate = ko.observable(new Date());
 
             $.ajax({
                 method: 'GET',
                 url: "api/Activity/List",
                 data: {
-                    userId: self.currentUser().Id(),
-                    filderDate: self.filterDate(),
+                    userId: self.currentUser().Id,
+                    filterDate: (self.filterDate() || new Date()).toISOString(),
                 },
                 success: function (data) {
                     self.activities(data);

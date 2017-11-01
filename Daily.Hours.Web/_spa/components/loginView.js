@@ -3,8 +3,8 @@
         function loginView(params) {
             var self = this;
 
-            self.userName = ko.observable("");
-            self.password = ko.observable("");
+            self.userName = ko.observable().extend({ required: true });
+            self.password = ko.observable().extend({ required: true });
 
             self.navModel = params.navModel;
             self.currentUser = params.currentUser;

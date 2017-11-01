@@ -11,7 +11,7 @@ namespace Daily.Hours.Web.Services
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ActivityService
     {
-        DailyHoursContext _context;
+        DailyHoursContext _context = new DailyHoursContext();
 
         internal ActivityModel Create(ActivityModel workLog)
         {
@@ -44,7 +44,7 @@ namespace Daily.Hours.Web.Services
 
         internal List<ActivityModel> List(int userId, DateTime filterDate)
         {
-            return _context.Activities.Where(a => a.User.Id == userId && a.Date.Date == filterDate.Date).ToList();
+            return _context.Activities.Where(a => a.User.Id == userId && a.Date > filterDate.Date && a.Date < filterDate.Date.AddDays(1)).ToList();
         }
 
         internal Task<ActivityModel> Get(int workLogId)

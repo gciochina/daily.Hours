@@ -1,20 +1,26 @@
 ﻿<div>
     <h1>WHAT WAS DONE THIS DAY</h1>
     <br/>
-    <input type="date" data-bind="value: filterDate">
-    <label data-bind="text: filderDate"></label>
+    <div class="col-md-4">
+        <div class="form-group">
+            <label class="control-label">Quote Date</label>
+            <div class='input-group date dateTimes'>
+                <input type="text" class="form-control" data-bind="datepicker: filterDate, " /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+        </div>
+    </div>
+
+    <label data-bind="text: filterDate"></label>
     <br />
     <table>
         <thead>
         </thead>
-        <tbody>
-            <!-- ko with: activities -->
+        <tbody data-bind="foreach: activities">
             <tr>
-                <td data-bind="value: activity.Project.Name"></td>
-                <td data-bind="text: activity.Task.Name"></td>
-                <td data-bind="value: activity.Hours"></td>
+                <td data-bind="value: Project.Name"></td>
+                <td data-bind="text: Task.Name"></td>
+                <td data-bind="value: Hours"></td>
             </tr>
-            <!-- /ko -->
         </tbody>
     </table>
     <br />

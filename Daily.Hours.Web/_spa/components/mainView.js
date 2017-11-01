@@ -5,7 +5,7 @@
             self.currentUser = params.currentUser;
 
             self.navModel = self.currentUser()
-                ? ko.observable(navModel)
+                ? ko.observable("dayView")
                 : ko.observable("loginView");
         };
 
