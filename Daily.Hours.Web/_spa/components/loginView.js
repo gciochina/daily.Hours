@@ -1,5 +1,5 @@
-﻿define(['ko', 'lib/requirejs-plugins/lib/text!components/loginView.html'],
-    function (ko, templateString) {
+﻿define(['ko', 'lib/requirejs-plugins/lib/text!components/loginView.html', 'toastr'],
+    function (ko, templateString, toastr) {
         function loginView(params) {
             var self = this;
 
@@ -24,9 +24,10 @@
                     success: function (data) {
                         self.currentUser(data);
                         self.navModel('mainView');
+                        toastr.info("Welcome back" + data.FirstName + " " + data.LastName);
                     },
-                    fail: function (error) {
-                        alert(error);
+                    error: function (error) {
+                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
                     }
                 });
             }

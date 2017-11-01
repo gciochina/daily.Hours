@@ -387,6 +387,10 @@
     <Content Include="bower_components\requirejs-plugins\src\mdown.js" />
     <Content Include="bower_components\requirejs-plugins\src\noext.js" />
     <Content Include="bower_components\requirejs-plugins\src\propertyParser.js" />
+    <Content Include="_spa\lib\toastr\toastr.css" />
+    <Content Include="_spa\lib\toastr\toastr.js" />
+    <Content Include="_spa\lib\toastr\toastr.min.css" />
+    <Content Include="_spa\lib\toastr\toastr.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -760,6 +764,13 @@
     <Content Include="bower_components\requirejs-plugins\examples\js\foo" />
     <Content Include="bower_components\requirejs-plugins\examples\js\foo.bar" />
     <Content Include="bower_components\requirejs-plugins\README.mdown" />
+    <Content Include="_spa\lib\toastr\.bower.json" />
+    <Content Include="_spa\lib\toastr\bower.json" />
+    <Content Include="_spa\lib\toastr\LICENSE" />
+    <Content Include="_spa\lib\toastr\README.md" />
+    <Content Include="_spa\lib\toastr\toastr.js.map" />
+    <Content Include="_spa\lib\toastr\toastr.less" />
+    <Content Include="_spa\lib\toastr\toastr.scss" />
     <None Include="Properties\PublishProfiles\nsa.pubxml" />
     <None Include="_spa\_references.js" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

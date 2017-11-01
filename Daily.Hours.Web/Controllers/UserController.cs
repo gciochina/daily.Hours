@@ -36,7 +36,17 @@ namespace Daily.Hours.Web.Controllers
         [HttpPost]
         public UserModel Login(UserModel userModel)
         {
-            return _userService.Login(userModel.UserName, userModel.Password);
+            UserModel authenticatedUser = null;
+#if DEBUG
+            authenticatedUser = new UserModel
+            {
+                Firstname = "Samus",
+                Lastname = "Arran"
+            };
+#else
+            authenticatedUser = _userService.Login(userModel.UserName, userModel.Password);
+#endif
+            return user;
         }
 
         [HttpPost]

@@ -8,6 +8,7 @@
 
     define('ko', [], function () { return ko; });
     define('knockout', [], function (ko) { return ko; });
+    define('toastr', function () { return toastr; });
 
     require(['ko'], function (ko) {
         ko.components.register('loginView', { require: 'components/loginView' });

@@ -10,7 +10,7 @@
             self.emailAddress = ko.observable("");
 
             self.navModel = params.navModel;
-            self.user = params.user;
+            self.currentUser = params.currentUser;
 
             self.doSignup = function () {
                 self.navModel('signUpView');
@@ -28,7 +28,7 @@
                         emailAddress: self.emailAddress()
                     },
                     success: function (data) {
-                        self.user(data);
+                        self.currentUser(data);
                         self.navModel('welcomeView');
                     },
                     fail: function (error) {
