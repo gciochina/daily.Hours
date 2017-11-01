@@ -1,0 +1,78 @@
+﻿<!-- ko with: movie -->
+<div class="panel-body">
+    <div class="row">
+        <div class="col-md-6 col-sm-6">
+            <!-- ko if: Poster == 'N/A' -->
+            <img data-bind="attr: {src: '\\images\\no_image_available_large.gif'}">
+            <!-- /ko -->
+            <!-- ko if: Poster != 'N/A' -->
+            <img data-bind="attr: {src: Poster}">
+            <!-- /ko -->
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <span>Movie name:</span>
+            <span data-bind="text:Title" class=""></span>
+            <br/>
+            <span>Year:</span>
+            <span data-bind="text:Year" class=""></span>
+        </div>
+    </div>
+</div>
+<!-- /ko -->
+<!-- ko with: movieDetails -->
+<div class="panel-footer">
+    <div class="row">
+        <div class="col-md-4">
+            <span>Actors:</span>
+            <span data-bind="text:Actors" class=""></span>
+            <br />
+            <span>Awards:</span>
+            <span data-bind="text:Awards" class=""></span>
+            <br />
+            <span>Country:</span>
+            <span data-bind="text:Country" class=""></span>
+            <br />
+            <span>Director:</span>
+            <span data-bind="text:Director" class=""></span>
+        </div>
+        <div class="col-md-4">
+            <span>Genre:</span>
+            <span data-bind="text:Genre" class=""></span>
+            <br />
+            <span>Language:</span>
+            <span data-bind="text:Language" class=""></span>
+            <br />
+            <span>Metascore:</span>
+            <span data-bind="text:Metascore" class=""></span>
+            <br />
+            <span>Plot:</span>
+            <span data-bind="text:Plot" class=""></span>
+        </div>
+        <div class="col-md-4">
+            <span>Rated</span>
+            <span data-bind="text:Rated" class=""></span>
+            <br/>
+            <span>Released:</span>
+            <span data-bind="text:Released" class=""></span>
+            <br />
+            <span>Runtime:</span>
+            <span data-bind="text:Runtime" class=""></span>
+            <br />
+            <span>Type:</span>
+            <span data-bind="text:Type" class=""></span>
+            <br />
+            <span>Writer:</span>
+            <span data-bind="text:Writer" class=""></span>
+            <br />
+            <span>Year:</span>
+            <span data-bind="text:Year" class=""></span>
+            <br />
+            <span>IMDB Rating:</span>
+            <span data-bind="text:imdbRating" class=""></span>
+            <br />
+            <span>IMDB Votes:</span>
+            <span data-bind="text:imdbVotes" class=""></span>
+        </div>
+    </div>
+</div>
+<!-- /ko -->

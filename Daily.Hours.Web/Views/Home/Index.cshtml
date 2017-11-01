@@ -1,0 +1,19 @@
+﻿@model Daily.Hours.Web.Models.UserModel
+<html>
+<head>
+    <title>daily.Hours v@(typeof(Daily.Hours.Web.Controllers.HomeController).Assembly.GetName().Version)</title>
+    <link rel="stylesheet" type="text/css" href="~/_spa/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="~/_spa/lib/bootstrap/dist/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="~/_spa/css/site.css">
+    <script type="text/javascript" src="~/_spa/lib/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="~/_spa/lib/knockout/dist/knockout.js"></script>
+    <script type="text/javascript" data-main="_spa/scripts/init" src="_spa/lib/requirejs-plugins/lib/require.js"></script>
+    <script type="text/javascript">
+        window.appVersion = 'v@(typeof(Daily.Hours.Web.Controllers.HomeController).Assembly.GetName().Version)';
+        window.appName = '@(ViewBag.ApplicationName)';
+    </script>
+</head>
+<body>
+    <section data-bind="component: { name: currentUser() ? 'mainView' : 'loginView', params: {currentUser: currentUser, navModel: navModel} }"></section>
+</body>
+</html>

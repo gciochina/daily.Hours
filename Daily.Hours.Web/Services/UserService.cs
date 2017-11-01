@@ -1,0 +1,53 @@
+﻿using MySql.Data.Entity;
+using System;
+using System.Data.Entity;
+using System.Threading.Tasks;
+using Daily.Hours.Web.Models;
+
+namespace Daily.Hours.Web.Services
+{
+    [DbConfigurationType(typeof(MySqlEFConfiguration))]
+    public class UserService
+    {
+        DailyHoursContext _context = new DailyHoursContext();
+
+        internal UserModel Create(UserModel user)
+        {
+            _context.Users.Add(user);
+
+            _context.SaveChanges();
+
+            return user;
+        }
+
+        internal UserModel Update(UserModel user)
+        {
+            var userToUpdate = _context.Users.SingleAsync(u => u.Id == user.Id).Result;
+            userToUpdate.Firstname = user.Firstname;
+            userToUpdate.IsAdmin = user.IsAdmin;
+            userToUpdate.LastName = user.LastName;
+            userToUpdate.Password = user.Password;
+            userToUpdate.UserName = user.UserName;
+            userToUpdate.EmailAddress = user.EmailAddress;
+            _context.SaveChanges();
+            return userToUpdate;
+        }
+
+        internal bool Delete(int userId)
+        {
+            _context.Users.Remove(_context.Users.SingleOrDefaultAsync(u=>u.Id == userId).Result);
+            _context.SaveChanges();
+            return true;
+        }
+
+        internal Task<UserModel> Get(int userId)
+        {
+            return _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
+        }
+
+        internal UserModel Login(string userName, string password)
+        {
+            return _context.Users.SingleOrDefaultAsync(u => u.UserName == userName && u.Password == password).Result;
+        }
+    }
+}
