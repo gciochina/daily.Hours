@@ -10,7 +10,7 @@
             self.emailAddress = ko.observable("");
 
             self.navModel = params.navModel;
-            self.currentUser = params.user;
+            self.currentUser = params.currentUser;
 
             self.doRegisterUser = function () {
                 $.ajax({
@@ -20,15 +20,14 @@
                         firstName: self.firstName(),
                         lastName: self.lastName(),
                         userName: self.userName(),
-                        password: self.passWord(),
+                        passWord: self.passWord(),
                         emailAddress: self.emailAddress()
                     },
                     success: function (data) {
-                        self.user(data);
                         self.navModel('welcomeView');
                     },
-                    fail: function (error) {
-                        alert(error);
+                    error: function (error) {
+                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
                     }
                 });
             }

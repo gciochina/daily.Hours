@@ -18,12 +18,21 @@
                 self.navModel("projectView");
             }
 
+            self.doProfile = function () {
+                self.navModel("profileView");
+            }
+
             self.doTask = function () {
                 self.navModel("taskView");
             }
             
             self.doPeople = function () {
                 self.navModel("peopleView");
+            }
+
+            self.doSignOut = function () {
+                self.currentUser(null);
+                self.navModel("loginView");
             }
         };
 

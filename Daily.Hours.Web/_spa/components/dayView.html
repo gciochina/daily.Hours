@@ -1,0 +1,22 @@
+﻿<div>
+    <h1>WHAT WAS DONE THIS DAY</h1>
+    <br/>
+    <input type="date" data-bind="value: filterDate">
+    <label data-bind="text: filderDate"></label>
+    <br />
+    <table>
+        <thead>
+        </thead>
+        <tbody>
+            <!-- ko with: activities -->
+            <tr>
+                <td data-bind="value: activity.Project.Name"></td>
+                <td data-bind="text: activity.Task.Name"></td>
+                <td data-bind="value: activity.Hours"></td>
+            </tr>
+            <!-- /ko -->
+        </tbody>
+    </table>
+    <br />
+    <button data-bind="click: doAddActivity">+</button>
+</div>

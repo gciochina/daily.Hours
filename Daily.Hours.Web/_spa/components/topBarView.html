@@ -1,5 +1,5 @@
-﻿<div class="panel-body input-group form-control">
-    <span>Daily.Hours</span>
+﻿<h1>Daily.Hours</h1>
+<div data-bind="visible: currentUser">
     <ul class="nav navbar-nav">
         <li class="navbar-link" data-bind="click:doTrack">TRACK</li>
         <li class="navbar-link" data-bind="click:doActivity">ACTIVITY</li>
@@ -11,6 +11,6 @@
             </ul>
         </li>
     </ul>
-    <label id="profile" data-bind="text: 'user().FirstName() + user().LastName()', click:doSignout" class="btn btn-sm btn-info" />
-    <button id="signOut" data-bind="click:doSignout" class="btn btn-sm btn-info">SignOut</button>
+    <label id="profile" data-bind="text: 'user().FirstName() + user().LastName()', click: doProfile" class="btn btn-sm btn-info" />
+    <button id="signOut" data-bind="click:doSignOut" class="btn btn-sm btn-info">SignOut</button>
 </div>

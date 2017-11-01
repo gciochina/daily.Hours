@@ -13,6 +13,12 @@ namespace Daily.Hours.Web.Services
 
         internal UserModel Create(UserModel user)
         {
+            if (_context.Users.AnyAsync(u => u.UserName == user.UserName).Result)
+                throw new ArgumentException("This username is already registered");
+
+            if (_context.Users.AnyAsync(u => u.EmailAddress == user.EmailAddress).Result)
+                throw new ArgumentException("This email address is already registered");
+
             _context.Users.Add(user);
 
             _context.SaveChanges();

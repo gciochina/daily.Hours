@@ -3,26 +3,28 @@ using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using Daily.Hours.Web.Models;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Daily.Hours.Web.Services
 {
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
-    public class WorkLogService
+    public class ActivityService
     {
         DailyHoursContext _context;
 
-        internal WorkLogModel Create(WorkLogModel workLog)
+        internal ActivityModel Create(ActivityModel workLog)
         {
-            _context.WorkLogs.Add(workLog);
+            _context.Activities.Add(workLog);
 
             _context.SaveChanges();
 
             return workLog;
         }
 
-        internal WorkLogModel Update(WorkLogModel workLog)
+        internal ActivityModel Update(ActivityModel workLog)
         {
-            var workLogToUpdate = _context.WorkLogs.SingleAsync(u => u.Id == workLog.Id).Result;
+            var workLogToUpdate = _context.Activities.SingleAsync(u => u.Id == workLog.Id).Result;
             workLogToUpdate.Date = workLog.Date;
             workLogToUpdate.Hours = workLog.Hours;
             workLogToUpdate.Task = workLog.Task;
@@ -40,9 +42,14 @@ namespace Daily.Hours.Web.Services
             return true;
         }
 
-        internal Task<WorkLogModel> Get(int workLogId)
+        internal List<ActivityModel> List(int userId, DateTime filterDate)
         {
-            return _context.WorkLogs.SingleOrDefaultAsync(u => u.Id == workLogId);
+            return _context.Activities.Where(a => a.User.Id == userId && a.Date.Date == filterDate.Date).ToList();
+        }
+
+        internal Task<ActivityModel> Get(int workLogId)
+        {
+            return _context.Activities.SingleOrDefaultAsync(u => u.Id == workLogId);
         }
     }
 }

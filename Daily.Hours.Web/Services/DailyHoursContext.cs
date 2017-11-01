@@ -19,12 +19,12 @@ namespace Daily.Hours.Web.Services
             modelBuilder.Entity<ProjectModel>();
             modelBuilder.Entity<TaskModel>();
             modelBuilder.Entity<UserModel>();
-            modelBuilder.Entity<WorkLogModel>();
+            modelBuilder.Entity<ActivityModel>();
         }
 
         public DbSet<UserModel> Users { get; set; }
         public DbSet<ProjectModel> Projects { get; set; }
-        public DbSet<WorkLogModel> WorkLogs { get; set; }
+        public DbSet<ActivityModel> Activities { get; set; }
         public DbSet<TaskModel> Tasks { get; set; }
     }
 }

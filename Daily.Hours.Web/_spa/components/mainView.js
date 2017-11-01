@@ -3,7 +3,10 @@
         function mainView(params) {
             var self = this;
             self.currentUser = params.currentUser;
-            self.navModel = ko.observable("dayView");
+
+            self.navModel = self.currentUser()
+                ? ko.observable(navModel)
+                : ko.observable("loginView");
         };
 
         return { viewModel: mainView, template: templateString };

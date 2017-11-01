@@ -14,18 +14,19 @@
         ko.components.register('loginView', { require: 'components/loginView' });
         ko.components.register('signUpView', { require: 'components/signUpView' });
         ko.components.register('welcomeView', { require: 'components/welcomeView' });
+        ko.components.register('dayView', { require: 'components/dayView' });
         ko.components.register('mainView', { require: 'components/mainView' });
         ko.components.register('topBarView', { require: 'components/topBarView' });
     });
 
     require(['knockout'],
 		function () {
-            function mainView() {
+            function mainAppView() {
                 this.currentUser = ko.observable();
                 this.navModel = ko.observable();
-                window.CurrentUser = this.currentUser;
+                window.currentUser = this.currentUser;
                 window.navModel = this.navModel;
 		    }
-            ko.applyBindings(new mainView());
+            ko.applyBindings(new mainAppView());
 		});
 })();

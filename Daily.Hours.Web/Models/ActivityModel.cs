@@ -2,7 +2,7 @@
 
 namespace Daily.Hours.Web.Models
 {
-    public class WorkLogModel : BaseModel
+    public class ActivityModel : BaseModel
     {
         public UserModel User { get; set; }
         public TaskModel Task { get; set; }
