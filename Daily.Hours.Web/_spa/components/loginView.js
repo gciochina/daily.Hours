@@ -22,9 +22,14 @@
                         password: self.password(),
                     },
                     success: function (data) {
-                        self.currentUser(data);
-                        self.navModel('mainView');
-                        toastr.info("Welcome back" + data.FirstName + " " + data.LastName);
+                        if (data == null) {
+                            toastr.warning("User not found/ incorrect password", "Failed")
+                        }
+                        else {
+                            self.currentUser(data);
+                            self.navModel('mainView');
+                            toastr.info(data.FirstName + " " + data.LastName, "Welcome back");
+                        }
                     },
                     error: function (error) {
                         toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);

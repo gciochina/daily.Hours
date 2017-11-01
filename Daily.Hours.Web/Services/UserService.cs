@@ -23,7 +23,7 @@ namespace Daily.Hours.Web.Services
         internal UserModel Update(UserModel user)
         {
             var userToUpdate = _context.Users.SingleAsync(u => u.Id == user.Id).Result;
-            userToUpdate.Firstname = user.Firstname;
+            userToUpdate.FirstName = user.FirstName;
             userToUpdate.IsAdmin = user.IsAdmin;
             userToUpdate.LastName = user.LastName;
             userToUpdate.Password = user.Password;
