@@ -1,38 +1,28 @@
 ﻿<div class="container">
-    <div class="col-md-2">
-        <label class="navbar-brand" href="#">daily.HOURS</label>
-    </div>
-    <div class="col-md-10">
-        <div data-bind="visible: currentUser">
-            <div class="col-md-8">
-                <nav class="navbar navbar">
-                    <div class="container-fluid">
-                        <ul class="nav navbar-nav">
-                            <li data-bind="css: {active: navModel() == 'trackView'}"><a href="#" data-bind="click:doTrack">TRACK</a></li>
-                            <li data-bind="css: {active: navModel() == 'activityView'}"><a href="#" data-bind="click:doActivity">ACTIVITY</a></li>
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    MANAGE
-                                    <span class="caret"></span>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li data-bind="css: {active: navModel() == 'projectsView'}"><a href="#" data-bind="click:doProject">PROJECTS</a></li>
-                                    <li data-bind="css: {active: navModel() == 'tasksView'}"><a href="#" data-bind="click:doTask">TASKS</a></li>
-                                    <li data-bind="css: {active: navModel() == 'peopleView'}"><a href="#" data-bind="click:doPeople">PEOPLE</a></li>
-                                </ul>
-                            </li>
+    <label class="navbar-brand" href="#">daily.HOURS</label>
+    <div data-bind="visible: currentUser">
+        <nav class="navbar navbar">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav">
+                    <li data-bind="css: {active: navModel() == 'trackView'}"><a href="#" data-bind="click:doTrack">TRACK</a></li>
+                    <li data-bind="css: {active: navModel() == 'activityView'}"><a href="#" data-bind="click:doActivity">ACTIVITY</a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            MANAGE
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li data-bind="css: {active: navModel() == 'projectsView'}"><a href="#" data-bind="click:doProject">PROJECTS</a></li>
+                            <li data-bind="css: {active: navModel() == 'tasksView'}"><a href="#" data-bind="click:doTask">TASKS</a></li>
+                            <li data-bind="css: {active: navModel() == 'peopleView'}"><a href="#" data-bind="click:doPeople">PEOPLE</a></li>
                         </ul>
-                    </div>
-                </nav>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" id="profile" data-bind="text: currentUser() != undefined ? currentUser().FullName.toUpperCase() : '', click: doProfile" /></li>
+                    <li><a href="#" id="signOut" data-bind="click: doSignOut">SIGN OUT</a></li>
+                </ul>
             </div>
-            <div class="col-md-4">
-                <div class="col-md-7">
-                    <a href="#" id="profile" data-bind="text: currentUser() != undefined ? currentUser().FullName.toUpperCase() : '', click: doProfile" />
-                </div>
-                <div class="col-md-5">
-                    <a href="#" id="signOut" data-bind="click: doSignOut">SIGN OUT</a>
-                </div>
-            </div>
-        </div>
+        </nav>
     </div>
 </div>
