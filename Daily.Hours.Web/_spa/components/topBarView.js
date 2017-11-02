@@ -15,7 +15,7 @@
             }
 
             self.doProject = function () {
-                self.navModel("projectView");
+                self.navModel("projectsView");
             }
 
             self.doProfile = function () {
@@ -23,7 +23,7 @@
             }
 
             self.doTask = function () {
-                self.navModel("taskView");
+                self.navModel("tasksView");
             }
             
             self.doPeople = function () {

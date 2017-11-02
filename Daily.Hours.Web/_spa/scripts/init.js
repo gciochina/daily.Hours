@@ -14,9 +14,17 @@
         ko.components.register('loginView', { require: 'components/loginView' });
         ko.components.register('signUpView', { require: 'components/signUpView' });
         ko.components.register('welcomeView', { require: 'components/welcomeView' });
-        ko.components.register('dayView', { require: 'components/dayView' });
-        ko.components.register('mainView', { require: 'components/mainView' });
         ko.components.register('topBarView', { require: 'components/topBarView' });
+        ko.components.register('footerView', { require: 'components/footerView' });
+        ko.components.register('profileView', { require: 'components/profileView' });
+
+        ko.components.register('mainView', { require: 'components/mainView' });
+        ko.components.register('dayView', { require: 'components/dayView' });
+
+        ko.components.register('activityView', { require: 'components/activityView' });
+        ko.components.register('projectsView', { require: 'components/projectsView' });
+        ko.components.register('tasksView', { require: 'components/tasksView' });
+        ko.components.register('peopleView', { require: 'components/peopleView' });
     });
 
     ko.validation.rules.pattern.message = 'Invalid.';
@@ -33,7 +41,7 @@
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
             //initialize datepicker with some optional options
             var options = {
-                format: 'DD/MM/YYYY HH:mm',
+                format: 'DD/MM/YYYY',
                 defaultDate: valueAccessor()()
             };
 

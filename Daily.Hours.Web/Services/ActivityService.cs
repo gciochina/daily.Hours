@@ -44,7 +44,9 @@ namespace Daily.Hours.Web.Services
 
         internal List<ActivityModel> List(int userId, DateTime filterDate)
         {
-            return _context.Activities.Where(a => a.User.Id == userId && a.Date > filterDate.Date && a.Date < filterDate.Date.AddDays(1)).ToList();
+            var startDate = filterDate.Date;
+            var enddDate = filterDate.Date.AddDays(1);
+            return _context.Activities.Where(a => a.User.Id == userId && a.Date > startDate && a.Date < enddDate).ToList();
         }
 
         internal Task<ActivityModel> Get(int workLogId)

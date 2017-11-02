@@ -1,6 +1,6 @@
-﻿define(['ko', 'lib/requirejs-plugins/lib/text!components/dayView.html'],
+﻿define(['ko', 'lib/requirejs-plugins/lib/text!components/activityView.html'],
     function (ko, templateString) {
-        function dayView(params) {
+        function activityView(params) {
             var self = this;
             self.currentUser = params.currentUser;
             self.navModel = params.navModel;
@@ -28,5 +28,5 @@
             });
         };
 
-        return { viewModel: dayView, template: templateString };
+        return { viewModel: activityView, template: templateString };
     });

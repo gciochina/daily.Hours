@@ -27,7 +27,7 @@
                         }
                         else {
                             self.currentUser(data);
-                            self.navModel('mainView');
+                            self.navModel('dayView');
                             toastr.info(data.FirstName + " " + data.LastName, "Welcome back");
                         }
                     },

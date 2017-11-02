@@ -1,0 +1,26 @@
+﻿<div class="container">
+    <div class="col-md-6">
+        <h1>TASKS</h1>
+    </div>
+    <div class="col-md-6">
+        <a id="taskCreate" href="#" class="btn btn-primary col-md-offset-8" data-bind="click: doAddTask"><i class="glyphicon glyphicon-plus"></i><br />Create</a>
+    </div>
+    <table class="table table-hover" >
+        <thead>
+            <tr>
+                <th class="col-md-3">Name</th>
+                <th class="col-md-2">Action</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: tasks">
+            <tr id="taskEdit" class="item table-row-clickable">
+                <td class="table-cell-title" data-bind="text: Name"></td>
+                <td>
+                    <button data-bind="click: deleteTask(Id)" id="deleteTask" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

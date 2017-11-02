@@ -389,6 +389,16 @@
     <Content Include="bower_components\requirejs-plugins\src\mdown.js" />
     <Content Include="bower_components\requirejs-plugins\src\noext.js" />
     <Content Include="bower_components\requirejs-plugins\src\propertyParser.js" />
+    <Content Include="_spa\components\activityView.html" />
+    <Content Include="_spa\components\activityView.js" />
+    <Content Include="_spa\components\peopleView.html" />
+    <Content Include="_spa\components\peopleView.js" />
+    <Content Include="_spa\components\tasksView.html" />
+    <Content Include="_spa\components\tasksView.js" />
+    <Content Include="_spa\components\projectsView.html" />
+    <Content Include="_spa\components\projectsView.js" />
+    <Content Include="_spa\components\footerView.html" />
+    <Content Include="_spa\components\footerView.js" />
     <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\build\css\bootstrap-datetimepicker-standalone.css" />
     <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\build\css\bootstrap-datetimepicker.css" />
     <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\build\css\bootstrap-datetimepicker.min.css" />

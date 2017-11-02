@@ -3,13 +3,15 @@ using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using Daily.Hours.Web.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Daily.Hours.Web.Services
 {
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class TaskService
     {
-        DailyHoursContext _context;
+        DailyHoursContext _context = new DailyHoursContext();
 
         internal TaskModel Create(TaskModel task)
         {
@@ -36,6 +38,11 @@ namespace Daily.Hours.Web.Services
             _context.Tasks.Remove(_context.Tasks.SingleOrDefaultAsync(u=>u.Id == taskId).Result);
             _context.SaveChanges();
             return true;
+        }
+
+        internal List<TaskModel> List(int userId)
+        {
+            return _context.Tasks.Where(t => t.Project.Users.Any(u=>u.Id == userId)).ToList();
         }
 
         internal Task<TaskModel> Get(int taskId)

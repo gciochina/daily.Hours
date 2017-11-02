@@ -1,0 +1,42 @@
+﻿<div class="container">
+    <div class="col-md-6">
+        <h1>People</h1>
+    </div>
+    <div class="col-md-6">
+        <a id="peopleCreate" href="#" class="btn btn-primary col-md-offset-8" data-bind="click: doAddPeople"><i class="glyphicon glyphicon-plus"></i><br />Invite</a>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th class="col-md-3">First Name</th>
+                <th class="col-md-3">Last Name</th>
+                <th class="col-md-3">Email</th>
+                <th class="col-md-2">Active</th>
+                <th class="col-md-2">Action</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: people">
+            <tr id="peopleEdit" class="item table-row-clickable">
+                <td class="table-cell-title" data-bind="text: FistName"></td>
+                <td class="table-cell-title" data-bind="text: LastName"></td>
+                <td class="table-cell-title" data-bind="text: Email"></td>
+                <td data-bind="text: IsActive"></td>
+                <td>
+                    <div data-bind="visible: IsActive">
+                        <button data-bind="click: doDeactivatePeople(Id)" id="closePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                            <span class="glyphicon glyphicon-off"></span>
+                        </button>
+                        <button data-bind="click: deletePeople(Id)" id="deletePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                    <div data-bind="visible: !IsActive">
+                        <button data-bind="click: doActivatePeople(Id)" id="closePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                            <span class="glyphicon glyphicon-on"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

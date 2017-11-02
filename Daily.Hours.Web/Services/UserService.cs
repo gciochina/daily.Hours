@@ -3,6 +3,8 @@ using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using Daily.Hours.Web.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Daily.Hours.Web.Services
 {
@@ -37,6 +39,11 @@ namespace Daily.Hours.Web.Services
             userToUpdate.EmailAddress = user.EmailAddress;
             _context.SaveChanges();
             return userToUpdate;
+        }
+
+        internal List<UserModel> List(int inviterId)
+        {
+            return _context.Users.Where(u => u.Inviter.Id == inviterId).ToList();
         }
 
         internal bool Delete(int userId)

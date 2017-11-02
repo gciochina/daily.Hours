@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Daily.Hours.Web.Models;
 using Daily.Hours.Web.Services;
+using System.Collections.Generic;
 
 namespace Daily.Hours.Web.Controllers
 {
@@ -45,6 +46,12 @@ namespace Daily.Hours.Web.Controllers
         public UserModel Register(UserModel user)
         {
             return _userService.Create(user);
+        }
+
+        [HttpGet]
+        public List<UserModel> List(int inviterId)
+        {
+            return _userService.List(inviterId);
         }
     }
 }

@@ -1,0 +1,41 @@
+﻿<div class="container">
+    <div class="col-md-6">
+        <h1>Projects</h1>
+    </div>
+    <div class="col-md-6">
+        <a id="projectCreate" href="#" class="btn btn-primary col-md-offset-8" data-bind="click: doAddProject"><i class="glyphicon glyphicon-plus"></i><br/>Create</a>
+    </div>
+    <table class="table table-hover" >
+        <thead>
+            <tr>
+                <th class="col-md-3">Name</th>
+                <th class="col-md-2">Created</th>
+                <th class="col-md-2">Closed</th>
+                <th class="col-md-2">Active</th>
+                <th class="col-md-2">Action</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: projects">
+            <tr id="projectEdit" class="item table-row-clickable">
+                <td class="table-cell-title" data-bind="text: Name"></td>
+                <td data-bind="text: CreatedOn"></td>
+                <td data-bind="text: IsActive"></td>
+                <td>
+                    <div data-bind="visible: IsActive">
+                        <button data-bind="click: doDeactivateProject(Id)" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                            <span class="glyphicon glyphicon-off"></span>
+                        </button>
+                        <button data-bind="click: deleteProject(Id)" id="deleteProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                    <div data-bind="visible: !IsActive">
+                        <button data-bind="click: doActivateProject(Id)" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                            <span class="glyphicon glyphicon-on"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

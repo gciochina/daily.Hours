@@ -2,6 +2,7 @@
 using System.Web.Http;
 using Daily.Hours.Web.Models;
 using Daily.Hours.Web.Services;
+using System.Collections.Generic;
 
 namespace Daily.Hours.Web.Controllers
 {
@@ -31,6 +32,12 @@ namespace Daily.Hours.Web.Controllers
         public Task<ProjectModel> Get(int projectId)
         {
             return _projectService.Get(projectId);
+        }
+
+        [HttpGet]
+        public List<ProjectModel> List(int userId)
+        {
+            return _projectService.List(userId);
         }
     }
 }
