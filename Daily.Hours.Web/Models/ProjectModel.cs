@@ -8,6 +8,7 @@ namespace Daily.Hours.Web.Models
         public string Name { get; set; }
         public List<TaskModel> Tasks { get; set; }
         public List<UserModel> Users { get; set; }
+        public UserModel Owner { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
     }

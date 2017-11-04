@@ -6,11 +6,33 @@
             self.navModel = params.navModel;
 
             self.projects = ko.observableArray();
+            self.Name = ko.observable();
+            self.showAddDialog = ko.observable(false);
+
+            self.doShowAddProject = function () {
+                self.showAddDialog(true);
+            }
 
             self.doAddProject = function () {
+                $.ajax({
+                    method: 'PUT',
+                    url: "api/Project/Create",
+                    data: {
+                        Name: self.Name(),
+                        IsActive: true,
+                    },
+                    success: function (data) {
+                        self.load();
+                        self.showAddDialog(false);
+                    },
+                    error: function (error) {
+                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                    }
+                });
             }
 
             self.doDeactivateProject = function (projectId) {
+                this.showDialog("addProjectPopup");
             }
 
             self.deleteProject = function (projectId) {

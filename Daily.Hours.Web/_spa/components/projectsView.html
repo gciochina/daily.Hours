@@ -3,7 +3,7 @@
         <h1>Projects</h1>
     </div>
     <div class="col-md-6">
-        <a id="projectCreate" href="#" class="btn btn-primary col-md-offset-8" data-bind="click: doAddProject"><i class="glyphicon glyphicon-plus"></i><br/>Create</a>
+        <a id="projectCreate" href="#" class="btn btn-primary col-md-offset-8" data-bind="click: doShowAddProject"><i class="glyphicon glyphicon-plus"></i><br/>Create</a>
     </div>
     <table class="table table-hover" >
         <thead>
@@ -38,4 +38,11 @@
             </tr>
         </tbody>
     </table>
+    <div id="addProjectPopup" data-bind="dialog: {autoOpen: false, title: 'Dialog test' }, dialogVisible: showAddDialog">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" data-bind="value: Name">
+        </div>
+        <button type="button" class="btn btn-default" data-bind="click:doAddProject">Create</button>
+    </div>
 </div>

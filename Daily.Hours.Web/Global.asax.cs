@@ -17,7 +17,7 @@ namespace WebApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Database.SetInitializer<DailyHoursContext>(new DropCreateDatabaseIfModelChanges<DailyHoursContext>());
+            Database.SetInitializer<DailyHoursContext>(new DropCreateDatabaseIfModelChanges<DailyHoursContext>());
         }
     }
 }
