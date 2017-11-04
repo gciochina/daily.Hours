@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 namespace Daily.Hours.Web.Controllers
 {
+    [Authorize]
     public class ProjectController : ApiController
     {
         private ProjectService _projectService = new ProjectService();

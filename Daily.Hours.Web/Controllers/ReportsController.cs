@@ -2,6 +2,7 @@
 
 namespace Daily.Hours.Web.Controllers
 {
+    [Authorize]
     public class ReportsController : ApiController
     {
     }
