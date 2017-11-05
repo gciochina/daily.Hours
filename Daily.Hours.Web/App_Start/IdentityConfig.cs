@@ -9,7 +9,7 @@ using System;
 using System.Security.Principal;
 using System.Net;
 
-namespace WebApp
+namespace Daily.Hours.Web
 {
     //public class BasicAuthMessageHandler : DelegatingHandler
     //{

@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Web.Http;
 using Newtonsoft.Json.Serialization;
 
-namespace WebApp
+namespace Daily.Hours.Web
 {
     public static class WebApiConfig
     {

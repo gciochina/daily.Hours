@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace WebApp
+namespace Daily.Hours.Web
 {
     public class FilterConfig
     {

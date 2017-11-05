@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
-namespace WebApp
+namespace Daily.Hours.Web
 {
     public class WebApiApplication : System.Web.HttpApplication
     {
@@ -17,7 +17,7 @@ namespace WebApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            Database.SetInitializer<DailyHoursContext>(new DropCreateDatabaseIfModelChanges<DailyHoursContext>());
+            //Database.SetInitializer<DailyHoursContext>(new DropCreateDatabaseAlways<DailyHoursContext>());
         }
     }
 }

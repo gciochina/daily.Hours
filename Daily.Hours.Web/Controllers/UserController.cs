@@ -5,11 +5,17 @@ using Daily.Hours.Web.Services;
 using System.Collections.Generic;
 using System.Security.Principal;
 using System.Security.Claims;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
+using Microsoft.Owin.Security;
+using System.Net;
+using System;
+using System.Web;
 
 namespace Daily.Hours.Web.Controllers
 {
     [Authorize]
-    public class UserController : ApiController
+    public class UserController : BaseController
     {
         private UserService _userService = new UserService();
         
@@ -45,16 +51,24 @@ namespace Daily.Hours.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public UserModel Login(UserModel userModel)
+        public UserModel Login(UserModel userModel, bool rememberMe)
         {
             UserModel authenticatedUser = null;
             authenticatedUser = _userService.Login(userModel.UserName, userModel.Password);
 
-            var identity = new GenericIdentity(userModel.FullName, "BASIC");
-            identity.AddClaim(new Claim("UserId", userModel.Id.ToString()));
-            this.User = new GenericPrincipal(identity, new string[0]);
+            if (authenticatedUser == null)
+                throw new UnauthorizedAccessException("Username or password incorrect");
+
+            IdentitySignin(authenticatedUser, rememberMe);
 
             return authenticatedUser;
+        }
+
+        [HttpPost]
+        public void Logout()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie,
+                                          DefaultAuthenticationTypes.ExternalCookie);
         }
 
         [AllowAnonymous]
@@ -62,6 +76,35 @@ namespace Daily.Hours.Web.Controllers
         public UserModel Register(UserModel user)
         {
             return _userService.Create(user);
+        }
+
+        private void IdentitySignin(UserModel userModel, bool isPersistent = false) //string userId, string name, string providerKey = null, bool isPersistent = false
+        {
+            var claims = new List<Claim>();
+
+            // create *required* claims
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, userModel.Id.ToString()));
+            claims.Add(new Claim(ClaimTypes.Name, userModel.FullName));
+            // create *optional* claims (the ones we need for storing user related data)
+            claims.Add(new Claim(ClaimTypes.Email, userModel.EmailAddress ?? string.Empty));
+            claims.Add(new Claim(ClaimTypes.Role, userModel.IsAdmin.ToString()));
+
+            var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+
+            AuthenticationManager.SignIn(new AuthenticationProperties()
+            {
+                AllowRefresh = true,
+                IsPersistent = isPersistent,
+                ExpiresUtc = DateTime.UtcNow.AddDays(1)
+            }, identity);
+        }
+
+        private IAuthenticationManager AuthenticationManager
+        {
+            get
+            {
+                return HttpContext.Current.GetOwinContext().Authentication;
+            }
         }
     }
 }

@@ -58,9 +58,6 @@
                 $.ajax({
                     method: 'GET',
                     url: "api/Project/List",
-                    data: {
-                        userId: self.currentUser().Id
-                    },
                     success: function (data) {
                         self.projects(data);
                     },

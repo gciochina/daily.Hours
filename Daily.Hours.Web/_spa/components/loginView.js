@@ -5,6 +5,7 @@
 
             self.userName = ko.observable().extend({ required: true });
             self.password = ko.observable().extend({ required: true });
+            self.rememberMe = ko.observable(false);
 
             self.navModel = params.navModel;
             self.currentUser = params.currentUser;
@@ -16,10 +17,10 @@
             self.doLogin = function () {
                 $.ajax({
                     method: 'POST',
-                    url: "api/User/Login",
-                    data: {
-                        userName: self.userName(),
-                        password: self.password(),
+                    url: "api/User/Login?rememberMe=" + self.rememberMe(),
+                    data: { 
+                        UserName: self.userName(),
+                        Password: self.password()
                     },
                     success: function (data) {
                         if (data == null) {

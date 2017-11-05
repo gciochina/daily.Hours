@@ -3,7 +3,7 @@
 namespace Daily.Hours.Web.Controllers
 {
     [Authorize]
-    public class ReportsController : ApiController
+    public class ReportsController : BaseController
     {
     }
 }

@@ -10,7 +10,6 @@
             <tr>
                 <th class="col-md-3">Name</th>
                 <th class="col-md-2">Created</th>
-                <th class="col-md-2">Closed</th>
                 <th class="col-md-2">Active</th>
                 <th class="col-md-2">Action</th>
             </tr>
@@ -22,15 +21,15 @@
                 <td data-bind="text: IsActive"></td>
                 <td>
                     <div data-bind="visible: IsActive">
-                        <button data-bind="click: doDeactivateProject(Id)" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                        <button data-bind="click: parent.doDeactivateProject" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
                             <span class="glyphicon glyphicon-off"></span>
                         </button>
-                        <button data-bind="click: deleteProject(Id)" id="deleteProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
+                        <button data-bind="click: parent.deleteProject" id="deleteProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
                     <div data-bind="visible: !IsActive">
-                        <button data-bind="click: doActivateProject(Id)" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                        <button data-bind="click: parent.doActivateProject" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
                             <span class="glyphicon glyphicon-on"></span>
                         </button>
                     </div>

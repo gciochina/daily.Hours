@@ -12,7 +12,6 @@
             self.navModel = params.navModel;
             self.currentUser = params.currentUser;
             self.validationErrors = ko.validation.group(this, { deep: true })
-            self.validationErrors.showAllMessages();
 
             self.doRegisterUser = function () {
                 if (self.validationErrors().length > 0)

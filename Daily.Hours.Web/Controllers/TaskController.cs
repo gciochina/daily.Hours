@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace Daily.Hours.Web.Controllers
 {
     [Authorize]
-    public class TaskController : ApiController
+    public class TaskController : BaseController
     {
         private TaskService _taskService = new TaskService();
 

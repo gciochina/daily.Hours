@@ -7,14 +7,14 @@ using System.Collections.Generic;
 namespace Daily.Hours.Web.Controllers
 {
     [Authorize]
-    public class ProjectController : ApiController
+    public class ProjectController : BaseController
     {
         private ProjectService _projectService = new ProjectService();
 
         [HttpPut]
         public ProjectModel Create(ProjectModel project)
         {
-            return _projectService.Create(project);
+            return _projectService.Create(project, AuthenticatedUserId);
         }
 
         [HttpPost]
@@ -36,9 +36,9 @@ namespace Daily.Hours.Web.Controllers
         }
 
         [HttpGet]
-        public List<ProjectModel> List(int userId)
+        public List<ProjectModel> List()
         {
-            return _projectService.List(userId);
+            return _projectService.List(AuthenticatedUserId);
         }
     }
 }

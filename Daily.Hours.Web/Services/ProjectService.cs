@@ -13,8 +13,10 @@ namespace Daily.Hours.Web.Services
     {
         DailyHoursContext _context = new DailyHoursContext();
 
-        internal ProjectModel Create(ProjectModel project)
+        internal ProjectModel Create(ProjectModel project, int ownerId)
         {
+            project.Owner = _context.Users.Single(u => u.Id == ownerId);
+
             _context.Projects.Add(project);
 
             _context.SaveChanges();
@@ -43,7 +45,7 @@ namespace Daily.Hours.Web.Services
 
         internal List<ProjectModel> List(int userId)
         {
-            return _context.Projects.Where(p => p.Users.Any(u=>u.Id == userId)).ToList();
+            return _context.Projects.Where(p => p.Owner.Id == userId).ToList();
         }
     }
 }

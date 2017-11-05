@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Daily.Hours.Web.Controllers
 {
     [Authorize]
-    public class ActivityController : ApiController
+    public class ActivityController : BaseController
     {
         private ActivityService _activityService = new ActivityService();
 
