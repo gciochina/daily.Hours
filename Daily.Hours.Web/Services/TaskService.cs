@@ -15,6 +15,8 @@ namespace Daily.Hours.Web.Services
 
         internal TaskModel Create(TaskModel task)
         {
+            task.Project = _context.Projects.Single(p => p.Id == task.Project.Id);
+
             _context.Tasks.Add(task);
 
             _context.SaveChanges();

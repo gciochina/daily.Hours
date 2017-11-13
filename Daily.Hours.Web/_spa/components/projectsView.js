@@ -35,12 +35,12 @@
                 this.showDialog("addProjectPopup");
             }
 
-            self.deleteProject = function (projectId) {
+            self.deleteProject = function (project) {
                 $.ajax({
-                    method: 'DELETE',
-                    url: "api/Project/DELETE",
+                    method: 'GET',
+                    url: "api/Project/Delete",
                     data: {
-                        id: projectId
+                        projectId: project.Id
                     },
                     success: function (data) {
                         self.load();

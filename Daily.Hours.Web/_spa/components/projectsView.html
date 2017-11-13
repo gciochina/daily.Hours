@@ -21,15 +21,15 @@
                 <td data-bind="text: IsActive"></td>
                 <td>
                     <div data-bind="visible: IsActive">
-                        <button data-bind="click: parent.doDeactivateProject" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                        <button data-bind="click: $parent.doDeactivateProject" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
                             <span class="glyphicon glyphicon-off"></span>
                         </button>
-                        <button data-bind="click: parent.deleteProject" id="deleteProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
+                        <button data-bind="click: $parent.deleteProject" id="deleteProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
                     <div data-bind="visible: !IsActive">
-                        <button data-bind="click: parent.doActivateProject" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                        <button data-bind="click: $parent.doActivateProject" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
                             <span class="glyphicon glyphicon-on"></span>
                         </button>
                     </div>
@@ -37,7 +37,7 @@
             </tr>
         </tbody>
     </table>
-    <div id="addProjectPopup" data-bind="dialog: {autoOpen: false, title: 'Dialog test' }, dialogVisible: showAddDialog">
+    <div id="addProjectPopup" data-bind="dialog: {autoOpen: false, title: 'Add project' }, dialogVisible: showAddDialog">
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" class="form-control" id="name" data-bind="value: Name">

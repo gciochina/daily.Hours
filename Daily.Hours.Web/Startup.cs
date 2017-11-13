@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Newtonsoft.Json;
 using Owin;
 
 namespace Daily.Hours.Web
@@ -39,6 +40,8 @@ namespace Daily.Hours.Web
                     }
                 }
             };
+
+            
 
             app.UseCookieAuthentication(cookieAuthOptions);
         }

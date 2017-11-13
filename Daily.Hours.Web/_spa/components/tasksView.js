@@ -6,12 +6,46 @@
             self.navModel = params.navModel;
 
             self.tasks = ko.observableArray();
+            self.projects = ko.observableArray();
 
-            self.doAddTask = function () {
+            self.Project = ko.observable();
+            self.Name = ko.observable();
+            self.showAddDialog = ko.observable(false);
 
+            self.doShowAddTask = function () {
+                $.ajax({
+                    method: 'GET',
+                    url: "api/Project/List",
+                    success: function (data) {
+                        self.showAddDialog(true);
+                        self.projects(data);
+                    },
+                    error: function (error) {
+                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                    }
+                });
+                
             }
 
-            self.deleteTask = function (taskId) {
+            self.doAddTask = function () {
+                $.ajax({
+                    method: 'PUT',
+                    url: "api/Task/Create",
+                    data: {
+                        Name: self.Name(),
+                        Project: self.Project()
+                    },
+                    success: function (data) {
+                        self.load();
+                        self.showAddDialog(false);
+                    },
+                    error: function (error) {
+                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                    }
+                });
+            }
+
+            self.doDeleteTask = function (taskId) {
                 $.ajax({
                     method: 'DELETE',
                     url: "api/Task/DELETE",

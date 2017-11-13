@@ -23,8 +23,8 @@ namespace Daily.Hours.Web.Controllers
             return _projectService.Update(project);
         }
 
-        [HttpDelete]
-        public bool Delete(int projectId)
+        [HttpGet]
+        public bool Delete([FromBody]int projectId)
         {
             return _projectService.Delete(projectId);
         }

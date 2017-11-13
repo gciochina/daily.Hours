@@ -78,6 +78,13 @@ namespace Daily.Hours.Web.Controllers
             return _userService.Create(user);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public UserModel Activate(string userActivationString)
+        {
+            return _userService.Activate(userActivationString);
+        }
+
         private void IdentitySignin(UserModel userModel, bool isPersistent = false) //string userId, string name, string providerKey = null, bool isPersistent = false
         {
             var claims = new List<Claim>();
