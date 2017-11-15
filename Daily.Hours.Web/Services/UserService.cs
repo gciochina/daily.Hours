@@ -120,7 +120,12 @@ daily.Hours"
 
         internal UserModel Login(string userName, string password)
         {
-            return _context.Users.SingleOrDefaultAsync(u => u.UserName == userName && u.Password == password && u.IsActivated).Result;
+            return _context.Users.SingleOrDefaultAsync(u => u.UserName == userName && u.Password == password
+#if RELEASE
+            && u.IsActivated
+#endif
+            
+            ).Result;
         }
     }
 }

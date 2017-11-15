@@ -18,7 +18,7 @@
                 $.ajax({
                     method: 'POST',
                     url: "api/User/Login?rememberMe=" + self.rememberMe(),
-                    data: { 
+                    data: {
                         UserName: self.userName(),
                         Password: self.password()
                     },
@@ -36,7 +36,18 @@
                         toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
                     }
                 });
-            }
+            };
+
+            //let's see if we're already logged in
+            $.ajax({
+                method: 'GET',
+                url: "api/User/WhoAmI",
+                success: function (data) {
+                    if (data) {
+                        params.currentUser(data);
+                    }
+                },
+            });
         };
 
         return { viewModel: loginView, template: templateString };

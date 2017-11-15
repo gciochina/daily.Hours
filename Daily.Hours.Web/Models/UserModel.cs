@@ -9,7 +9,6 @@ namespace Daily.Hours.Web.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public UserModel Inviter { get; set; }
-        public int Inviter_Id { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsActivated { get; set; }
         public string Password { get; set; }

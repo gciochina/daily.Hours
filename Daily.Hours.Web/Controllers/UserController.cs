@@ -17,8 +17,11 @@ namespace Daily.Hours.Web.Controllers
     [Authorize]
     public class UserController : BaseController
     {
+        #region members
         private UserService _userService = new UserService();
-        
+        #endregion
+
+        #region actions
         [HttpPut]
         public UserModel Create(UserModel user)
         {
@@ -85,13 +88,50 @@ namespace Daily.Hours.Web.Controllers
             return _userService.Activate(userActivationString);
         }
 
-        private void IdentitySignin(UserModel userModel, bool isPersistent = false) //string userId, string name, string providerKey = null, bool isPersistent = false
+        /// <summary>
+        /// get the current user (if any is logged in)
+        /// </summary>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet]
+        public UserModel WhoAmI()
+        {
+            var currentUserIdentity = User.Identity;
+            if (currentUserIdentity.IsAuthenticated)
+            {
+                try
+                {
+                    return
+                         new UserModel
+                         {
+                             Id = Convert.ToInt32(((ClaimsIdentity)currentUserIdentity).FindFirstValue(ClaimTypes.NameIdentifier)),
+                             FirstName = ((ClaimsIdentity)currentUserIdentity).FindFirstValue(ClaimTypes.Name),
+                             LastName = ((ClaimsIdentity)currentUserIdentity).FindFirstValue(ClaimTypes.Surname),
+                             EmailAddress = ((ClaimsIdentity)currentUserIdentity).FindFirstValue(ClaimTypes.Email),
+                             IsAdmin = Convert.ToBoolean(((ClaimsIdentity)currentUserIdentity).FindFirstValue(ClaimTypes.Role))
+                         };
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
+        #endregion
+
+        #region privates
+
+        private void IdentitySignin(UserModel userModel, bool isPersistent = false)
         {
             var claims = new List<Claim>();
 
             // create *required* claims
             claims.Add(new Claim(ClaimTypes.NameIdentifier, userModel.Id.ToString()));
-            claims.Add(new Claim(ClaimTypes.Name, userModel.FullName));
+            claims.Add(new Claim(ClaimTypes.Name, userModel.FirstName));
+            claims.Add(new Claim(ClaimTypes.Surname, userModel.LastName));
             // create *optional* claims (the ones we need for storing user related data)
             claims.Add(new Claim(ClaimTypes.Email, userModel.EmailAddress ?? string.Empty));
             claims.Add(new Claim(ClaimTypes.Role, userModel.IsAdmin.ToString()));
@@ -113,5 +153,6 @@ namespace Daily.Hours.Web.Controllers
                 return HttpContext.Current.GetOwinContext().Authentication;
             }
         }
+        #endregion
     }
 }
