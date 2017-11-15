@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Daily.Hours.Web.Models;
 using Daily.Hours.Web.Services;
 using System;
 using System.Collections.Generic;
+using Daily.Hours.Web.ViewModels;
 
 namespace Daily.Hours.Web.Controllers
 {
@@ -13,13 +13,14 @@ namespace Daily.Hours.Web.Controllers
         private ActivityService _activityService = new ActivityService();
 
         [HttpPut]
-        public ActivityModel Create(ActivityModel workLog)
+        public ActivityViewModel Create(ActivityViewModel workLog)
         {
+            workLog.UserId = AuthenticatedUserId;
             return _activityService.Create(workLog);
         }
 
         [HttpPost]
-        public ActivityModel Update(ActivityModel workLog)
+        public ActivityViewModel Update(ActivityViewModel workLog)
         {
             return _activityService.Update(workLog);
         }
@@ -31,13 +32,13 @@ namespace Daily.Hours.Web.Controllers
         }
 
         [HttpGet]
-        public Task<ActivityModel> Get(int workLogId)
+        public ActivityViewModel Get(int workLogId)
         {
             return _activityService.Get(workLogId);
         }
 
         [HttpGet]
-        public List<ActivityModel> List(int userId, DateTime filterDate)
+        public List<ActivityViewModel> List(int userId, DateTime filterDate)
         {
             return _activityService.List(userId, filterDate);
         }

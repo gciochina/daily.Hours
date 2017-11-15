@@ -6,10 +6,43 @@
             self.navModel = params.navModel;
 
             self.activities = ko.observableArray();
+            self.tasks = ko.observableArray();
             self.filterDate = ko.observable(new Date());
 
-            self.doAddActivity = function () {
-                //show popup for adding activity
+            self.showAddDialog = ko.observable(false);
+            self.Hours = ko.observable();
+            self.TaskId = ko.observable();
+
+            self.doShowRecordActivity = function () {
+                $.ajax({
+                    method: 'GET',
+                    url: "api/Task/List",
+                    success: function (data) {
+                        self.showAddDialog(true);
+                        self.tasks(data);
+                    },
+                    error: function (error) {
+                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                    }
+                });
+            }
+
+            self.doRecordActivity = function () {
+                $.ajax({
+                    method: 'PUT',
+                    url: "api/Activity/Create",
+                    data: {
+                        Hours: self.Hours(),
+                        TaskId: self.TaskId(),
+                    },
+                    success: function (data) {
+                        self.load();
+                        self.showAddDialog(false);
+                    },
+                    error: function (error) {
+                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                    }
+                });
             }
 
             $.ajax({

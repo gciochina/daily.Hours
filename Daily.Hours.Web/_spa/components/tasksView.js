@@ -65,9 +65,6 @@
                 $.ajax({
                     method: 'GET',
                     url: "api/Task/List",
-                    data: {
-                        userId: self.currentUser().Id
-                    },
                     success: function (data) {
                         self.tasks(data);
                     },

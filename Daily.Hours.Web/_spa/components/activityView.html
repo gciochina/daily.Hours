@@ -9,7 +9,7 @@
             <label data-bind="text: moment(filterDate()).format('dddd, MMMM DD YYYY')"></label>
         </div>
         <div class="col-md-4">
-            <button data-bind="click: doAddActivity" id="addActivity" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-plus glyphicon glyphicon-large"></span><br>Add</button>
+            <button data-bind="click: doShowRecordActivity" id="addActivity" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-plus glyphicon glyphicon-large"></span><br>Add</button>
         </div>
     </div>
     <div class="col-md-9">
@@ -25,5 +25,20 @@
             </tbody>
         </table>
     </div>
-    
+    <div id="recordActivityPopup" data-bind="css: 'class=col-md-1', dialog: {modal: true, autoOpen: false, title: 'Record activity' }, dialogVisible: showAddDialog">
+        <div class="form-group">
+            <div class="col-md-8">
+                <label for="task">Task:</label>
+                <select class="form-control" id="task" data-bind="options: tasks, optionsText: 'Name', value: TaskId"></select>
+            </div>
+            <div class="col-md-2">
+                <label for="hours">Hours:</label>
+                <input id="hours" type="number" class="form-control" data-bind="value: Hours">
+            </div>
+            <div class="col-md-2">
+                <label>&nbsp;</label>
+                <button type="button" class="btn btn-default" data-bind="click:doRecordActivity">Record</button>
+            </div>
+        </div>
+    </div>
 </div>

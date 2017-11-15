@@ -36,9 +36,9 @@ namespace Daily.Hours.Web.Controllers
         }
 
         [HttpGet]
-        public List<TaskViewModel> List(int userId)
+        public List<TaskViewModel> List(int? userId = null)
         {
-            return _taskService.List(userId);
+            return _taskService.List(userId ?? AuthenticatedUserId);
         }
     }
 }

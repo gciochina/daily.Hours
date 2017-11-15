@@ -25,7 +25,7 @@
             </tr>
         </tbody>
     </table>
-    <div id="addTaskPopup" data-bind="dialog: {autoOpen: false, title: 'Add task' }, dialogVisible: showAddDialog">
+    <div id="addTaskPopup" data-bind="dialog: {modal: true, autoOpen: false, title: 'Add task' }, dialogVisible: showAddDialog">
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" class="form-control" id="name" data-bind="value: Name">

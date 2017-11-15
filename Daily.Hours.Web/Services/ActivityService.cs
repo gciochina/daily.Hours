@@ -2,9 +2,10 @@
 using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using Daily.Hours.Web.Models;
 using System.Linq;
 using System.Collections.Generic;
+using Daily.Hours.Web.ViewModels;
+using Daily.Hours.Web.Models;
 
 namespace Daily.Hours.Web.Services
 {
@@ -13,26 +14,35 @@ namespace Daily.Hours.Web.Services
     {
         DailyHoursContext _context = new DailyHoursContext();
 
-        internal ActivityModel Create(ActivityModel workLog)
+        internal ActivityViewModel Create(ActivityViewModel activityViewModel)
         {
-            _context.Activities.Add(workLog);
+            var activityModel = new ActivityModel
+            {
+                Date = activityViewModel.Date,
+                Hours = activityViewModel.Hours,
+                Task = _context.Tasks.Single(t => t.Id == activityViewModel.TaskId),
+                User = _context.Users.Single(u => u.Id == activityViewModel.UserId)
+            };
+
+            _context.Activities.Add(activityModel);
 
             _context.SaveChanges();
 
-            return workLog;
+            return ActivityViewModel.From(activityModel);
         }
 
-        internal ActivityModel Update(ActivityModel workLog)
+        internal ActivityViewModel Update(ActivityViewModel workLog)
         {
-            var workLogToUpdate = _context.Activities.SingleAsync(u => u.Id == workLog.Id).Result;
-            workLogToUpdate.Date = workLog.Date;
-            workLogToUpdate.Hours = workLog.Hours;
-            workLogToUpdate.Task = workLog.Task;
-            workLogToUpdate.User = workLog.User;
+            //var workLogToUpdate = _context.Activities.SingleAsync(u => u.Id == workLog.Id).Result;
+            //workLogToUpdate.Date = workLog.Date;
+            //workLogToUpdate.Hours = workLog.Hours;
+            //workLogToUpdate.Task = workLog.Task;
+            //workLogToUpdate.User = workLog.User;
 
-            _context.SaveChanges();
+            //_context.SaveChanges();
 
-            return workLogToUpdate;
+            //return workLogToUpdate;
+            return null;
         }
 
         internal bool Delete(int taskId)
@@ -42,16 +52,18 @@ namespace Daily.Hours.Web.Services
             return true;
         }
 
-        internal List<ActivityModel> List(int userId, DateTime filterDate)
+        internal List<ActivityViewModel> List(int userId, DateTime filterDate)
         {
             var startDate = filterDate.Date;
             var enddDate = filterDate.Date.AddDays(1);
-            return _context.Activities.Where(a => a.User.Id == userId && a.Date > startDate && a.Date < enddDate).ToList();
+            var activitiesList = _context.Activities.Where(a => a.User.Id == userId && a.Date > startDate && a.Date < enddDate).ToList();
+            return activitiesList.Select(a => ActivityViewModel.From(a)).ToList();
         }
 
-        internal Task<ActivityModel> Get(int workLogId)
+        internal ActivityViewModel Get(int workLogId)
         {
-            return _context.Activities.SingleOrDefaultAsync(u => u.Id == workLogId);
+            var activityModel = _context.Activities.Single(u => u.Id == workLogId);
+            return ActivityViewModel.From(activityModel);
         }
     }
 }
