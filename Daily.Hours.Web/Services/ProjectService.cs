@@ -2,9 +2,10 @@
 using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using Daily.Hours.Web.Models;
 using System.Collections.Generic;
 using System.Linq;
+using Daily.Hours.Web.ViewModels;
+using Daily.Hours.Web.Models;
 
 namespace Daily.Hours.Web.Services
 {
@@ -13,22 +14,29 @@ namespace Daily.Hours.Web.Services
     {
         DailyHoursContext _context = new DailyHoursContext();
 
-        internal ProjectModel Create(ProjectModel project, int ownerId)
+        internal ProjectViewModel Create(ProjectViewModel projectViewModel, int ownerId)
         {
-            project.Owner = _context.Users.Single(u => u.Id == ownerId);
+            var projectModel = new ProjectModel
+            {
+                CreatedOn = projectViewModel.CreatedOn == DateTime.MinValue? DateTime.Now : projectViewModel.CreatedOn,
+                IsActive = projectViewModel.IsActive,
+                Name = projectViewModel.Name,
+                Owner = _context.Users.Single(u => u.Id == ownerId)
+            };
 
-            _context.Projects.Add(project);
+            _context.Projects.Add(projectModel);
 
             _context.SaveChanges();
 
-            return project;
+            return ProjectViewModel.From(projectModel);
         }
 
-        internal ProjectModel Update(ProjectModel project)
+        internal ProjectViewModel Update(ProjectViewModel project)
         {
-            var projectToUpdate = _context.Projects.SingleAsync(u => u.Id == project.Id).Result;
-            projectToUpdate.Name= projectToUpdate.Name;
-            return projectToUpdate;
+            //var projectToUpdate = _context.Projects.SingleAsync(u => u.Id == project.Id).Result;
+            //projectToUpdate.Name= projectToUpdate.Name;
+            //return projectToUpdate;
+            return null;
         }
 
         internal bool Delete(int projectId)
@@ -38,14 +46,16 @@ namespace Daily.Hours.Web.Services
             return true;
         }
 
-        internal Task<ProjectModel> Get(int projectId)
+        internal ProjectViewModel Get(int projectId)
         {
-            return _context.Projects.SingleOrDefaultAsync(u => u.Id == projectId);
+            var project = _context.Projects.Single(u => u.Id == projectId);
+            return ProjectViewModel.From(project);
         }
 
-        internal List<ProjectModel> List(int userId)
+        internal List<ProjectViewModel> List(int userId)
         {
-            return _context.Projects.Where(p => p.Owner.Id == userId).ToList();
+            var projectsList = _context.Projects.Where(p => p.Owner.Id == userId).ToList();
+            return projectsList.Select(p => ProjectViewModel.From(p)).ToList();
         }
     }
 }

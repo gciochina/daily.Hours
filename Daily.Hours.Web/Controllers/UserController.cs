@@ -34,7 +34,7 @@ namespace Daily.Hours.Web.Controllers
             return _userService.Update(user);
         }
 
-        [HttpDelete]
+        [HttpGet]
         public bool Delete(int userId)
         {
             return _userService.Delete(userId);

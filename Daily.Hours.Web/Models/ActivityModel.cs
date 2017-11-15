@@ -4,9 +4,12 @@ namespace Daily.Hours.Web.Models
 {
     public class ActivityModel : BaseModel
     {
-        public UserModel User { get; set; }
-        public TaskModel Task { get; set; }
-        public DateTime Date { get; set; }
         public string Hours { get; set; }
+
+        public DateTime Date { get; set; }
+
+        public virtual UserModel User { get; set; }
+
+        public virtual TaskModel Task { get; set; }
     }
 }

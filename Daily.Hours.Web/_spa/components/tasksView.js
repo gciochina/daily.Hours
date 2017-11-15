@@ -33,7 +33,7 @@
                     url: "api/Task/Create",
                     data: {
                         Name: self.Name(),
-                        Project: self.Project()
+                        ProjectId: self.Project().Id
                     },
                     success: function (data) {
                         self.load();
@@ -45,12 +45,12 @@
                 });
             }
 
-            self.doDeleteTask = function (taskId) {
+            self.doDeleteTask = function (task) {
                 $.ajax({
-                    method: 'DELETE',
-                    url: "api/Task/DELETE",
+                    method: 'GET',
+                    url: "api/Task/Delete",
                     data: {
-                        id: taskId
+                        taskId: task.Id
                     },
                     success: function (data) {
                         self.load();

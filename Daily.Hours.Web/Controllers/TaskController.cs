@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Daily.Hours.Web.Models;
 using Daily.Hours.Web.Services;
 using System.Collections.Generic;
+using Daily.Hours.Web.ViewModels;
 
 namespace Daily.Hours.Web.Controllers
 {
@@ -12,31 +12,31 @@ namespace Daily.Hours.Web.Controllers
         private TaskService _taskService = new TaskService();
 
         [HttpPut]
-        public TaskModel Create(TaskModel task)
+        public TaskViewModel Create(TaskViewModel task)
         {
             return _taskService.Create(task);
         }
 
         [HttpPost]
-        public TaskModel Update(TaskModel task)
+        public TaskViewModel Update(TaskViewModel task)
         {
             return _taskService.Update(task);
         }
 
-        [HttpDelete]
+        [HttpGet]
         public bool Delete(int taskId)
         {
             return _taskService.Delete(taskId);
         }
 
         [HttpGet]
-        public Task<TaskModel> Get(int taskId)
+        public TaskViewModel Get(int taskId)
         {
             return _taskService.Get(taskId);
         }
 
         [HttpGet]
-        public List<TaskModel> List(int userId)
+        public List<TaskViewModel> List(int userId)
         {
             return _taskService.List(userId);
         }

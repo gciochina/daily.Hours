@@ -44,7 +44,7 @@
                 url: "api/User/WhoAmI",
                 success: function (data) {
                     if (data) {
-                        params.currentUser(data);
+                        self.currentUser(data);
                     }
                 },
             });

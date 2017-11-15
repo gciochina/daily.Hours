@@ -2,7 +2,8 @@
 {
     public class TaskModel : BaseModel
     {
-        public ProjectModel Project { get; set; }
         public string Name { get; set; }
+
+        public virtual ProjectModel Project { get; set; }
     }
 }

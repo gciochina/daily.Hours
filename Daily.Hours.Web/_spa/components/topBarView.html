@@ -19,7 +19,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" id="profile" data-bind="text: currentUser() != undefined ? currentUser().FullName.toUpperCase() : '', click: doProfile" /></li>
+                    <li><a href="#" id="profile" data-bind="text: (currentUser() ? (currentUser().FirstName + '' + currentUser().LastName).toUpperCase() : ''), click: doProfile" /></li>
                     <li><a href="#" id="signOut" data-bind="click: doSignOut">SIGN OUT</a></li>
                 </ul>
             </div>

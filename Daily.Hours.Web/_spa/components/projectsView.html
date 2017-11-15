@@ -17,7 +17,7 @@
         <tbody data-bind="foreach: projects">
             <tr id="projectEdit" class="item table-row-clickable">
                 <td class="table-cell-title" data-bind="text: Name"></td>
-                <td data-bind="text: CreatedOn"></td>
+                <td data-bind="text: moment(CreatedOn).format('dddd, MMMM DD YYYY')"></td>
                 <td data-bind="text: IsActive"></td>
                 <td>
                     <div data-bind="visible: IsActive">
