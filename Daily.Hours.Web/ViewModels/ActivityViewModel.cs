@@ -7,7 +7,17 @@ namespace Daily.Hours.Web.ViewModels
     {
         public int UserId { get; set; }
 
-        public string UserFullName { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string UserFullName
+        {
+            get
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
 
         public int TaskId { get; set; }
 
@@ -19,7 +29,7 @@ namespace Daily.Hours.Web.ViewModels
 
         public DateTime Date { get; set; }
 
-        public string Hours { get; set; }
+        public int Hours { get; set; }
 
         internal static ActivityViewModel From(ActivityModel activityModel)
         {
@@ -31,7 +41,8 @@ namespace Daily.Hours.Web.ViewModels
                 TaskId = activityModel.Task.Id,
                 TaskName = activityModel.Task.Name,
                 UserId = activityModel.User.Id,
-                UserFullName = activityModel.User.FullName,
+                FirstName = activityModel.User.FirstName,
+                LastName = activityModel.User.LastName,
                 ProjectId = activityModel.Task.Project.Id,
                 ProjectName = activityModel.Task.Project.Name
             };

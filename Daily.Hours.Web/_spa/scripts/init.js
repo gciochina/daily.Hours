@@ -62,12 +62,12 @@
                 }
             });
 
-            var defaultVal = $(element).val();
+            var defaultVal = $(element).val() || new Date();
             var value = valueAccessor();
             value(moment(defaultVal, options.format));
         },
         update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            var thisFormat = 'DD/MM/YYYY HH:mm';
+            var thisFormat = 'DD/MM/YYYY';
 
             if (allBindingsAccessor() !== undefined) {
                 if (allBindingsAccessor().datepickerOptions !== undefined) {

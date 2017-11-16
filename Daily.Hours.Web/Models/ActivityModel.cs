@@ -4,7 +4,7 @@ namespace Daily.Hours.Web.Models
 {
     public class ActivityModel : BaseModel
     {
-        public string Hours { get; set; }
+        public int Hours { get; set; }
 
         public DateTime Date { get; set; }
 

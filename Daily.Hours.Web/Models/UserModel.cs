@@ -21,13 +21,5 @@ namespace Daily.Hours.Web.Models
         public virtual UserModel Inviter { get; set; }
 
         public virtual List<ProjectModel> Projects { get; set; }
-
-        public string FullName
-        {
-            get
-            {
-                return $"{FirstName} {LastName}".ToUpper();
-            }
-        }
     }
 }

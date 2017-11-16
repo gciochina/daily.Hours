@@ -56,8 +56,23 @@ namespace Daily.Hours.Web.Services
         {
             var startDate = filterDate.Date;
             var enddDate = filterDate.Date.AddDays(1);
-            var activitiesList = _context.Activities.Where(a => a.User.Id == userId && a.Date > startDate && a.Date < enddDate).ToList();
-            return activitiesList.Select(a => ActivityViewModel.From(a)).ToList();
+            var activitiesList = _context.Activities
+                .Where(a => a.User.Id == userId && a.Date >= startDate && a.Date <= enddDate)
+                .GroupBy(a => a.Task.Id)
+                .Select(calc => new ActivityViewModel
+                {
+                    Id = calc.FirstOrDefault().Id,
+                    ProjectId = calc.FirstOrDefault().Task.Project.Id,
+                    ProjectName = calc.FirstOrDefault().Task.Project.Name,
+                    TaskId = calc.FirstOrDefault().Task.Id,
+                    TaskName = calc.FirstOrDefault().Task.Name,
+                    FirstName = calc.FirstOrDefault().User.FirstName,
+                    LastName = calc.FirstOrDefault().User.LastName,
+                    UserId = userId,
+                    Date = filterDate,
+                    Hours = calc.Sum(a => a.Hours)
+                });
+            return activitiesList.ToList();
         }
 
         internal ActivityViewModel Get(int workLogId)
