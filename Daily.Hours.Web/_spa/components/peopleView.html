@@ -1,42 +1,51 @@
 ﻿<div class="container">
     <div class="col-md-6">
-        <h1>People</h1>
+        <h1>Team members</h1>
     </div>
     <div class="col-md-6">
-        <a id="peopleCreate" href="#" class="btn btn-primary col-md-offset-8" data-bind="click: doAddPeople"><i class="glyphicon glyphicon-plus"></i><br />Invite</a>
+        <a id="peopleInvite" href="#" class="btn btn-primary col-md-offset-8" data-bind="click: doShowInvitePeople"><i class="glyphicon glyphicon-plus"></i><br />Invite team members</a>
     </div>
     <table class="table table-hover">
         <thead>
             <tr>
-                <th class="col-md-3">First Name</th>
-                <th class="col-md-3">Last Name</th>
+                <th class="col-md-4">Name</th>
                 <th class="col-md-3">Email</th>
-                <th class="col-md-2">Active</th>
-                <th class="col-md-2">Action</th>
+                <th class="col-md-1">Administrator</th>
+                <th class="col-md-1">Active</th>
+                <th class="col-md-3">Action</th>
             </tr>
         </thead>
         <tbody data-bind="foreach: people">
             <tr id="peopleEdit" class="item table-row-clickable">
-                <td class="table-cell-title" data-bind="text: FistName"></td>
-                <td class="table-cell-title" data-bind="text: LastName"></td>
-                <td class="table-cell-title" data-bind="text: Email"></td>
-                <td data-bind="text: IsActive"></td>
+                <td class="table-cell-title" data-bind="text: FullName"></td>
+                <td class="table-cell-title" data-bind="text: EmailAddress"></td>
+                <td data-bind="text: IsAdmin"></td>
+                <td data-bind="text: IsActivated"></td>
                 <td>
-                    <div data-bind="visible: IsActive">
-                        <button data-bind="click: doDeactivatePeople(Id)" id="closePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
-                            <span class="glyphicon glyphicon-off"></span>
-                        </button>
-                        <button data-bind="click: deletePeople(Id)" id="deletePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                    </div>
-                    <div data-bind="visible: !IsActive">
-                        <button data-bind="click: doActivatePeople(Id)" id="closePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
-                            <span class="glyphicon glyphicon-on"></span>
+                    <button data-bind="visible: IsActivated, click: $parent.doDeactivatePeople" id="closePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                        <span class="glyphicon glyphicon-stop"></span>
+                    </button>
+                    <button data-bind="visible: IsActivated, click: $parent.deletePeople" id="deletePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    <div data-bind="visible: !IsActivated">
+                        <button data-bind="click: $parent.doActivatePeople" id="closePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                            <span class="glyphicon glyphicon-play"></span>
                         </button>
                     </div>
                 </td>
             </tr>
         </tbody>
     </table>
+    <div id="invitePeoplePopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Invite member to team' }, dialogVisible: showAddDialog">
+        <div class="form-group">
+            <label for="firstName">First name:</label>
+            <input type="text" class="form-control" id="firstName" data-bind="value: FirstName">
+            <label for="lastName">Last name:</label>
+            <input type="text" class="form-control" id="lastName" data-bind="value: LastName">
+            <label for="emailAddress">Email address:</label>
+            <input type="text" class="form-control" id="emailAddress" data-bind="value: EmailAddress">
+        </div>
+        <button type="button" class="btn btn-default" data-bind="click:doInvitePeople">Invite</button>
+    </div>
 </div>

@@ -32,7 +32,6 @@
             }
 
             self.doDeactivateProject = function (projectId) {
-                this.showDialog("addProjectPopup");
             }
 
             self.deleteProject = function (project) {

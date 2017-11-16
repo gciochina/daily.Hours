@@ -45,6 +45,7 @@
                 success: function (data) {
                     if (data) {
                         self.currentUser(data);
+                        self.navModel("dayView");
                     }
                 },
             });

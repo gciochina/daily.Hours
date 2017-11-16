@@ -7,18 +7,44 @@
 
             self.people = ko.observableArray();
 
-            self.doAddPeople = function () {
+            self.FirstName = ko.observable();
+            self.LastName = ko.observable();
+            self.EmailAddress = ko.observable();
+
+            self.showAddDialog = ko.observable(false);
+
+            self.doShowInvitePeople = function () {
+                self.showAddDialog(true);
             }
 
-            self.doDeactivatePeople = function (peopleId) {
+            
+
+            self.doInvitePeople = function () {
+                $.ajax({
+                    method: 'PUT',
+                    url: "api/User/Create",
+                    data: {
+                        FirstName: self.FirstName(),
+                        LastName: self.LastName(),
+                        EmailAddress: self.EmailAddress(),
+                        IsActive: false,
+                    },
+                    success: function (data) {
+                        self.load();
+                        self.showAddDialog(false);
+                    },
+                    error: function (error) {
+                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                    }
+                });
             }
 
-            self.deletePeople = function (peopleId) {
+            self.deletePeople = function (people) {
                 $.ajax({
                     method: 'DELETE',
-                    url: "api/Users/DELETE",
+                    url: "api/User/DELETE",
                     data: {
-                        id: peopleId
+                        id: people().Id
                     },
                     success: function (data) {
                         self.load();
@@ -29,7 +55,9 @@
                 });
             }
 
-            self.doActivatePeople = function (peopleId) {
+            self.doDeactivatePeople = function (people) {
+            }
+            self.doActivatePeople = function (people) {
             }
 
             self.load = function () {

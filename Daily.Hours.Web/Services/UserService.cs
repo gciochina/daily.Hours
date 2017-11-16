@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Configuration;
+using Daily.Hours.Web.ViewModels;
 
 namespace Daily.Hours.Web.Services
 {
@@ -15,7 +16,7 @@ namespace Daily.Hours.Web.Services
     {
         DailyHoursContext _context = new DailyHoursContext();
 
-        internal UserModel Create(UserModel user)
+        internal UserViewModel Create(UserViewModel user, int? inviterId)
         {
             if (_context.Users.AnyAsync(u => u.UserName == user.UserName).Result)
                 throw new ArgumentException("This username is already registered");
@@ -23,7 +24,17 @@ namespace Daily.Hours.Web.Services
             if (_context.Users.AnyAsync(u => u.EmailAddress == user.EmailAddress).Result)
                 throw new ArgumentException("This email address is already registered");
 
-            _context.Users.Add(user);
+            var userModel = new UserModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                EmailAddress = user.EmailAddress,
+                IsAdmin = false,
+                Inviter = _context.Users.Single(u => u.Id == inviterId),
+                IsActivated = false,
+            };
+
+            _context.Users.Add(userModel);
 
 #if RELEASE
             //send email
@@ -53,7 +64,7 @@ daily.Hours"
             return user;
         }
 
-        private string GenerateUserActivationString(UserModel user)
+        private string GenerateUserActivationString(UserViewModel user)
         {
             return
                 ConfigurationManager.AppSettings["HostUrl"] + 
@@ -73,7 +84,7 @@ daily.Hours"
             return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
         }
 
-        public UserModel Activate(string userActivationString)
+        public UserViewModel Activate(string userActivationString)
         {
             var decodedActivationString = Base64Decode(userActivationString);
             var userName = decodedActivationString.Split('|')[0];
@@ -85,10 +96,10 @@ daily.Hours"
 
             _context.SaveChanges();
 
-            return user;
+            return UserViewModel.From(user);
         }
 
-        internal UserModel Update(UserModel user)
+        internal UserViewModel Update(UserViewModel user)
         {
             var userToUpdate = _context.Users.SingleAsync(u => u.Id == user.Id).Result;
             userToUpdate.FirstName = user.FirstName;
@@ -97,13 +108,16 @@ daily.Hours"
             userToUpdate.Password = user.Password;
             userToUpdate.UserName = user.UserName;
             userToUpdate.EmailAddress = user.EmailAddress;
+
             _context.SaveChanges();
-            return userToUpdate;
+
+            return UserViewModel.From(userToUpdate);
         }
 
-        internal List<UserModel> List(int inviterId)
+        internal List<UserViewModel> List(int inviterId)
         {
-            return _context.Users.Where(u => u.Inviter.Id == inviterId).ToList();
+            var usersList = _context.Users.Where(u => u.Inviter.Id == inviterId || u.Id == inviterId).ToList();
+            return usersList.Select(u=> UserViewModel.From(u)).ToList();
         }
 
         internal bool Delete(int userId)
@@ -113,19 +127,16 @@ daily.Hours"
             return true;
         }
 
-        internal Task<UserModel> Get(int userId)
+        internal UserViewModel Get(int userId)
         {
-            return _context.Users.SingleOrDefaultAsync(u => u.Id == userId);
+            var user = _context.Users.Single(u => u.Id == userId);
+            return UserViewModel.From(user);
         }
 
-        internal UserModel Login(string userName, string password)
+        internal UserViewModel Login(string userName, string password)
         {
-            return _context.Users.SingleOrDefaultAsync(u => u.UserName == userName && u.Password == password
-#if RELEASE
-            && u.IsActivated
-#endif
-            
-            ).Result;
+            var user = _context.Users.Single(u => u.UserName == userName && u.Password == password && u.IsActivated);
+            return UserViewModel.From(user);
         }
     }
 }

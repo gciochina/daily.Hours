@@ -1,16 +1,13 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
-using Daily.Hours.Web.Models;
 using Daily.Hours.Web.Services;
 using System.Collections.Generic;
-using System.Security.Principal;
 using System.Security.Claims;
 using Microsoft.AspNet.Identity;
-using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using System.Net;
 using System;
 using System.Web;
+using Daily.Hours.Web.ViewModels;
 
 namespace Daily.Hours.Web.Controllers
 {
@@ -23,13 +20,13 @@ namespace Daily.Hours.Web.Controllers
 
         #region actions
         [HttpPut]
-        public UserModel Create(UserModel user)
+        public UserViewModel Create(UserViewModel user)
         {
-            return _userService.Create(user);
+            return _userService.Create(user, AuthenticatedUserId);
         }
 
         [HttpPost]
-        public UserModel Update(UserModel user)
+        public UserViewModel Update(UserViewModel user)
         {
             return _userService.Update(user);
         }
@@ -41,23 +38,23 @@ namespace Daily.Hours.Web.Controllers
         }
 
         [HttpGet]
-        public Task<UserModel>Get(int userId)
+        public UserViewModel Get(int userId)
         {
             return _userService.Get(userId);
         }
 
         [HttpGet]
-        public List<UserModel> List(int inviterId)
+        public List<UserViewModel> List(int inviterId)
         {
             return _userService.List(inviterId);
         }
 
         [AllowAnonymous]
         [HttpPost]
-        public UserModel Login(UserModel userModel, bool rememberMe)
+        public UserViewModel Login(UserViewModel user, bool rememberMe)
         {
-            UserModel authenticatedUser = null;
-            authenticatedUser = _userService.Login(userModel.UserName, userModel.Password);
+            UserViewModel authenticatedUser = null;
+            authenticatedUser = _userService.Login(user.UserName, user.Password);
 
             if (authenticatedUser == null)
                 throw new UnauthorizedAccessException("Username or password incorrect");
@@ -76,14 +73,14 @@ namespace Daily.Hours.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public UserModel Register(UserModel user)
+        public UserViewModel Register(UserViewModel user)
         {
-            return _userService.Create(user);
+            return _userService.Create(user, null);
         }
 
         [AllowAnonymous]
         [HttpGet]
-        public UserModel Activate(string userActivationString)
+        public UserViewModel Activate(string userActivationString)
         {
             return _userService.Activate(userActivationString);
         }
@@ -94,7 +91,7 @@ namespace Daily.Hours.Web.Controllers
         /// <returns></returns>
         [AllowAnonymous]
         [HttpGet]
-        public UserModel WhoAmI()
+        public UserViewModel WhoAmI()
         {
             var currentUserIdentity = User.Identity;
             if (currentUserIdentity.IsAuthenticated)
@@ -102,7 +99,7 @@ namespace Daily.Hours.Web.Controllers
                 try
                 {
                     return
-                         new UserModel
+                         new UserViewModel
                          {
                              Id = Convert.ToInt32(((ClaimsIdentity)currentUserIdentity).FindFirstValue(ClaimTypes.NameIdentifier)),
                              FirstName = ((ClaimsIdentity)currentUserIdentity).FindFirstValue(ClaimTypes.Name),
@@ -124,17 +121,17 @@ namespace Daily.Hours.Web.Controllers
 
         #region privates
 
-        private void IdentitySignin(UserModel userModel, bool isPersistent = false)
+        private void IdentitySignin(UserViewModel user, bool isPersistent = false)
         {
             var claims = new List<Claim>();
 
             // create *required* claims
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, userModel.Id.ToString()));
-            claims.Add(new Claim(ClaimTypes.Name, userModel.FirstName));
-            claims.Add(new Claim(ClaimTypes.Surname, userModel.LastName));
+            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+            claims.Add(new Claim(ClaimTypes.Name, user.FirstName));
+            claims.Add(new Claim(ClaimTypes.Surname, user.LastName));
             // create *optional* claims (the ones we need for storing user related data)
-            claims.Add(new Claim(ClaimTypes.Email, userModel.EmailAddress ?? string.Empty));
-            claims.Add(new Claim(ClaimTypes.Role, userModel.IsAdmin.ToString()));
+            claims.Add(new Claim(ClaimTypes.Email, user.EmailAddress ?? string.Empty));
+            claims.Add(new Claim(ClaimTypes.Role, user.IsAdmin.ToString()));
 
             var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
 

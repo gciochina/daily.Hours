@@ -22,7 +22,7 @@
                 <td>
                     <div data-bind="visible: IsActive">
                         <button data-bind="click: $parent.doDeactivateProject" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
-                            <span class="glyphicon glyphicon-off"></span>
+                            <span class="glyphicon glyphicon-stop"></span>
                         </button>
                         <button data-bind="click: $parent.deleteProject" id="deleteProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
                             <span class="glyphicon glyphicon-remove"></span>
@@ -30,7 +30,7 @@
                     </div>
                     <div data-bind="visible: !IsActive">
                         <button data-bind="click: $parent.doActivateProject" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
-                            <span class="glyphicon glyphicon-on"></span>
+                            <span class="glyphicon glyphicon-play"></span>
                         </button>
                     </div>
                 </td>
