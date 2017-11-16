@@ -127,3 +127,8 @@
             ko.applyBindings(new mainAppView());
 		});
 })();
+
+HandleError = function (error) {
+    toastr.error((error.responseJSON || { ExceptionMessage: "Something went wrong. Thats all we know" }).ExceptionMessage,
+        (error.responseJSON || { Message: "Whoops" }).Message);
+}

@@ -33,7 +33,7 @@
                         }
                     },
                     error: function (error) {
-                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                        HandleError(error);
                     }
                 });
             };

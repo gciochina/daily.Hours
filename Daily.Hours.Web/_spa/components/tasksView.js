@@ -21,7 +21,7 @@
                         self.projects(data);
                     },
                     error: function (error) {
-                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                        HandleError(error);
                     }
                 });
                 
@@ -40,7 +40,7 @@
                         self.showAddDialog(false);
                     },
                     error: function (error) {
-                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                        HandleError(error);
                     }
                 });
             }
@@ -56,7 +56,7 @@
                         self.load();
                     },
                     error: function (error) {
-                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                        HandleError(error);
                     }
                 });
             }
@@ -69,7 +69,7 @@
                         self.tasks(data);
                     },
                     error: function (error) {
-                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                        HandleError(error);
                     }
                 });
             }

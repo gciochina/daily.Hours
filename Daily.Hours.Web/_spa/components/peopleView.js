@@ -34,7 +34,7 @@
                         self.showAddDialog(false);
                     },
                     error: function (error) {
-                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                        HandleError(error);
                     }
                 });
             }
@@ -50,7 +50,7 @@
                         self.load();
                     },
                     error: function (error) {
-                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                        HandleError(error);
                     }
                 });
             }
@@ -71,7 +71,7 @@
                         self.people(data);
                     },
                     error: function (error) {
-                        toastr.error(error.responseJSON.ExceptionMessage, error.responseJSON.Message);
+                        HandleError(error);
                     }
                 });
             }

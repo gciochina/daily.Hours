@@ -31,8 +31,18 @@
             }
 
             self.doSignOut = function () {
-                self.currentUser(null);
-                self.navModel("loginView");
+                $.ajax({
+                    method: "POST",
+                    url: "api/User/Logout",
+                    success: function (data) {
+                        self.currentUser(null);
+                        self.navModel("loginView");
+                    },
+                    error: function (error) {
+                        HandleError(error);
+                    }
+                })
+                
             }
         };
 
