@@ -20,8 +20,9 @@ namespace Daily.Hours.Web.Services
             {
                 Date = activityViewModel.Date,
                 Hours = activityViewModel.Hours,
+                Description = activityViewModel.Description,
                 Task = _context.Tasks.Single(t => t.Id == activityViewModel.TaskId),
-                User = _context.Users.Single(u => u.Id == activityViewModel.UserId)
+                User = _context.Users.Single(u => u.Id == activityViewModel.UserId),
             };
 
             _context.Activities.Add(activityModel);
@@ -59,6 +60,7 @@ namespace Daily.Hours.Web.Services
             var activitiesList = _context.Activities
                 .Where(a => a.User.Id == userId && a.Date >= startDate && a.Date <= enddDate)
                 .GroupBy(a => a.Task.Id)
+                .ToList()
                 .Select(calc => new ActivityViewModel
                 {
                     Id = calc.FirstOrDefault().Id,
@@ -70,7 +72,8 @@ namespace Daily.Hours.Web.Services
                     LastName = calc.FirstOrDefault().User.LastName,
                     UserId = userId,
                     Date = filterDate,
-                    Hours = calc.Sum(a => a.Hours)
+                    Hours = calc.Sum(a => a.Hours),
+                    Description = string.Join(System.Environment.NewLine, calc.Select(a => a.Description))
                 });
             return activitiesList.ToList();
         }

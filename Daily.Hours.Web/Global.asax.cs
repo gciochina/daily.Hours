@@ -41,7 +41,7 @@ namespace Daily.Hours.Web
             var defaultProject = new Models.ProjectModel
             {
                 CreatedOn = DateTime.Now,
-                Name = "MDC",
+                Name = "DCX",
                 IsActive = true,
                 Owner = defaultUser
             };
@@ -50,7 +50,7 @@ namespace Daily.Hours.Web
 
             var defaultTask = new Models.TaskModel
             {
-                Name = "MDC-43 MyiScan Xamarin Add Advertisement support",
+                Name = "DCX-43 SCAN Xamarin Advertisement support",
                 Project = defaultProject
             };
 
@@ -61,7 +61,13 @@ namespace Daily.Hours.Web
                 Date = DateTime.Now,
                 Hours = 5,
                 Task = defaultTask,
-                User = defaultUser
+                User = defaultUser,
+                Description = @"
+- added repository
+- integrate security
+- testing scenario#1
+- updated PBC
+"
             };
 
             _context.Activities.Add(defaultActivity);

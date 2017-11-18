@@ -31,6 +31,9 @@ namespace Daily.Hours.Web.ViewModels
 
         public int Hours { get; set; }
 
+        public string Description { get; set; }
+
+
         internal static ActivityViewModel From(ActivityModel activityModel)
         {
             return new ActivityViewModel
@@ -44,7 +47,8 @@ namespace Daily.Hours.Web.ViewModels
                 FirstName = activityModel.User.FirstName,
                 LastName = activityModel.User.LastName,
                 ProjectId = activityModel.Task.Project.Id,
-                ProjectName = activityModel.Task.Project.Name
+                ProjectName = activityModel.Task.Project.Name,
+                Description = activityModel.Description
             };
         }
     }

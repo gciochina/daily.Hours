@@ -12,8 +12,13 @@
                 return moment(self.filterDate()).format('dddd, MMMM DD YYYY');
             });
 
+            self.activityDescription = ko.observable();
+
             self.showAddDialog = ko.observable(false);
+            self.showDescriptionDialog = ko.observable(false);
+
             self.Hours = ko.observable();
+            self.Description = ko.observable();
             self.Task = ko.observable();
 
             self.goPreviousDay = function () {
@@ -45,7 +50,8 @@
                     data: {
                         Hours: self.Hours(),
                         TaskId: self.Task().Id,
-                        Date: self.filterDate().toISOString()
+                        Date: self.filterDate().toISOString(),
+                        Description: self.Description()
                     },
                     success: function (data) {
                         self.load();
@@ -55,6 +61,15 @@
                         HandleError(error);
                     }
                 });
+            }
+
+            self.doShowDescription = function (activity) {
+                self.activityDescription(activity.Description);
+                self.showDescriptionDialog(true);
+            }
+
+            self.doCloseActivityDescription = function (activity) {
+                self.showDescriptionDialog(false);
             }
 
             self.load = function () {

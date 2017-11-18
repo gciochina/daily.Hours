@@ -8,6 +8,8 @@ namespace Daily.Hours.Web.Models
 
         public DateTime Date { get; set; }
 
+        public string Description { get; set; }
+
         public virtual UserModel User { get; set; }
 
         public virtual TaskModel Task { get; set; }
