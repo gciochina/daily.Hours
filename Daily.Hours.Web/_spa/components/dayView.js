@@ -17,9 +17,10 @@
             self.showAddDialog = ko.observable(false);
             self.showDescriptionDialog = ko.observable(false);
 
-            self.Hours = ko.observable();
+            self.Task = ko.observable().extend({ required: true });
+            self.Hours = ko.observable().extend({ required: true });
             self.Description = ko.observable();
-            self.Task = ko.observable();
+            
 
             self.goPreviousDay = function () {
                 self.filterDate(self.filterDate().subtract(1, "days"));
@@ -44,6 +45,12 @@
             }
 
             self.doRecordActivity = function () {
+                self.validationErrors = ko.validation.group(this, { deep: true })
+                if (self.validationErrors().length > 0) {
+                    self.validationErrors.showAllMessages(true);
+                    return;
+                }
+
                 $.ajax({
                     method: 'PUT',
                     url: "api/Activity/Create",

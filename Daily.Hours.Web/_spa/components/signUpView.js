@@ -10,11 +10,17 @@
 
             self.navModel = params.navModel;
             self.currentUser = params.currentUser;
-            self.validationErrors = ko.validation.group(this, { deep: true })
+
+            self.goLogin = function () {
+                self.navModel("loginView");
+            }
 
             self.doRegisterUser = function () {
-                if (self.validationErrors().length > 0)
+                self.validationErrors = ko.validation.group(this, { deep: true })
+                if (self.validationErrors().length > 0) {
+                    self.validationErrors.showAllMessages(true);
                     return;
+                }
 
                 $.ajax({
                     method: 'POST',

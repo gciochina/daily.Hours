@@ -25,10 +25,11 @@
             </tr>
         </tbody>
     </table>
-    <div id="addTaskPopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Add task' }, dialogVisible: showAddDialog">
+    <div id="addTaskPopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Add task' }, dialogVisible: showAddDialog, onEnter: doAddTask">
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" class="form-control" id="name" data-bind="value: Name">
+            <br/>
             <label for="project">Project:</label>
             <select class="form-control" id="project" data-bind="options: projects, optionsText: 'Name', value: Project"></select>
         </div>

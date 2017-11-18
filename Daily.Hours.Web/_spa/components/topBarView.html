@@ -12,9 +12,9 @@
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li data-bind="visible: currentUser.IsAdmin, css: {active: navModel() == 'projectsView'}"><a href="#" data-bind="click:doProject">PROJECTS</a></li>
+                            <li data-bind="visible: (currentUser() ? currentUser().IsAdmin : false), css: {active: navModel() == 'projectsView'}"><a href="#" data-bind="click:doProject">PROJECTS</a></li>
                             <li data-bind="css: {active: navModel() == 'tasksView'}"><a href="#" data-bind="click:doTask">TASKS</a></li>
-                            <li data-bind="visible: currentUser.IsAdmin, css: {active: navModel() == 'peopleView'}"><a href="#" data-bind="click:doPeople">PEOPLE</a></li>
+                            <li data-bind="visible: (currentUser() ? currentUser().IsAdmin : false), css: {active: navModel() == 'peopleView'}"><a href="#" data-bind="click:doPeople">PEOPLE</a></li>
                         </ul>
                     </li>
                 </ul>

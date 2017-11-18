@@ -44,6 +44,18 @@
                 })
                 
             }
+
+            //let's see if we're already logged in
+            $.ajax({
+                method: 'GET',
+                url: "api/User/WhoAmI",
+                success: function (data) {
+                    if (data) {
+                        self.currentUser(data);
+                        self.navModel("dayView");
+                    }
+                },
+            });
         };
 
         return { viewModel: topBarView, template: templateString };

@@ -10,11 +10,17 @@
             self.navModel = params.navModel;
             self.currentUser = params.currentUser;
 
-            self.doSignup = function () {
+            self.goSignup = function () {
                 self.navModel('signUpView');
             }
 
             self.doLogin = function () {
+                self.validationErrors = ko.validation.group(this, { deep: true })
+                if (self.validationErrors().length > 0) {
+                    self.validationErrors.showAllMessages(true);
+                    return;
+                }
+
                 $.ajax({
                     method: 'POST',
                     url: "api/User/Login?rememberMe=" + self.rememberMe(),
@@ -37,18 +43,6 @@
                     }
                 });
             };
-
-            //let's see if we're already logged in
-            $.ajax({
-                method: 'GET',
-                url: "api/User/WhoAmI",
-                success: function (data) {
-                    if (data) {
-                        self.currentUser(data);
-                        self.navModel("dayView");
-                    }
-                },
-            });
         };
 
         return { viewModel: loginView, template: templateString };

@@ -7,9 +7,9 @@
 
             self.people = ko.observableArray();
 
-            self.FirstName = ko.observable();
-            self.LastName = ko.observable();
-            self.EmailAddress = ko.observable();
+            self.FirstName = ko.observable().extend({ required: true });
+            self.LastName = ko.observable().extend({ required: true });
+            self.EmailAddress = ko.observable().extend({ required: true });
 
             self.showAddDialog = ko.observable(false);
 
@@ -20,6 +20,12 @@
             
 
             self.doInvitePeople = function () {
+                self.validationErrors = ko.validation.group(this, { deep: true })
+                if (self.validationErrors().length > 0) {
+                    self.validationErrors.showAllMessages(true);
+                    return;
+                }
+
                 $.ajax({
                     method: 'PUT',
                     url: "api/User/Create",

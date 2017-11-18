@@ -6,7 +6,9 @@
             self.navModel = params.navModel;
 
             self.projects = ko.observableArray();
-            self.Name = ko.observable();
+
+            self.Name = ko.observable().extend({ required: true });
+
             self.showAddDialog = ko.observable(false);
 
             self.doShowAddProject = function () {
@@ -14,6 +16,12 @@
             }
 
             self.doAddProject = function () {
+                self.validationErrors = ko.validation.group(this, { deep: true })
+                if (self.validationErrors().length > 0) {
+                    self.validationErrors.showAllMessages(true);
+                    return;
+                }
+
                 $.ajax({
                     method: 'PUT',
                     url: "api/Project/Create",

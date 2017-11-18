@@ -44,7 +44,7 @@
             </tbody>
         </table>
     </div>
-    <div id="recordActivityPopup" data-bind="dialog: { width: 500, modal: true, autoOpen: false, title: 'Log work for ' }, dialogVisible: showAddDialog">
+    <div id="recordActivityPopup" data-bind="dialog: { width: 500, modal: true, autoOpen: false, title: 'Log work for ' }, dialogVisible: showAddDialog, onEnter: doRecordActivity">
         <div class="form-group">
             <div data-bind="text: filterDateText"></div>
             <div class="col-sm-12 col-md-12">
@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-    <div id="activityDescriptionPopup" data-bind="dialog: { width: 500, modal: true, autoOpen: false, title: 'Description' }, dialogVisible: showDescriptionDialog">
+    <div id="activityDescriptionPopup" data-bind="dialog: { width: 500, modal: true, autoOpen: false, title: 'Description' }, dialogVisible: showDescriptionDialog, onEnter: doCloseActivityDescription">
         <div class="form-group">
             <pre data-bind="text: activityDescription"></pre>
             <div class="col-sm-2 col-md-2">
