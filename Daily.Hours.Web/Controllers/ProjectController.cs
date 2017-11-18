@@ -3,6 +3,7 @@ using System.Web.Http;
 using Daily.Hours.Web.Services;
 using System.Collections.Generic;
 using Daily.Hours.Web.ViewModels;
+using System;
 
 namespace Daily.Hours.Web.Controllers
 {
@@ -14,18 +15,33 @@ namespace Daily.Hours.Web.Controllers
         [HttpPut]
         public ProjectViewModel Create(ProjectViewModel project)
         {
+            if (!AuthenticatedUserIsAdmin)
+            {
+                throw new UnauthorizedAccessException("No access. You are not an administrator");
+            }
+
             return _projectService.Create(project, AuthenticatedUserId);
         }
 
         [HttpPost]
         public ProjectViewModel Update(ProjectViewModel project)
         {
+            if (!AuthenticatedUserIsAdmin)
+            {
+                throw new UnauthorizedAccessException("No access. You are not an administrator");
+            }
+
             return _projectService.Update(project);
         }
 
         [HttpGet]
         public bool Delete(int projectId)
         {
+            if (!AuthenticatedUserIsAdmin)
+            {
+                throw new UnauthorizedAccessException("No access. You are not an administrator");
+            }
+
             return _projectService.Delete(projectId);
         }
 

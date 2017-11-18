@@ -21,5 +21,13 @@ namespace Daily.Hours.Web.Controllers
                 return int.Parse(((ClaimsIdentity)User.Identity).FindFirstValue(ClaimTypes.NameIdentifier));
             }
         }
+
+        public bool AuthenticatedUserIsAdmin
+        {
+            get
+            {
+                return bool.Parse(((ClaimsIdentity)User.Identity).FindFirstValue(ClaimTypes.Role));
+            }
+        }
     }
 }

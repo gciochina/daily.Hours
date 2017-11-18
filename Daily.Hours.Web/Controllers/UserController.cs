@@ -25,18 +25,33 @@ namespace Daily.Hours.Web.Controllers
         [HttpPut]
         public UserViewModel Create(UserViewModel user)
         {
+            if (!AuthenticatedUserIsAdmin)
+            {
+                throw new UnauthorizedAccessException("No access. You are not an administrator");
+            }
+
             return _userService.Create(user, AuthenticatedUserId);
         }
 
         [HttpPost]
         public UserViewModel Update(UserViewModel user)
         {
+            if (!AuthenticatedUserIsAdmin || AuthenticatedUserId != user.Id )
+            {
+                throw new UnauthorizedAccessException("No access. You are not an administrator and you're attempting to update someone else");
+            }
+
             return _userService.Update(user);
         }
 
         [HttpGet]
         public bool Delete(int userId)
         {
+            if (!AuthenticatedUserIsAdmin)
+            {
+                throw new UnauthorizedAccessException("No access. You are not an administrator");
+            }
+
             return _userService.Delete(userId);
         }
 
@@ -87,8 +102,12 @@ namespace Daily.Hours.Web.Controllers
         {
             HttpResponseMessage response = new HttpResponseMessage();
 
-            if (_userService.Activate(id) != null)
+            var activatedUserModel = _userService.Activate(id);
+
+            if (activatedUserModel != null)
             {
+                Login(activatedUserModel, true);
+
                 response = Request.CreateResponse(HttpStatusCode.Moved);
                 response.Headers.Location = new Uri(ConfigurationManager.AppSettings["HostUrl"]);
             }
