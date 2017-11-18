@@ -8,8 +8,6 @@ namespace Daily.Hours.Web.ViewModels
     {
         public string EmailAddress { get; set; }
 
-        public string UserName { get; set; }
-
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
@@ -38,7 +36,6 @@ namespace Daily.Hours.Web.ViewModels
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 EmailAddress = user.EmailAddress,
-                UserName = user.UserName,
                 Password = user.Password,
                 Id = user.Id,
 

@@ -8,6 +8,9 @@ using Microsoft.Owin.Security;
 using System;
 using System.Web;
 using Daily.Hours.Web.ViewModels;
+using System.Net.Http;
+using System.Net;
+using System.Configuration;
 
 namespace Daily.Hours.Web.Controllers
 {
@@ -54,7 +57,7 @@ namespace Daily.Hours.Web.Controllers
         public UserViewModel Login(UserViewModel user, bool rememberMe)
         {
             UserViewModel authenticatedUser = null;
-            authenticatedUser = _userService.Login(user.UserName, user.Password);
+            authenticatedUser = _userService.Login(user.EmailAddress, user.Password);
 
             if (authenticatedUser == null)
                 throw new UnauthorizedAccessException("Username or password incorrect");
@@ -80,9 +83,16 @@ namespace Daily.Hours.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public UserViewModel Activate(string userActivationString)
+        public HttpResponseMessage Activate(string id)
         {
-            return _userService.Activate(userActivationString);
+            HttpResponseMessage response = new HttpResponseMessage();
+
+            if (_userService.Activate(id) != null)
+            {
+                response = Request.CreateResponse(HttpStatusCode.Moved);
+                response.Headers.Location = new Uri(ConfigurationManager.AppSettings["HostUrl"]);
+            }
+            return response;
         }
 
         /// <summary>

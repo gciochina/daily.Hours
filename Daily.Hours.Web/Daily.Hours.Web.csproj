@@ -167,7 +167,6 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -876,8 +875,6 @@
     <Content Include="_spa\components\loginView.js" />
     <Content Include="_spa\components\mainView.html" />
     <Content Include="_spa\components\mainView.js" />
-    <Content Include="_spa\components\resultsView.html" />
-    <Content Include="_spa\components\resultsView.js" />
     <Content Include="_spa\components\topBarView.html" />
     <Content Include="_spa\components\topBarView.js" />
     <Content Include="_spa\css\site.css" />

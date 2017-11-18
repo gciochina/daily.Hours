@@ -5,7 +5,6 @@
 
             self.firstName = ko.observable().extend({ required: true });
             self.lastName = ko.observable().extend({ required: true });
-            self.userName = ko.observable().extend({ required: true });
             self.passWord = ko.observable().extend({ required: true, minLength: 6 });
             self.emailAddress = ko.observable().extend({ required: true, email: true });
 
@@ -23,7 +22,6 @@
                     data: {
                         firstName: self.firstName(),
                         lastName: self.lastName(),
-                        userName: self.userName(),
                         passWord: self.passWord(),
                         emailAddress: self.emailAddress()
                     },

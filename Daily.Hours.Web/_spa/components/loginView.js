@@ -3,7 +3,7 @@
         function loginView(params) {
             var self = this;
 
-            self.userName = ko.observable().extend({ required: true });
+            self.emailAddress = ko.observable().extend({ required: true });
             self.password = ko.observable().extend({ required: true });
             self.rememberMe = ko.observable(false);
 
@@ -19,7 +19,7 @@
                     method: 'POST',
                     url: "api/User/Login?rememberMe=" + self.rememberMe(),
                     data: {
-                        UserName: self.userName(),
+                        EmailAddress: self.emailAddress(),
                         Password: self.password()
                     },
                     success: function (data) {

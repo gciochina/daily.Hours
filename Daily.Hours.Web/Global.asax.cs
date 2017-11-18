@@ -18,7 +18,7 @@ namespace Daily.Hours.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //InitializeDb();
+            InitializeDb();
         }
 
         private void InitializeDb()
