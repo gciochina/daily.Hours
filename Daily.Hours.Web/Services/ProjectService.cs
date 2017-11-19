@@ -55,7 +55,7 @@ namespace Daily.Hours.Web.Services
         internal List<ProjectViewModel> Search(string term, int userId)
         {
             var projectsList = _context.Projects.Where(p =>
-                    (p.Users.Any(u => u.Id == userId) || p.Owner.Id == userId) && p.Name.Contains(term))
+                    (p.Users.Any(u => u.Id == userId) || p.Owner.Id == userId) && p.Name.Contains(term ?? ""))
                 .ToList();
             return projectsList.Select(p => ProjectViewModel.From(p)).ToList();
         }

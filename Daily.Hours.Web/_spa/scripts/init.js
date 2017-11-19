@@ -200,6 +200,9 @@
                 if (e.ctrlKey && e.keyCode == 13 && $("#" + insertButtonId).length) {
                     $("#" + insertButtonId).click();
                 }
+                if (e.ctrlKey && e.keyCode == 32) {
+                    $(this).autocomplete('search');
+                }
             });
         }
     };
