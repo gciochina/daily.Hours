@@ -19,7 +19,7 @@ namespace Daily.Hours.Web.Services
             var projectModel = new ProjectModel
             {
                 CreatedOn = projectViewModel.CreatedOn == DateTime.MinValue? DateTime.Now : projectViewModel.CreatedOn,
-                IsActive = projectViewModel.IsActive,
+                IsActive = true,
                 Name = projectViewModel.Name,
                 Owner = _context.Users.Single(u => u.Id == ownerId)
             };
@@ -50,6 +50,14 @@ namespace Daily.Hours.Web.Services
         {
             var project = _context.Projects.Single(u => u.Id == projectId);
             return ProjectViewModel.From(project);
+        }
+
+        internal List<ProjectViewModel> Search(string term, int userId)
+        {
+            var projectsList = _context.Projects.Where(p =>
+                    (p.Users.Any(u => u.Id == userId) || p.Owner.Id == userId) && p.Name.Contains(term))
+                .ToList();
+            return projectsList.Select(p => ProjectViewModel.From(p)).ToList();
         }
 
         internal List<ProjectViewModel> List(int userId)

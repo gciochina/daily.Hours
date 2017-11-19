@@ -48,9 +48,19 @@
         <div class="form-group">
             <div data-bind="text: filterDateText"></div>
             <div class="col-sm-12 col-md-12">
-                <label for="task">Task:</label>
-                <select class="form-control" id="task" data-bind="options: tasks, optionsText: 'Name', value: Task"></select>
+                <label for="project">Project:</label>
+                <div>
+                    <input type="text" id="project" data-bind="autoComplete: Project, getUrl: 'api/Project/Search', insertUrl: 'api/Project/Create'" class="col-md-12" />
+                </div>
             </div>
+            <!-- ko with : Project -->
+            <div class="col-sm-12 col-md-12">
+                <label for="task">Task:</label>
+                <div>
+                    <input type="text" id="task" data-bind="autoComplete: $parent.Task, getUrl: 'api/Task/Search?ProjectId=' + Id, insertUrl: 'api/Task/Create?ProjectId=' + Id" class="col-md-12" />
+                </div>
+            </div>
+            <!-- /ko  -->
             <div class="col-sm-12 col-md-12">
                 <label for="hours">Hours:</label>
                 <input id="hours" type="number" class="form-control" data-bind="value: Hours">

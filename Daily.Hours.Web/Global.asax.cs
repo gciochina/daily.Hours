@@ -48,19 +48,26 @@ namespace Daily.Hours.Web
 
             _context.Projects.Add(defaultProject);
 
-            var defaultTask = new Models.TaskModel
+            var defaultTask1 = new Models.TaskModel
             {
                 Name = "DCX-43 SCAN Xamarin Advertisement support",
                 Project = defaultProject
             };
 
-            _context.Tasks.Add(defaultTask);
+            var defaultTask2 = new Models.TaskModel
+            {
+                Name = "DCX-3 Reconstruct in-memory session whenever a call arrives in BUS after a reset",
+                Project = defaultProject
+            };
+
+            _context.Tasks.Add(defaultTask1);
+            _context.Tasks.Add(defaultTask2);
 
             var defaultActivity = new Models.ActivityModel
             {
                 Date = DateTime.Now,
                 Hours = 5,
-                Task = defaultTask,
+                Task = defaultTask1,
                 User = defaultUser,
                 Description = @"
 - added repository

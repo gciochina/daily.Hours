@@ -11,10 +11,14 @@ namespace Daily.Hours.Web.Controllers
     {
         private TaskService _taskService = new TaskService();
 
-        [HttpPut]
-        public TaskViewModel Create(TaskViewModel task)
+        [HttpGet]
+        public TaskViewModel Create(int projectId, string name)
         {
-            return _taskService.Create(task);
+            return _taskService.Create(new TaskViewModel
+            {
+                Name = name,
+                ProjectId = projectId
+            });
         }
 
         [HttpPost]
@@ -39,6 +43,12 @@ namespace Daily.Hours.Web.Controllers
         public List<TaskViewModel> List(int? userId = null)
         {
             return _taskService.List(userId ?? AuthenticatedUserId);
+        }
+
+        [HttpGet]
+        public List<TaskViewModel> Search(string term, int projectId)
+        {
+            return _taskService.Search(term, AuthenticatedUserId, projectId);
         }
     }
 }

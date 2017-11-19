@@ -130,6 +130,80 @@
         }
     };
 
+    ko.bindingHandlers.autoComplete = {
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var self = this;
+            var getUrl = allBindingsAccessor().getUrl;
+            self.insertUrl = allBindingsAccessor().insertUrl;
+            var selectedItem = valueAccessor();
+
+            var insertButtonId = "insertEntity_" + $(element).attr("id");
+            var keyHintTextId = "inserEntity_keyHint_" + $(element).attr("id");
+            
+            $(element).autocomplete({
+                minLength: 0,
+                autoFocus: true,
+                source: function (request, response) {
+                    $.ajax({
+                        url: getUrl,
+                        data: {
+                            term: request.term
+                        },
+                        dataType: "json",
+                        type: "GET",
+                        success: function (data) {
+                            if (data.length !== 0 || $(element).val() === "") {
+                                $(element).addClass("col-md-12");
+                                $(element).removeClass("col-md-11");
+                                $("#" + insertButtonId).remove();
+                                $('#' + keyHintTextId).remove();
+                            }
+                            else {
+                                if (!$("#" + insertButtonId).length) {
+                                    $(element).removeClass("col-md-12");
+                                    $(element).addClass("col-md-11");
+                                    $(element).after("<button class='col-md-1' id='" + insertButtonId + "' style='float:right'>+</button>");
+                                    $(element).parent().after("<div id='" + keyHintTextId + "'><br/><div>Ctrl+ENTER to add</div><div>");
+
+                                    $("#" + insertButtonId).click(function () {
+                                        $.ajax({
+                                            url: self.insertUrl,
+                                            data: {
+                                                Name: $(element).val()
+                                            },
+                                            dataType: "json",
+                                            type: "GET",
+                                            success: function (serverInsertResponse) {
+                                                $(element).autocomplete("search");
+                                            }
+                                        });
+                                    });
+                                }
+                            }
+
+                            response(data.map(function (t) {
+                                return {
+                                    label: t.Name,
+                                    value: t.Name,
+                                    Id: t.Id
+                                }
+                            }));
+
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    selectedItem(ui.item);
+                }
+            });
+            $(element).keydown(function (e) {
+                if (e.ctrlKey && e.keyCode == 13 && $("#" + insertButtonId).length) {
+                    $("#" + insertButtonId).click();
+                }
+            });
+        }
+    };
+
     require(['knockout'],
 		function () {
             function mainAppView() {

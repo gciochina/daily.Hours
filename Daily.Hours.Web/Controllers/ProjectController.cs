@@ -12,15 +12,15 @@ namespace Daily.Hours.Web.Controllers
     {
         private ProjectService _projectService = new ProjectService();
 
-        [HttpPut]
-        public ProjectViewModel Create(ProjectViewModel project)
+        [HttpGet]
+        public ProjectViewModel Create(string name)
         {
             if (!AuthenticatedUserIsAdmin)
             {
                 throw new UnauthorizedAccessException("No access. You are not an administrator");
             }
 
-            return _projectService.Create(project, AuthenticatedUserId);
+            return _projectService.Create(new ProjectViewModel { Name = name }, AuthenticatedUserId);
         }
 
         [HttpPost]
@@ -55,6 +55,12 @@ namespace Daily.Hours.Web.Controllers
         public List<ProjectViewModel> List()
         {
             return _projectService.List(AuthenticatedUserId);
+        }
+
+        [HttpGet]
+        public List<ProjectViewModel> Search(string term)
+        {
+            return _projectService.Search(term, AuthenticatedUserId);
         }
     }
 }

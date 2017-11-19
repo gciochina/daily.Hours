@@ -34,7 +34,7 @@
                     return;
                 }
                 $.ajax({
-                    method: 'PUT',
+                    method: 'GET',
                     url: "api/Task/Create",
                     data: {
                         Name: self.Name(),

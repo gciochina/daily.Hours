@@ -41,6 +41,14 @@ namespace Daily.Hours.Web.Services
             return null;
         }
 
+        internal List<TaskViewModel> Search(string searchTerm, int userId, int projectId)
+        {
+            var tasksList = _context.Tasks.Where(t => 
+                    (t.Project.Users.Any(u => u.Id == userId) || t.Project.Owner.Id == userId) && t.Name.Contains(searchTerm) && t.Project.Id == projectId)
+                .ToList();
+            return tasksList.Select(t => TaskViewModel.From(t)).ToList();
+        }
+
         internal bool Delete(int taskId)
         {
             _context.Tasks.Remove(_context.Tasks.SingleOrDefaultAsync(u=>u.Id == taskId).Result);

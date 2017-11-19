@@ -1236,6 +1236,7 @@
     <Content Include="_spa\lib\toastr\toastr.js.map" />
     <Content Include="_spa\lib\toastr\toastr.less" />
     <Content Include="_spa\lib\toastr\toastr.scss" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\nsa.pubxml" />
     <Content Include="_spa\lib\Knockout-Validation\.bower.json" />
     <Content Include="_spa\lib\Knockout-Validation\.gitattributes" />

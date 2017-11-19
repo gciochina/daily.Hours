@@ -6,7 +6,6 @@
             self.navModel = params.navModel;
 
             self.activities = ko.observableArray();
-            self.tasks = ko.observableArray();
             self.filterDate = ko.observable(new Date());
             self.filterDateText = ko.computed(function () {
                 return moment(self.filterDate()).format('dddd, MMMM DD YYYY');
@@ -17,6 +16,7 @@
             self.showAddDialog = ko.observable(false);
             self.showDescriptionDialog = ko.observable(false);
 
+            self.Project = ko.observable().extend({ required: true });
             self.Task = ko.observable().extend({ required: true });
             self.Hours = ko.observable().extend({ required: true });
             self.Description = ko.observable();
@@ -24,25 +24,17 @@
 
             self.goPreviousDay = function () {
                 self.filterDate(self.filterDate().subtract(1, "days"));
-            }
+            };
 
             self.goNextDay = function () {
                 self.filterDate(self.filterDate().add(1, "days"));
-            }
+            };
 
             self.doShowRecordActivity = function () {
-                $.ajax({
-                    method: 'GET',
-                    url: "api/Task/List",
-                    success: function (data) {
-                        self.showAddDialog(true);
-                        self.tasks(data);
-                    },
-                    error: function (error) {
-                        HandleError(error);
-                    }
-                });
-            }
+                self.showAddDialog(true);
+                $('#project').autocomplete("option", "appendTo", ".eventInsForm");
+                $('#task').autocomplete("option", "appendTo", ".eventInsForm");
+            };
 
             self.doRecordActivity = function () {
                 self.validationErrors = ko.validation.group(this, { deep: true })
@@ -68,7 +60,7 @@
                         HandleError(error);
                     }
                 });
-            }
+            };
 
             self.doShowDescription = function (activity) {
                 self.activityDescription(activity.Description);
