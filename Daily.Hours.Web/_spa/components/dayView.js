@@ -32,9 +32,14 @@
 
             self.doShowRecordActivity = function () {
                 self.showAddDialog(true);
-                $('#task').autocomplete("option", "appendTo", ".eventInsForm");
-                $('#project').autocomplete("option", "appendTo", ".eventInsForm");
             };
+
+            self.showAddDialog.subscribe(function (newValue) {
+                if (newValue) {
+                    $('#task').autocomplete("option", "appendTo", ".eventInsForm");
+                    $('#project').autocomplete("option", "appendTo", ".eventInsForm");
+                }
+            });
 
             self.doRecordActivity = function () {
                 self.validationErrors = ko.validation.group(this, { deep: true })

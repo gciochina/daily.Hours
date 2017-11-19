@@ -131,10 +131,9 @@
     };
 
     ko.bindingHandlers.autoComplete = {
-        update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            var self = this;
+        init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
             var getUrl = allBindingsAccessor().getUrl;
-            self.insertUrl = allBindingsAccessor().insertUrl;
+            var insertUrl = allBindingsAccessor().insertUrl;
             var selectedItem = valueAccessor();
 
             var insertButtonId = "insertEntity_" + $(element).attr("id");
@@ -152,6 +151,8 @@
                         dataType: "json",
                         type: "GET",
                         success: function (data) {
+                            var self = this;
+                            self.insertUrl = insertUrl;
                             if (data.length !== 0 || $(element).val() === "") {
                                 $(element).addClass("col-md-12");
                                 $(element).removeClass("col-md-11");

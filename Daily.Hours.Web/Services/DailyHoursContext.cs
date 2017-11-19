@@ -3,8 +3,6 @@ using Daily.Hours.Web.Models;
 
 namespace Daily.Hours.Web.Services
 {
-    [DbConfigurationType(typeof(MySql.Data.Entity.MySqlEFConfiguration))]
-
     public class DailyHoursContext : DbContext
     {
         public DailyHoursContext() :base("MyContext")

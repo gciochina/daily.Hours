@@ -1,5 +1,4 @@
-﻿using MySql.Data.Entity;
-using System;
+﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -9,7 +8,6 @@ using Daily.Hours.Web.Models;
 
 namespace Daily.Hours.Web.Services
 {
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class ProjectService
     {
         DailyHoursContext _context = new DailyHoursContext();
@@ -54,10 +52,12 @@ namespace Daily.Hours.Web.Services
 
         internal List<ProjectViewModel> Search(string term, int userId)
         {
-            var projectsList = _context.Projects.Where(p =>
-                    (p.Users.Any(u => u.Id == userId) || p.Owner.Id == userId) && p.Name.Contains(term ?? ""))
-                .ToList();
-            return projectsList.Select(p => ProjectViewModel.From(p)).ToList();
+            var projectsList = _context.Projects.Where(p =>(p.Users.Any(u => u.Id == userId) || p.Owner.Id == userId));
+            if (!string.IsNullOrEmpty(term))
+            {
+                projectsList = projectsList.Where(p => p.Name.Contains(term));
+            }
+            return projectsList.ToList().Select(p => ProjectViewModel.From(p)).ToList();
         }
 
         internal List<ProjectViewModel> List(int userId)

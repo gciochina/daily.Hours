@@ -1,5 +1,4 @@
-﻿using MySql.Data.Entity;
-using System;
+﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using Daily.Hours.Web.Models;
@@ -12,7 +11,6 @@ using System.Net;
 
 namespace Daily.Hours.Web.Services
 {
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class UserService
     {
         DailyHoursContext _context = new DailyHoursContext();
