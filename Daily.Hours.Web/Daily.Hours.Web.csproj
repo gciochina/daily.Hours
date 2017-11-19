@@ -419,6 +419,7 @@
     <Content Include="_spa\components\footerView.html" />
     <Content Include="_spa\components\footerView.js" />
     <Content Include="_spa\css\themes\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="_spa\css\themes\images\ui-bg_flat_100_ffffff_40x100.png" />
     <Content Include="_spa\css\themes\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="_spa\css\themes\images\ui-bg_glass_55_fbf9ee_1x400.png" />
     <Content Include="_spa\css\themes\images\ui-bg_glass_65_ffffff_1x400.png" />
@@ -426,6 +427,7 @@
     <Content Include="_spa\css\themes\images\ui-bg_glass_75_e6e6e6_1x400.png" />
     <Content Include="_spa\css\themes\images\ui-bg_glass_95_fef1ec_1x400.png" />
     <Content Include="_spa\css\themes\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="_spa\css\themes\images\ui-icons_000000_256x240.png" />
     <Content Include="_spa\css\themes\images\ui-icons_222222_256x240.png" />
     <Content Include="_spa\css\themes\images\ui-icons_2e83ff_256x240.png" />
     <Content Include="_spa\css\themes\images\ui-icons_444444_256x240.png" />
@@ -876,101 +878,6 @@
       <DependentUpon>site.css</DependentUpon>
     </Content>
     <Content Include="_spa\favicon.ico" />
-    <Content Include="_spa\images\banner1.svg" />
-    <Content Include="_spa\images\banner2.svg" />
-    <Content Include="_spa\images\banner3.svg" />
-    <Content Include="_spa\images\banner4.svg" />
-    <Content Include="_spa\images\no_image_available_large.gif" />
-    <Content Include="_spa\js\site.js" />
-    <Content Include="_spa\js\site.min.js">
-      <DependentUpon>site.js</DependentUpon>
-    </Content>
-    <Content Include="_spa\lib\bootcards\dist\css\bootcards-android.css" />
-    <Content Include="_spa\lib\bootcards\dist\css\bootcards-android.min.css">
-      <DependentUpon>bootcards-android.css</DependentUpon>
-    </Content>
-    <Content Include="_spa\lib\bootcards\dist\css\bootcards-desktop.css" />
-    <Content Include="_spa\lib\bootcards\dist\css\bootcards-desktop.min.css">
-      <DependentUpon>bootcards-desktop.css</DependentUpon>
-    </Content>
-    <Content Include="_spa\lib\bootcards\dist\css\bootcards-ios.css" />
-    <Content Include="_spa\lib\bootcards\dist\css\bootcards-ios.min.css">
-      <DependentUpon>bootcards-ios.css</DependentUpon>
-    </Content>
-    <Content Include="_spa\lib\bootcards\dist\fonts\icomoon.svg" />
-    <Content Include="_spa\lib\bootcards\dist\js\bootcards.js" />
-    <Content Include="_spa\lib\bootcards\dist\js\bootcards.min.js">
-      <DependentUpon>bootcards.js</DependentUpon>
-    </Content>
-    <Content Include="_spa\lib\bootcards\Gruntfile.js" />
-    <Content Include="_spa\lib\bootcards\index.html" />
-    <Content Include="_spa\lib\bootcards\samples\az-picker.html" />
-    <Content Include="_spa\lib\bootcards\samples\double-navbar.html" />
-    <Content Include="_spa\lib\bootcards\samples\img\Jamie Biddy.jpg" />
-    <Content Include="_spa\lib\bootcards\samples\img\Jerry Bess.jpg" />
-    <Content Include="_spa\lib\bootcards\samples\img\Joseph Barish.jpg" />
-    <Content Include="_spa\lib\bootcards\samples\img\Mark Booth.jpg" />
-    <Content Include="_spa\lib\bootcards\samples\img\Sofia Acey.jpg" />
-    <Content Include="_spa\lib\bootcards\samples\starter-template.html" />
-    <Content Include="_spa\lib\bootcards\site\0.1.0\docs.html" />
-    <Content Include="_spa\lib\bootcards\site\1.0.0\docs.html" />
-    <Content Include="_spa\lib\bootcards\site\about.html" />
-    <Content Include="_spa\lib\bootcards\site\css\bootcards-site.css" />
-    <Content Include="_spa\lib\bootcards\site\css\docs.css" />
-    <Content Include="_spa\lib\bootcards\site\docs.html" />
-    <Content Include="_spa\lib\bootcards\site\images\android-icon-144x144.png" />
-    <Content Include="_spa\lib\bootcards\site\images\android-icon-192x192.png" />
-    <Content Include="_spa\lib\bootcards\site\images\android-icon-36x36.png" />
-    <Content Include="_spa\lib\bootcards\site\images\android-icon-48x48.png" />
-    <Content Include="_spa\lib\bootcards\site\images\android-icon-72x72.png" />
-    <Content Include="_spa\lib\bootcards\site\images\android-icon-96x96.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon-114x114.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon-120x120.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon-144x144.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon-152x152.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon-180x180.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon-57x57.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon-60x60.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon-72x72.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon-76x76.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon-precomposed.png" />
-    <Content Include="_spa\lib\bootcards\site\images\apple-icon.png" />
-    <Content Include="_spa\lib\bootcards\site\images\bc-android-contact-details-framed.png" />
-    <Content Include="_spa\lib\bootcards\site\images\bc-android-contacts-framed.png" />
-    <Content Include="_spa\lib\bootcards\site\images\bc-android-dashboard-framed.png" />
-    <Content Include="_spa\lib\bootcards\site\images\bc-ipad-contacts-framed.png" />
-    <Content Include="_spa\lib\bootcards\site\images\bc-ipad-dashboard.png" />
-    <Content Include="_spa\lib\bootcards\site\images\bootcards-icon-rounded-120x120.png" />
-    <Content Include="_spa\lib\bootcards\site\images\browserconfig.xml" />
-    <Content Include="_spa\lib\bootcards\site\images\card-base-android.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-base-desktop.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-base-ios.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-chart-android.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-chart-desktop.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-chart-ios.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-file-android.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-file-desktop.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-file-ios.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-form-ios.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-media-android.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-media-desktop.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-media-ios.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-summary-android.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-summary-desktop.png" />
-    <Content Include="_spa\lib\bootcards\site\images\card-summary-ios.png" />
-    <Content Include="_spa\lib\bootcards\site\images\favicon-16x16.png" />
-    <Content Include="_spa\lib\bootcards\site\images\favicon-32x32.png" />
-    <Content Include="_spa\lib\bootcards\site\images\favicon-96x96.png" />
-    <Content Include="_spa\lib\bootcards\site\images\favicon.ico" />
-    <Content Include="_spa\lib\bootcards\site\images\Joseph Barish.jpg" />
-    <Content Include="_spa\lib\bootcards\site\images\ms-icon-144x144.png" />
-    <Content Include="_spa\lib\bootcards\site\images\ms-icon-150x150.png" />
-    <Content Include="_spa\lib\bootcards\site\images\ms-icon-310x310.png" />
-    <Content Include="_spa\lib\bootcards\site\images\ms-icon-70x70.png" />
-    <Content Include="_spa\lib\bootcards\site\images\Sarah Benson.jpg" />
-    <Content Include="_spa\lib\bootcards\site\images\Sofia Acey.jpg" />
-    <Content Include="_spa\lib\bootcards\src\fonts\icomoon.svg" />
-    <Content Include="_spa\lib\bootcards\src\js\bootcards.js" />
     <Content Include="_spa\lib\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="_spa\lib\bootstrap\dist\css\bootstrap-theme.min.css">
       <DependentUpon>bootstrap-theme.css</DependentUpon>
@@ -985,7 +892,6 @@
       <DependentUpon>bootstrap.js</DependentUpon>
     </Content>
     <Content Include="_spa\lib\bootstrap\dist\js\npm.js" />
-    <Content Include="_spa\lib\fastclick\lib\fastclick.js" />
     <Content Include="_spa\lib\font-awesome\css\font-awesome.css" />
     <Content Include="_spa\lib\font-awesome\css\font-awesome.min.css">
       <DependentUpon>font-awesome.css</DependentUpon>
@@ -1283,33 +1189,6 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="_spa\lib\bootcards\dist\css\bootcards-android.css.map">
-      <DependentUpon>bootcards-android.css</DependentUpon>
-    </Content>
-    <Content Include="_spa\lib\bootcards\dist\css\bootcards-desktop.css.map">
-      <DependentUpon>bootcards-desktop.css</DependentUpon>
-    </Content>
-    <Content Include="_spa\lib\bootcards\dist\css\bootcards-ios.css.map">
-      <DependentUpon>bootcards-ios.css</DependentUpon>
-    </Content>
-    <Content Include="_spa\lib\bootcards\dist\fonts\icomoon.eot" />
-    <Content Include="_spa\lib\bootcards\dist\fonts\icomoon.ttf" />
-    <Content Include="_spa\lib\bootcards\dist\fonts\icomoon.woff" />
-    <Content Include="_spa\lib\bootcards\site\images\manifest.json" />
-    <Content Include="_spa\lib\bootcards\src\css\bootcards.scss" />
-    <Content Include="_spa\lib\bootcards\src\css\bootcards-android.scss" />
-    <Content Include="_spa\lib\bootcards\src\css\bootcards-desktop.scss" />
-    <Content Include="_spa\lib\bootcards\src\css\bootcards-ios.scss" />
-    <Content Include="_spa\lib\bootcards\src\css\bootcards-mobile-shared.scss" />
-    <Content Include="_spa\lib\bootcards\src\fonts\icomoon.eot" />
-    <Content Include="_spa\lib\bootcards\src\fonts\icomoon.ttf" />
-    <Content Include="_spa\lib\bootcards\src\fonts\icomoon.woff" />
-    <Content Include="_spa\lib\bootcards\.bower.json" />
-    <Content Include="_spa\lib\bootcards\bower.json" />
-    <Content Include="_spa\lib\bootcards\CNAME" />
-    <Content Include="_spa\lib\bootcards\LICENSE" />
-    <Content Include="_spa\lib\bootcards\package.json" />
-    <Content Include="_spa\lib\bootcards\README.md" />
     <Content Include="_spa\lib\bootstrap\dist\css\bootstrap.css.map">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
@@ -1328,10 +1207,6 @@
     <Content Include="_spa\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="_spa\lib\bootstrap\.bower.json" />
     <Content Include="_spa\lib\bootstrap\LICENSE" />
-    <Content Include="_spa\lib\fastclick\.bower.json" />
-    <Content Include="_spa\lib\fastclick\bower.json" />
-    <Content Include="_spa\lib\fastclick\LICENSE" />
-    <Content Include="_spa\lib\fastclick\README.md" />
     <Content Include="_spa\lib\font-awesome\css\font-awesome.css.map">
       <DependentUpon>font-awesome.css</DependentUpon>
     </Content>
