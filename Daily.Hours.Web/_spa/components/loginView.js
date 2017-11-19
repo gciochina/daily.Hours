@@ -3,6 +3,8 @@
         function loginView(params) {
             var self = this;
 
+            self.needsLogin = ko.observable(false);
+
             self.emailAddress = ko.observable().extend({ required: true });
             self.password = ko.observable().extend({ required: true });
             self.rememberMe = ko.observable(false);
@@ -43,6 +45,25 @@
                     }
                 });
             };
+
+            //let's see if we're already logged in
+            $.ajax({
+                method: 'GET',
+                url: "api/User/WhoAmI",
+                success: function (data) {
+                    if (data) {
+                        self.needsLogin(false);
+                        self.currentUser(data);
+                        self.navModel("dayView");
+                    }
+                    else {
+                        self.needsLogin(true);
+                    }
+                },
+                error: function() {
+                    self.needsLogin(true);
+                }
+            });
         };
 
         return { viewModel: loginView, template: templateString };
