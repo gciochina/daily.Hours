@@ -14,11 +14,11 @@ namespace Daily.Hours.Web.Services
         internal ActivityViewModel Create(ActivityViewModel activityViewModel)
         {
             var startDate = activityViewModel.Date.Date;
-            var enddDate = activityViewModel.Date.Date.AddDays(1);
+            var endDate = activityViewModel.Date.Date.AddDays(1);
 
             var workLog = _context.WorkLogs.SingleOrDefault(l => l.Task.TaskId == activityViewModel.TaskId
             && l.User.UserId == activityViewModel.UserId
-            && l.Date > startDate && l.Date < enddDate);
+            && l.Date > startDate && l.Date < endDate);
 
             if (workLog == null)
             {
@@ -94,6 +94,30 @@ namespace Daily.Hours.Web.Services
                     Description = string.Join(System.Environment.NewLine, calc.Select(a => a.Description))
                 });
             return activitiesList.ToList();
+        }
+
+        internal List<ActivityViewModel> Report(DateTime startDate, DateTime endDate, int userId)
+        {
+            startDate = startDate.Date;
+            endDate = endDate.Date.AddDays(1);
+
+            var workLogs = _context.WorkLogs.Where(l => l.Date > startDate && l.Date < endDate
+                && (l.Task.Project.Users.Any(u => u.UserId == userId) || l.Task.Project.Owner.UserId == userId))
+                .GroupBy(a => a.Task.TaskId)
+                .ToList()
+                .Select(calc => new ActivityViewModel
+                {
+                    Id = calc.FirstOrDefault().WorkLogId,
+                    ProjectId = calc.FirstOrDefault().Task.Project.ProjectId,
+                    ProjectName = calc.FirstOrDefault().Task.Project.Name,
+                    TaskId = calc.FirstOrDefault().Task.TaskId,
+                    TaskName = calc.FirstOrDefault().Task.Name,
+                    FirstName = string.Join(", ", calc.Select(a => a.User.FullName).Distinct()),
+                    Hours = calc.Sum(a => a.Hours),
+                    Description = string.Join(System.Environment.NewLine, calc.Select(a => a.Description))
+                });
+
+            return workLogs.ToList();
         }
 
         internal ActivityViewModel Get(int workLogId)

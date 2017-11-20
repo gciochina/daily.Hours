@@ -42,5 +42,11 @@ namespace Daily.Hours.Web.Controllers
         {
             return _activityService.List(userId, filterDate);
         }
+
+        [HttpGet]
+        public List<ActivityViewModel> Report(DateTime startDate, DateTime endDate)
+        {
+            return _activityService.Report(startDate, endDate, AuthenticatedUserId);
+        }
     }
 }

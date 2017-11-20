@@ -5,39 +5,28 @@
             self.currentUser = params.currentUser;
             self.navModel = params.navModel;
 
+            self.startDate = ko.observable(new Date());
+            self.startDate.subscribe(function (newValue) {
+                self.load();
+            });
+
+            self.endDate = ko.observable(new Date());
+            self.endDate.subscribe(function (newValue) {
+                self.load();
+            });
+
             self.activities = ko.observableArray();
-            self.tasks = ko.observableArray();
-            self.filterDate = ko.observable(new Date());
 
-            self.showAddDialog = ko.observable(false);
-            self.Hours = ko.observable();
-            self.TaskId = ko.observable();
-
-            self.doShowRecordActivity = function () {
+            self.load = function () {
                 $.ajax({
                     method: 'GET',
-                    url: "api/Task/List",
-                    success: function (data) {
-                        self.showAddDialog(true);
-                        self.tasks(data);
-                    },
-                    error: function (error) {
-                        HandleError(error);
-                    }
-                });
-            }
-
-            self.doRecordActivity = function () {
-                $.ajax({
-                    method: 'PUT',
-                    url: "api/Activity/Create",
+                    url: "api/Activity/Report",
                     data: {
-                        Hours: self.Hours(),
-                        TaskId: self.TaskId(),
+                        startDate: (self.startDate() || new Date()).toISOString(),
+                        endDate: (self.endDate() || new Date()).toISOString(),
                     },
                     success: function (data) {
-                        self.load();
-                        self.showAddDialog(false);
+                        self.activities(data);
                     },
                     error: function (error) {
                         HandleError(error);
@@ -45,20 +34,7 @@
                 });
             }
 
-            $.ajax({
-                method: 'GET',
-                url: "api/Activity/List",
-                data: {
-                    userId: self.currentUser().Id,
-                    filterDate: (self.filterDate() || new Date()).toISOString(),
-                },
-                success: function (data) {
-                    self.activities(data);
-                },
-                error: function (error) {
-                    HandleError(error);
-                }
-            });
+            self.load();
         };
 
         return { viewModel: activityView, template: templateString };

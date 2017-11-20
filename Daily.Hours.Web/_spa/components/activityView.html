@@ -3,43 +3,34 @@
     <div class="row"></div>
     <div class="col-md-3">
         <div class="form-group">
-            <div class='input-group date dateTimes' data-bind="datepicker: filterDate">
+            <div class='input-group date dateTimes' data-bind="datepicker: startDate">
                 <input type="text" class="form-control"/> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
-            <label data-bind="text: moment(filterDate()).format('dddd, MMMM DD YYYY')"></label>
-        </div>
-        <div class="col-md-4">
-            <button data-bind="click: doShowRecordActivity" id="addActivity" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-plus glyphicon glyphicon-large"></span><br>Add</button>
+            <label data-bind="text: moment(startDate()).format('dddd, MMMM DD YYYY')"></label>
+            <div class='input-group date dateTimes' data-bind="datepicker: endDate">
+                <input type="text" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
+            <label data-bind="text: moment(endDate()).format('dddd, MMMM DD YYYY')"></label>
         </div>
     </div>
-    <h1> HERE BE DRAGONS </h1>
     <div class="col-md-9">
         <table>
             <thead>
+                <tr>
+                    <th class="col-md-2">Project</th>
+                    <th class="col-md-5">Task</th>
+                    <th class="col-md-3">User</th>
+                    <th class="col-md-2">Hours</th>
+                </tr>
             </thead>
             <tbody data-bind="foreach: activities">
                 <tr>
-                    <td data-bind="value: Project.Name"></td>
-                    <td data-bind="text: Task.Name"></td>
-                    <td data-bind="value: Hours"></td>
+                    <td class="col-md-2" data-bind="text: ProjectName"></td>
+                    <td class="col-md-5" data-bind="text: TaskName"></td>
+                    <td class="col-md-3" data-bind="text: UserFullName"></td>
+                    <td class="col-md-2" data-bind="text: Hours"></td>
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div id="recordActivityPopup" data-bind="css: 'class=col-md-1', dialog: {width: 500, modal: true, autoOpen: false, title: 'Record activity' }, dialogVisible: showAddDialog">
-        <div class="form-group">
-            <div class="col-md-8">
-                <label for="task">Task:</label>
-                <select class="form-control" id="task" data-bind="options: tasks, optionsText: 'Name', value: TaskId"></select>
-            </div>
-            <div class="col-md-2">
-                <label for="hours">Hours:</label>
-                <input id="hours" type="number" class="form-control" data-bind="value: Hours">
-            </div>
-            <div class="col-md-2">
-                <label>&nbsp;</label>
-                <button type="button" class="btn btn-default" data-bind="click:doRecordActivity">Record</button>
-            </div>
-        </div>
     </div>
 </div>
