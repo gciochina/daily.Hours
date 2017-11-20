@@ -2,8 +2,15 @@
 
 namespace Daily.Hours.Web.Models
 {
-    public class UserModel : BaseModel
+    public class User
     {
+        public int UserId { get; set; }
+
+        public User()
+        {
+            Projects = new HashSet<Project>();
+        }
+
         public string EmailAddress { get; set; }
 
         public string FirstName { get; set; }
@@ -24,8 +31,8 @@ namespace Daily.Hours.Web.Models
             }
         }
 
-        public virtual UserModel Inviter { get; set; }
+        public virtual User Inviter { get; set; }
 
-        public virtual List<ProjectModel> Projects { get; set; }
+        public virtual ICollection<Project> Projects { get; set; }
     }
 }

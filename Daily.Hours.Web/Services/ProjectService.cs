@@ -14,12 +14,12 @@ namespace Daily.Hours.Web.Services
 
         internal ProjectViewModel Create(ProjectViewModel projectViewModel, int ownerId)
         {
-            var projectModel = new ProjectModel
+            var projectModel = new Project
             {
                 CreatedOn = projectViewModel.CreatedOn == DateTime.MinValue? DateTime.Now : projectViewModel.CreatedOn,
                 IsActive = true,
                 Name = projectViewModel.Name,
-                Owner = _context.Users.Single(u => u.Id == ownerId)
+                Owner = _context.Users.Single(u => u.UserId == ownerId)
             };
 
             _context.Projects.Add(projectModel);
@@ -39,20 +39,20 @@ namespace Daily.Hours.Web.Services
 
         internal bool Delete(int projectId)
         {
-            _context.Projects.Remove(_context.Projects.SingleOrDefaultAsync(u=>u.Id == projectId).Result);
+            _context.Projects.Remove(_context.Projects.SingleOrDefaultAsync(u=>u.ProjectId == projectId).Result);
             _context.SaveChanges();
             return true;
         }
 
         internal ProjectViewModel Get(int projectId)
         {
-            var project = _context.Projects.Single(u => u.Id == projectId);
+            var project = _context.Projects.Single(u => u.ProjectId == projectId);
             return ProjectViewModel.From(project);
         }
 
         internal List<ProjectViewModel> Search(string term, int userId)
         {
-            var projectsList = _context.Projects.Where(p =>(p.Users.Any(u => u.Id == userId) || p.Owner.Id == userId));
+            var projectsList = _context.Projects.Where(p =>(p.Users.Any(u => u.UserId == userId) || p.Owner.UserId == userId));
             if (!string.IsNullOrEmpty(term))
             {
                 projectsList = projectsList.Where(p => p.Name.Contains(term));
@@ -62,7 +62,7 @@ namespace Daily.Hours.Web.Services
 
         internal List<ProjectViewModel> List(int userId)
         {
-            var projectsList = _context.Projects.Where(p => p.Owner.Id == userId).ToList();
+            var projectsList = _context.Projects.Where(p => p.Owner.UserId == userId).ToList();
             return projectsList.Select(p => ProjectViewModel.From(p)).ToList();
         }
     }

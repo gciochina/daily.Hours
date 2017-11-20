@@ -34,19 +34,19 @@ namespace Daily.Hours.Web.ViewModels
         public string Description { get; set; }
 
 
-        internal static ActivityViewModel From(ActivityModel activityModel)
+        internal static ActivityViewModel From(WorkLog activityModel)
         {
             return new ActivityViewModel
             {
-                Id = activityModel.Id,
+                Id = activityModel.WorkLogId,
                 Date = activityModel.Date,
                 Hours = activityModel.Hours,
-                TaskId = activityModel.Task.Id,
+                TaskId = activityModel.Task.TaskId,
                 TaskName = activityModel.Task.Name,
-                UserId = activityModel.User.Id,
+                UserId = activityModel.User.UserId,
                 FirstName = activityModel.User.FirstName,
                 LastName = activityModel.User.LastName,
-                ProjectId = activityModel.Task.Project.Id,
+                ProjectId = activityModel.Task.Project.ProjectId,
                 ProjectName = activityModel.Task.Project.Name,
                 Description = activityModel.Description
             };

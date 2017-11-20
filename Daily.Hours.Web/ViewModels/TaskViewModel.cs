@@ -12,13 +12,13 @@ namespace Daily.Hours.Web.ViewModels
 
         public string ProjectName { get; set; }
 
-        public static TaskViewModel From(TaskModel taskModel)
+        public static TaskViewModel From(Models.Task taskModel)
         {
             return new TaskViewModel
             {
-                Id = taskModel.Id,
+                Id = taskModel.TaskId,
                 Name = taskModel.Name,
-                ProjectId = taskModel.Project.Id,
+                ProjectId = taskModel.Project.ProjectId,
                 ProjectName = taskModel.Project.Name
             };
         }

@@ -14,10 +14,10 @@ namespace Daily.Hours.Web.Services
 
         internal TaskViewModel Create(TaskViewModel taskViewModel)
         {
-            var taskModel = new TaskModel
+            var taskModel = new Models.Task
             {
                 Name = taskViewModel.Name,
-                Project = _context.Projects.Single(p => p.Id == taskViewModel.ProjectId)
+                Project = _context.Projects.Single(p => p.ProjectId == taskViewModel.ProjectId)
             };
 
             _context.Tasks.Add(taskModel);
@@ -41,7 +41,7 @@ namespace Daily.Hours.Web.Services
 
         internal List<TaskViewModel> Search(string term, int userId, int projectId)
         {
-            var tasksList = _context.Tasks.Where(t => (t.Project.Users.Any(u => u.Id == userId) || t.Project.Owner.Id == userId) && t.Project.Id == projectId);
+            var tasksList = _context.Tasks.Where(t => (t.Project.Users.Any(u => u.UserId == userId) || t.Project.Owner.UserId == userId) && t.Project.ProjectId == projectId);
             if (!string.IsNullOrEmpty(term))
             {
                 tasksList = tasksList.Where(t => t.Name.Contains(term));
@@ -51,20 +51,20 @@ namespace Daily.Hours.Web.Services
 
         internal bool Delete(int taskId)
         {
-            _context.Tasks.Remove(_context.Tasks.SingleOrDefaultAsync(u=>u.Id == taskId).Result);
+            _context.Tasks.Remove(_context.Tasks.SingleOrDefaultAsync(u=>u.TaskId == taskId).Result);
             _context.SaveChanges();
             return true;
         }
 
         internal List<TaskViewModel> List(int userId)
         {
-            var tasksList = _context.Tasks.Where(t => t.Project.Users.Any(u => u.Id == userId) || t.Project.Owner.Id == userId).ToList();
+            var tasksList = _context.Tasks.Where(t => t.Project.Users.Any(u => u.UserId == userId) || t.Project.Owner.UserId == userId).ToList();
             return tasksList.Select(t => TaskViewModel.From(t)).ToList();
         }
 
         internal TaskViewModel Get(int taskId)
         {
-            var taskModel = _context.Tasks.Single(u => u.Id == taskId);
+            var taskModel = _context.Tasks.Single(u => u.TaskId == taskId);
             return TaskViewModel.From(taskModel);
         }
     }

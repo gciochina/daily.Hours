@@ -13,16 +13,16 @@ namespace Daily.Hours.Web.Services
 
         internal ActivityViewModel Create(ActivityViewModel activityViewModel)
         {
-            var activityModel = new ActivityModel
+            var activityModel = new WorkLog
             {
                 Date = activityViewModel.Date,
                 Hours = activityViewModel.Hours,
                 Description = activityViewModel.Description,
-                Task = _context.Tasks.Single(t => t.Id == activityViewModel.TaskId),
-                User = _context.Users.Single(u => u.Id == activityViewModel.UserId),
+                Task = _context.Tasks.Single(t => t.TaskId == activityViewModel.TaskId),
+                User = _context.Users.Single(u => u.UserId == activityViewModel.UserId),
             };
 
-            _context.Activities.Add(activityModel);
+            _context.WorkLogs.Add(activityModel);
 
             _context.SaveChanges();
 
@@ -45,7 +45,7 @@ namespace Daily.Hours.Web.Services
 
         internal bool Delete(int taskId)
         {
-            _context.Tasks.Remove(_context.Tasks.SingleOrDefaultAsync(u=>u.Id == taskId).Result);
+            _context.Tasks.Remove(_context.Tasks.SingleOrDefaultAsync(u=>u.TaskId == taskId).Result);
             _context.SaveChanges();
             return true;
         }
@@ -54,16 +54,16 @@ namespace Daily.Hours.Web.Services
         {
             var startDate = filterDate.Date;
             var enddDate = filterDate.Date.AddDays(1);
-            var activitiesList = _context.Activities
-                .Where(a => a.User.Id == userId && a.Date >= startDate && a.Date <= enddDate)
-                .GroupBy(a => a.Task.Id)
+            var activitiesList = _context.WorkLogs
+                .Where(a => a.User.UserId == userId && a.Date >= startDate && a.Date <= enddDate)
+                .GroupBy(a => a.Task.TaskId)
                 .ToList()
                 .Select(calc => new ActivityViewModel
                 {
-                    Id = calc.FirstOrDefault().Id,
-                    ProjectId = calc.FirstOrDefault().Task.Project.Id,
+                    Id = calc.FirstOrDefault().WorkLogId,
+                    ProjectId = calc.FirstOrDefault().Task.Project.ProjectId,
                     ProjectName = calc.FirstOrDefault().Task.Project.Name,
-                    TaskId = calc.FirstOrDefault().Task.Id,
+                    TaskId = calc.FirstOrDefault().Task.TaskId,
                     TaskName = calc.FirstOrDefault().Task.Name,
                     FirstName = calc.FirstOrDefault().User.FirstName,
                     LastName = calc.FirstOrDefault().User.LastName,
@@ -77,7 +77,7 @@ namespace Daily.Hours.Web.Services
 
         internal ActivityViewModel Get(int workLogId)
         {
-            var activityModel = _context.Activities.Single(u => u.Id == workLogId);
+            var activityModel = _context.WorkLogs.Single(u => u.WorkLogId == workLogId);
             return ActivityViewModel.From(activityModel);
         }
     }

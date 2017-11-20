@@ -11,15 +11,15 @@ namespace Daily.Hours.Web.ViewModels
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
 
-        internal static ProjectViewModel From(ProjectModel projectModel)
+        internal static ProjectViewModel From(Project projectModel)
         {
             return new ProjectViewModel
             {
-                Id = projectModel.Id,
+                Id = projectModel.ProjectId,
                 CreatedOn = projectModel.CreatedOn,
                 IsActive = projectModel.IsActive,
                 Name = projectModel.Name,
-                OwnerId = projectModel.Owner.Id
+                OwnerId = projectModel.Owner.UserId
             };
         }
     }

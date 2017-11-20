@@ -134,6 +134,7 @@
         init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
             var getUrl = allBindingsAccessor().getUrl;
             var insertUrl = allBindingsAccessor().insertUrl;
+            var canInsert = allBindingsAccessor().canInsert;
             var selectedItem = valueAccessor();
 
             var insertButtonId = "insertEntity_" + $(element).attr("id");
@@ -152,6 +153,18 @@
                         type: "GET",
                         success: function (data) {
                             var self = this;
+
+                            response(data.map(function (t) {
+                                return {
+                                    label: t.Name,
+                                    value: t.Name,
+                                    Id: t.Id
+                                }
+                            }));
+
+                            if (!canInsert)
+                                return;
+
                             self.insertUrl = insertUrl;
                             if (data.length !== 0 || $(element).val() === "") {
                                 $(element).addClass("col-md-12");
@@ -181,15 +194,6 @@
                                     });
                                 }
                             }
-
-                            response(data.map(function (t) {
-                                return {
-                                    label: t.Name,
-                                    value: t.Name,
-                                    Id: t.Id
-                                }
-                            }));
-
                         }
                     });
                 },

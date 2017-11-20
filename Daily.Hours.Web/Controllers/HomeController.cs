@@ -7,10 +7,10 @@ namespace Daily.Hours.Web.Controllers
     {
         public ActionResult Index()
         {
-            UserModel viewModel = null;
+            User viewModel = null;
             if (this.User.Identity.IsAuthenticated)
             {
-                viewModel = new UserModel { EmailAddress = this.User.Identity.Name };
+                viewModel = new User { EmailAddress = this.User.Identity.Name };
             }
             return View(viewModel);
         }

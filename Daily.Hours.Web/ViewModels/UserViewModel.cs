@@ -29,7 +29,7 @@ namespace Daily.Hours.Web.ViewModels
         }
 
 
-        internal static UserViewModel From(UserModel user)
+        internal static UserViewModel From(User user)
         {
             return new UserViewModel
             {
@@ -37,11 +37,11 @@ namespace Daily.Hours.Web.ViewModels
                 LastName = user.LastName,
                 EmailAddress = user.EmailAddress,
                 Password = user.Password,
-                Id = user.Id,
+                Id = user.UserId,
 
                 IsActivated = user.IsActivated,
                 IsAdmin = user.IsAdmin,
-                InviterId = user.Inviter?.Id
+                InviterId = user.Inviter?.UserId
             };
         }
     }
