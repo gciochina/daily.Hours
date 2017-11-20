@@ -193,6 +193,8 @@
   <ItemGroup>
     <Content Include="_spa\components\activityView.html" />
     <Content Include="_spa\components\activityView.js" />
+    <Content Include="_spa\components\profileView.html" />
+    <Content Include="_spa\components\profileView.js" />
     <Content Include="_spa\components\peopleView.html" />
     <Content Include="_spa\components\peopleView.js" />
     <Content Include="_spa\components\tasksView.html" />

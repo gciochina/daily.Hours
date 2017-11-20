@@ -1,0 +1,27 @@
+﻿<div class="container">
+    <div class="col-sm-2 col-md-4">
+    </div>
+    <div class="col-sm-8 col-md-4">
+        <form>
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" data-bind="value: firstName, onEnter: doUpdate">
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" data-bind="value: lastName, onEnter: doUpdate">
+            </div>
+            <div class="form-group">
+                <label for="emailAddress">Email Address:</label>
+                <input type="text" class="form-control" id="emailAddress" data-bind="value: emailAddress, onEnter: doUpdate">
+            </div>
+            <div class="form-group">
+                <label for="passWord">Password:</label>
+                <input type="password" class="form-control" id="passWord" data-bind="value: password, onEnter: doUpdate">
+            </div>
+            <button type="button" class="btn btn-default" data-bind="click:doUpdate">Update</button> &nbsp;
+        </form>
+    </div>
+    <div class="col-sm-2 col-md-4">
+    </div>
+</div>

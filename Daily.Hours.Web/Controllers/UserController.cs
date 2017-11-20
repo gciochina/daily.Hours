@@ -36,12 +36,16 @@ namespace Daily.Hours.Web.Controllers
         [HttpPost]
         public UserViewModel Update(UserViewModel user)
         {
-            if (!AuthenticatedUserIsAdmin || AuthenticatedUserId != user.Id )
+            if (AuthenticatedUserIsAdmin || AuthenticatedUserId == user.Id )
+            {
+                return _userService.Update(user);
+            }
+            else
             {
                 throw new UnauthorizedAccessException("No access. You are not an administrator and you're attempting to update someone else");
             }
 
-            return _userService.Update(user);
+            
         }
 
         [HttpGet]
