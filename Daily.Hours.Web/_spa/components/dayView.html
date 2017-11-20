@@ -25,9 +25,9 @@
             <thead>
                 <tr>
                     <th class="col-md-2">Project</th>
-                    <th class="col-md-7">Task</th>
-                    <th class="col-md-2">Hours</th>
-                    <th class="col-md-1">Description</th>
+                    <th class="col-md-6">Task</th>
+                    <th class="col-md-1">Hours</th>
+                    <th class="col-md-3"></th>
                 </tr>
             </thead>
             <tbody data-bind="foreach: activities">
@@ -36,8 +36,14 @@
                     <td data-bind="text: TaskName"></td>
                     <td data-bind="text: Hours"></td>
                     <td>
-                        <button data-bind="click: $parent.doShowDescription" id="showActivityDescription" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                        <button data-bind="click: $parent.doShowDescription" id="showActivityDescription" type="button" class="btn btn-default" title="Show details">
                             <span class="glyphicon glyphicon-question-sign"></span>
+                        </button>
+                        <button data-bind="click: $parent.doEditWorkLog" id="editWorkLog" type="button" class="btn btn-default" title="Edit worklog">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                        <button data-bind="click: $parent.doRemoveWorkLog" id="removeWorkLog" type="button" class="btn btn-default" title="Delete worklog">
+                            <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </td>
                 </tr>
@@ -51,6 +57,9 @@
                 <label for="project">Project:</label>
                 <div>
                     <input type="text" id="project" data-bind="autoComplete: Project, getUrl: 'api/Project/Search', insertUrl: 'api/Project/Create', canInsert: currentUser().IsAdmin" class="col-md-12" />
+                    <span data-bind="validationElement: Project">
+                        <input class="hidden" type="text" data-bind="value: Project" />
+                    </span>
                 </div>
             </div>
             <!-- ko with : Project -->
@@ -58,6 +67,9 @@
                 <label for="task">Task:</label>
                 <div>
                     <input type="text" id="task" data-bind="autoComplete: $parent.Task, getUrl: 'api/Task/Search?ProjectId=' + Id, insertUrl: 'api/Task/Create?ProjectId=' + Id, canInsert: true" class="col-md-12" />
+                    <span data-bind="validationElement: $parent.Task">
+                        <input class="hidden" type="text" data-bind="value: $parent.Task" />
+                    </span>
                 </div>
             </div>
             <!-- /ko  -->

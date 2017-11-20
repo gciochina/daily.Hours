@@ -131,7 +131,7 @@
     };
 
     ko.bindingHandlers.autoComplete = {
-        init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
             var getUrl = allBindingsAccessor().getUrl;
             var insertUrl = allBindingsAccessor().insertUrl;
             var canInsert = allBindingsAccessor().canInsert;

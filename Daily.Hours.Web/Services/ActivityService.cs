@@ -13,20 +13,34 @@ namespace Daily.Hours.Web.Services
 
         internal ActivityViewModel Create(ActivityViewModel activityViewModel)
         {
-            var activityModel = new WorkLog
-            {
-                Date = activityViewModel.Date,
-                Hours = activityViewModel.Hours,
-                Description = activityViewModel.Description,
-                Task = _context.Tasks.Single(t => t.TaskId == activityViewModel.TaskId),
-                User = _context.Users.Single(u => u.UserId == activityViewModel.UserId),
-            };
+            var startDate = activityViewModel.Date.Date;
+            var enddDate = activityViewModel.Date.Date.AddDays(1);
 
-            _context.WorkLogs.Add(activityModel);
+            var workLog = _context.WorkLogs.SingleOrDefault(l => l.Task.TaskId == activityViewModel.TaskId
+            && l.User.UserId == activityViewModel.UserId
+            && l.Date > startDate && l.Date < enddDate);
+
+            if (workLog == null)
+            {
+                workLog = new WorkLog
+                {
+                    Date = activityViewModel.Date,
+                    Hours = activityViewModel.Hours,
+                    Description = activityViewModel.Description,
+                    Task = _context.Tasks.Single(t => t.TaskId == activityViewModel.TaskId),
+                    User = _context.Users.Single(u => u.UserId == activityViewModel.UserId),
+                };
+
+                _context.WorkLogs.Add(workLog);
+            }
+            else
+            {
+                workLog.Hours += activityViewModel.Hours;
+            }
 
             _context.SaveChanges();
 
-            return ActivityViewModel.From(activityModel);
+            return ActivityViewModel.From(workLog);
         }
 
         internal ActivityViewModel Update(ActivityViewModel workLog)
@@ -43,9 +57,16 @@ namespace Daily.Hours.Web.Services
             return null;
         }
 
-        internal bool Delete(int taskId)
+        internal bool Delete(int workLogId, int userId)
         {
-            _context.Tasks.Remove(_context.Tasks.SingleOrDefaultAsync(u=>u.TaskId == taskId).Result);
+            var workLogToRemove = _context.WorkLogs.Single(u => u.WorkLogId == workLogId);
+
+            if (workLogToRemove.User.UserId != userId)
+            {
+                throw new UnauthorizedAccessException("You are not allowed to remove this worklog");
+            }
+
+            _context.WorkLogs.Remove(workLogToRemove);
             _context.SaveChanges();
             return true;
         }

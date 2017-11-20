@@ -22,14 +22,14 @@
                 <td data-bind="text: IsAdmin"></td>
                 <td data-bind="text: IsActivated"></td>
                 <td>
-                    <button data-bind="visible: IsActivated, click: $parent.doDeactivatePeople" id="closePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                    <button data-bind="visible: IsActivated, click: $parent.doDeactivatePeople" id="closePeople" type="button" class="btn btn-default" title="Deactivate account">
                         <span class="glyphicon glyphicon-stop"></span>
                     </button>
-                    <button data-bind="visible: IsActivated, click: $parent.deletePeople" id="deletePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
+                    <button data-bind="click: $parent.deletePeople" id="deletePeople" type="button" class="btn btn-default" title="Delete account">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
                     <div data-bind="visible: !IsActivated">
-                        <button data-bind="click: $parent.doActivatePeople" id="closePeople" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                        <button data-bind="click: $parent.doActivatePeople" id="closePeople" type="button" class="btn btn-default" title="Activate account">
                             <span class="glyphicon glyphicon-play"></span>
                         </button>
                     </div>

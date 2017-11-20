@@ -72,6 +72,22 @@
                 self.showDescriptionDialog(true);
             }
 
+            self.doRemoveWorkLog = function (workLog) {
+                $.ajax({
+                    method: 'GET',
+                    url: "api/Activity/Delete",
+                    data: {
+                        workLogId: workLog.Id
+                    },
+                    success: function (data) {
+                        self.load();
+                    },
+                    error: function (error) {
+                        HandleError(error);
+                    }
+                });
+            }
+
             self.doCloseActivityDescription = function (activity) {
                 self.showDescriptionDialog(false);
             }

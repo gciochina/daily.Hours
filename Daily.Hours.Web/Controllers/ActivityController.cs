@@ -25,10 +25,10 @@ namespace Daily.Hours.Web.Controllers
             return _activityService.Update(workLog);
         }
 
-        [HttpDelete]
+        [HttpGet]
         public bool Delete(int workLogId)
         {
-            return _activityService.Delete(workLogId);
+            return _activityService.Delete(workLogId, AuthenticatedUserId);
         }
 
         [HttpGet]

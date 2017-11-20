@@ -21,15 +21,15 @@
                 <td data-bind="text: IsActive"></td>
                 <td>
                     <div data-bind="visible: IsActive">
-                        <button data-bind="click: $parent.doDeactivateProject" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                        <button data-bind="click: $parent.doDeactivateProject" id="closeProject" type="button" class="btn btn-default" title="Deactivate project" >
                             <span class="glyphicon glyphicon-stop"></span>
                         </button>
-                        <button data-bind="click: $parent.deleteProject" id="deleteProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="delete" tooltip-placement="auto">
+                        <button data-bind="click: $parent.deleteProject" id="deleteProject" type="button" class="btn btn-default" title="Delete project">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </div>
                     <div data-bind="visible: !IsActive">
-                        <button data-bind="click: $parent.doActivateProject" id="closeProject" type="button" class="btn btn-default mhtooltip" data-toggle="tooltip" tooltip="close" tooltip-placement="auto">
+                        <button data-bind="click: $parent.doActivateProject" id="closeProject" type="button" class="btn btn-default" title="Activate project">
                             <span class="glyphicon glyphicon-play"></span>
                         </button>
                     </div>
