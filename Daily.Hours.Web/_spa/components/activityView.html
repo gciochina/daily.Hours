@@ -25,10 +25,9 @@
             </thead>
             <tfoot>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td data-bind="workLogTotalHours"></td>
+                    <td colspan="2"></td>
+                    <td class="bold">Total</td>
+                    <td class="bold" data-bind="text: workLogTotalHours"></td>
                 </tr>
             </tfoot>
             <tbody data-bind="foreach: activities">

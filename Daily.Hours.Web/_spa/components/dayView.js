@@ -20,7 +20,10 @@
             self.Task = ko.observable().extend({ required: true });
             self.Hours = ko.observable().extend({ required: true });
             self.Description = ko.observable();
-            
+
+            self.workLogTotalHours = ko.computed(function () {
+                return _.reduce(self.activities(), function (sum, workLog) { return sum + workLog.Hours; }, 0);
+            }, this);
 
             self.goPreviousDay = function () {
                 self.filterDate(self.filterDate().subtract(1, "days"));

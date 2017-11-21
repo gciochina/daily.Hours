@@ -191,6 +191,8 @@
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="_spa\lib\underscore\underscore.js" />
+    <Content Include="_spa\lib\underscore\underscore.min.js" />
     <Content Include="_spa\components\activityView.html" />
     <Content Include="_spa\components\activityView.js" />
     <Content Include="_spa\components\profileView.html" />
@@ -842,6 +844,7 @@
     <Content Include="_spa\lib\moment\CHANGELOG.md" />
     <Content Include="_spa\lib\moment\LICENSE" />
     <Content Include="_spa\lib\moment\README.md" />
+    <Content Include="_spa\lib\underscore\underscore.min.map" />
     <None Include="_spa\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

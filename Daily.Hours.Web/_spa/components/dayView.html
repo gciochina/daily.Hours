@@ -32,6 +32,13 @@
                     <th class="col-md-3"></th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td class="bold">Total</td>
+                    <td class="bold" data-bind="text: workLogTotalHours"></td>
+                </tr>
+            </tfoot>
             <tbody data-bind="foreach: activities">
                 <tr>
                     <td data-bind="text: ProjectName"></td>
