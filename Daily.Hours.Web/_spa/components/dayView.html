@@ -1,15 +1,15 @@
 ﻿<div class="container">
-    <div class="col-sm-4 col-md-4">
+    <div class="col-sm-12 col-md-4">
         <div>
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-3 col-md-3">
                 <button data-bind="click: goPreviousDay" id="previousDay" class="btn btn-info"><span class="glyphicon glyphicon-chevron-left "></span></button>
             </div>
-            <div class="col-sm-12 col-md-6">
+            <div class="col-sm-6 col-md-6">
                 <div class='input-group date dateTimes' data-bind="datepicker: filterDate">
                     <input type="text" class="form-control filterDatePicker" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-3 col-md-3">
                 <button data-bind="click: goNextDay" id="nextDay" class="btn btn-info"><span class="glyphicon glyphicon-chevron-right glyphicon glyphicon-large"></span></button>
             </div>
         </div>
@@ -18,10 +18,12 @@
             <label data-bind="text: filterDateText"></label>
         </div>
         <div class="row"></div>
-        <button data-bind="click: doShowRecordActivity" id="addActivity" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-plus glyphicon glyphicon-large"></span><br>Add</button>
+        <div class="col-sm-12 col-md-4 col-centered">
+            <button data-bind="click: doShowRecordActivity" id="addActivity" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-plus glyphicon glyphicon-large"></span><br>Add</button>
+        </div>
     </div>
-    <div class="col-sm-8 col-md-8">
-        <table class="table table-hover">
+    <div class="col-sm-12 col-md-8">
+        <table class="table table-hover table-condensed table-responsive">
             <thead>
                 <tr>
                     <th class="col-md-2">Project</th>
@@ -56,7 +58,7 @@
             <div class="col-sm-12 col-md-12">
                 <label for="project">Project:</label>
                 <div>
-                    <input type="text" id="project" data-bind="autoComplete: Project, getUrl: 'api/Project/Search', insertUrl: 'api/Project/Create', canInsert: currentUser().IsAdmin" class="col-md-12" />
+                    <input type="text" id="project" data-bind="autoComplete: Project, getUrl: 'api/Project/Search', insertUrl: 'api/Project/Create', canInsert: currentUser() && currentUser().IsAdmin" class="col-md-12" />
                     <span data-bind="validationElement: Project">
                         <input class="hidden" type="text" data-bind="value: Project" />
                     </span>

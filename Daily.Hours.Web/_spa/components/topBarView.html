@@ -1,28 +1,35 @@
-﻿<div class="container">
-    <label class="navbar-brand" href="#">daily.HOURS</label>
-    <div data-bind="visible: currentUser">
-        <nav class="navbar navbar">
-            <div class="container-fluid">
-                <ul class="nav navbar-nav">
-                    <li data-bind="css: {active: navModel() == 'trackView'}"><a href="#" data-bind="click:doTrack">TRACK</a></li>
-                    <li data-bind="css: {active: navModel() == 'activityView'}"><a href="#" data-bind="click:doActivity">ACTIVITY</a></li>
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            MANAGE
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li data-bind="visible: (currentUser() ? currentUser().IsAdmin : false), css: {active: navModel() == 'projectsView'}"><a href="#" data-bind="click:doProject">PROJECTS</a></li>
-                            <li data-bind="css: {active: navModel() == 'tasksView'}"><a href="#" data-bind="click:doTask">TASKS</a></li>
-                            <li data-bind="visible: (currentUser() ? currentUser().IsAdmin : false), css: {active: navModel() == 'peopleView'}"><a href="#" data-bind="click:doPeople">PEOPLE</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#" id="profile" data-bind="text: (currentUser() ? (currentUser().FullName).toUpperCase() : ''), click: doProfile" /></li>
-                    <li><a href="#" id="signOut" data-bind="click: doSignOut">SIGN OUT</a></li>
-                </ul>
-            </div>
-        </nav>
+﻿<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">daily.HOURS</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul data-bind="visible: currentUser" class="nav navbar-nav">
+                <li data-bind="css: {active: navModel() == 'trackView'}"><a href="#" data-bind="click:doTrack">TRACK</a></li>
+                <li data-bind="css: {active: navModel() == 'activityView'}"><a href="#" data-bind="click:doActivity">ACTIVITY</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        MANAGE
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li data-bind="visible: (currentUser() ? currentUser().IsAdmin : false), css: {active: navModel() == 'projectsView'}"><a href="#" data-bind="click:doProject">PROJECTS</a></li>
+                        <li data-bind="css: {active: navModel() == 'tasksView'}"><a href="#" data-bind="click:doTask">TASKS</a></li>
+                        <li data-bind="visible: (currentUser() ? currentUser().IsAdmin : false), css: {active: navModel() == 'peopleView'}"><a href="#" data-bind="click:doPeople">PEOPLE</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul data-bind="visible: currentUser" class="nav navbar-nav navbar-right">
+                <li><a href="#" id="profile" data-bind="text: (currentUser() ? (currentUser().FullName).toUpperCase() : ''), click: doProfile" /></li>
+                <li><a href="#" id="signOut" data-bind="click: doSignOut">SIGN OUT</a></li>
+            </ul>
+        </div>
     </div>
-</div>
+</nav>

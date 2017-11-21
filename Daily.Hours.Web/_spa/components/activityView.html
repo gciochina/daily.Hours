@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="col-md-9">
-        <table>
+        <table class="table table-hover table-condensed table-responsive">
             <thead>
                 <tr>
                     <th class="col-md-2">Project</th>
@@ -23,6 +23,14 @@
                     <th class="col-md-2">Hours</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td data-bind="workLogTotalHours"></td>
+                </tr>
+            </tfoot>
             <tbody data-bind="foreach: activities">
                 <tr>
                     <td class="col-md-2" data-bind="text: ProjectName"></td>

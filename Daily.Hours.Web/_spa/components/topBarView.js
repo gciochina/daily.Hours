@@ -31,16 +31,16 @@
             }
 
             self.doSignOut = function () {
+                self.currentUser(null);
                 $.ajax({
                     method: "POST",
                     url: "api/User/Logout",
-                    success: function (data) {
-                        self.currentUser(null);
+                    success: function () {
                         self.navModel("loginView");
                     },
                     error: function (error) {
                         HandleError(error);
-                    }
+                    },
                 })
                 
             }

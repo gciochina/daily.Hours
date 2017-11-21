@@ -17,6 +17,13 @@
 
             self.activities = ko.observableArray();
 
+            self.workLogTotalHours = ko.computed(function () {
+                //return self.activities.reduce((s, workLog) => {
+                //    return workLog.Hours + s;
+                //}, 0);
+                return 0;
+            }, this);
+
             self.load = function () {
                 $.ajax({
                     method: 'GET',
