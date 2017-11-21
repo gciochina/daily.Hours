@@ -13,9 +13,10 @@
 
             self.activityDescription = ko.observable();
 
-            self.showAddDialog = ko.observable(false);
+            self.showEditor = ko.observable(false);
             self.showDescriptionDialog = ko.observable(false);
 
+            self.Id = ko.observable();
             self.Project = ko.observable().extend({ required: true });
             self.Task = ko.observable().extend({ required: true });
             self.Hours = ko.observable().extend({ required: true });
@@ -34,10 +35,25 @@
             };
 
             self.doShowRecordActivity = function () {
-                self.showAddDialog(true);
+                self.Id("");
+                self.Project("");
+                self.Task("");
+                self.Hours("");
+                self.Description("");
+                self.showEditor(true);
             };
 
-            self.showAddDialog.subscribe(function (newValue) {
+            self.doEditWorkLog = function (workLog) {
+                self.Id(workLog.Id);
+                self.Project(workLog.Project);
+                self.Task(workLog.Task);
+                self.Hours(workLog.Hours);
+                self.Description(workLog.Description);
+
+                self.showEditor(true);
+            }
+
+            self.showEditor.subscribe(function (newValue) {
                 if (newValue) {
                     $('#task').autocomplete("option", "appendTo", ".eventInsForm");
                     $('#project').autocomplete("option", "appendTo", ".eventInsForm");
@@ -51,10 +67,15 @@
                     return;
                 }
 
+                var urlAction = self.Id()
+                    ? "api/Activity/Update"
+                    : "api/Activity/Create";
+
                 $.ajax({
                     method: 'PUT',
-                    url: "api/Activity/Create",
+                    url: urlAction,
                     data: {
+                        Id: self.Id(),
                         Hours: self.Hours(),
                         TaskId: self.Task().Id,
                         Date: self.filterDate().toISOString(),
@@ -62,7 +83,7 @@
                     },
                     success: function (data) {
                         self.load();
-                        self.showAddDialog(false);
+                        self.showEditor(false);
                     },
                     error: function (error) {
                         HandleError(error);
