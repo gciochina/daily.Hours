@@ -56,7 +56,7 @@ ko.bindingHandlers.datepicker = {
             element.value = new moment(new Date());
             console.log("undefined");
         } else {
-            element.value = unwrapped.format(thisFormat);
+            $(element).data("DateTimePicker").date(unwrapped.format(thisFormat));
         }
     }
 };
