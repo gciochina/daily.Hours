@@ -22,14 +22,14 @@
     text-align: center;
 }
 
-.ui-autocomplete .ui-front .ui-menu .ui-widget .ui-widget-content {
-    z-index: 99999 !important;
-}
-
 .col-centered {
     float: none;
     margin: 0 auto;
 }
 .bold {
     font-weight:bold;
+}
+
+ul.ui-autocomplete.ui-front.ui-menu.ui-widget.ui-widget-content {
+    z-index: 99999999 !important;
 }

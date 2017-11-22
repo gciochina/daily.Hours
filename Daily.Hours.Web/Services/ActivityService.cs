@@ -43,9 +43,15 @@ namespace Daily.Hours.Web.Services
             return ActivityViewModel.From(workLog);
         }
 
-        internal ActivityViewModel Update(ActivityViewModel workLog)
+        internal ActivityViewModel Update(ActivityViewModel workLog, int userId)
         {
             var workLogToUpdate = _context.WorkLogs.Single(u => u.WorkLogId == workLog.Id);
+
+            if (workLogToUpdate.User.UserId != userId)
+            {
+                throw new UnauthorizedAccessException("You are not allowed to edit this worklog!");
+            }
+
             workLogToUpdate.Hours = workLog.Hours;
             workLogToUpdate.Description = workLog.Description;
             _context.SaveChanges();

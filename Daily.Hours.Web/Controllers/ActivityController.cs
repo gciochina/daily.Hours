@@ -22,7 +22,7 @@ namespace Daily.Hours.Web.Controllers
         [HttpPost]
         public ActivityViewModel Update(ActivityViewModel workLog)
         {
-            return _activityService.Update(workLog);
+            return _activityService.Update(workLog, AuthenticatedUserId);
         }
 
         [HttpGet]

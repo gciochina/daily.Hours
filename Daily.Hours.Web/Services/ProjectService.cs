@@ -62,7 +62,7 @@ namespace Daily.Hours.Web.Services
 
         internal List<ProjectViewModel> List(int userId)
         {
-            var projectsList = _context.Projects.Where(p => p.Owner.UserId == userId).ToList();
+            var projectsList = _context.Projects.Where(p => p.Owner.UserId == userId || p.Users.Any(u=>u.UserId == userId)).ToList();
             return projectsList.Select(p => ProjectViewModel.From(p)).ToList();
         }
     }

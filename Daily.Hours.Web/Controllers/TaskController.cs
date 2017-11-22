@@ -25,7 +25,7 @@ namespace Daily.Hours.Web.Controllers
         [HttpPost]
         public TaskViewModel Update(TaskViewModel task)
         {
-            return _taskService.Update(task);
+            return _taskService.Update(task, AuthenticatedUserId);
         }
 
         [HttpGet]

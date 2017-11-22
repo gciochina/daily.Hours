@@ -27,16 +27,20 @@ namespace Daily.Hours.Web.Services
             return TaskViewModel.From(taskModel);
         }
 
-        internal TaskViewModel Update(TaskViewModel task)
+        internal TaskViewModel Update(TaskViewModel task, int userId)
         {
-            //var taskToUpdate = _context.Tasks.SingleAsync(u => u.Id == task.Id).Result;
-            //taskToUpdate.Name = task.Name;
-            //taskToUpdate.Project = task.Project;
+            var taskToUpdate = _context.Tasks.SingleAsync(t => t.TaskId == task.Id).Result;
 
-            //_context.SaveChanges();
+            if (!taskToUpdate.Project.Users.Any(u => u.UserId == userId) && taskToUpdate.Project.Owner.UserId != userId)
+            {
+                throw new UnauthorizedAccessException("You are not allowed to edit this task!");
+            }
 
-            //return taskToUpdate;
-            return null;
+            taskToUpdate.Name = task.Name;
+
+            _context.SaveChanges();
+
+            return TaskViewModel.From(taskToUpdate);
         }
 
         internal List<TaskViewModel> Search(string term, int userId, int projectId)

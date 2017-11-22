@@ -18,6 +18,9 @@
                 <td class="table-cell-title" data-bind="text: Name"></td>
                 <td class="table-cell-title" data-bind="text: ProjectName"></td>
                 <td>
+                    <button data-bind="click: $parent.doEditTask" id="editTask" type="button" class="btn btn-default" title="Edit task">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
                     <button data-bind="click: $parent.doDeleteTask" id="deleteTask" type="button" class="btn btn-default" title="Delete task">
                         <span class="glyphicon glyphicon-remove"></span>
                     </button>
@@ -25,7 +28,7 @@
             </tr>
         </tbody>
     </table>
-    <div id="addTaskPopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Add task' }, dialogVisible: showAddDialog, onEnter: doAddTask">
+    <div id="addTaskPopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Add task' }, dialogVisible: showAddDialog, onEnter: doSaveAddTask">
         <div class="form-group">
             <label for="name">Name:</label>
             <input type="text" class="form-control" id="name" data-bind="value: Name">
@@ -33,6 +36,13 @@
             <label for="project">Project:</label>
             <select class="form-control" id="project" data-bind="options: projects, optionsText: 'Name', value: Project"></select>
         </div>
-        <button type="button" class="btn btn-default" data-bind="click:doAddTask">Create</button>
+        <button type="button" class="btn btn-default" data-bind="click:doSaveAddTask">Create</button>
+    </div>
+    <div id="editTaskPopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Edit task' }, dialogVisible: showEditDialog, onEnter: doSaveEditTask">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" data-bind="value: Name">
+        </div>
+        <button type="button" class="btn btn-default" data-bind="click:doSaveEditTask">Save</button>
     </div>
 </div>

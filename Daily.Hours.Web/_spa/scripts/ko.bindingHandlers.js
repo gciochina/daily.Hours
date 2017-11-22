@@ -156,7 +156,7 @@ ko.bindingHandlers.autoComplete = {
                                     $.ajax({
                                         url: ko.isObservable(insertUrl) ? insertUrl() : insertUrl,
                                         data: {
-                                            Name: $(element).val()
+                                            Name: $(element).val(),
                                         },
                                         dataType: "json",
                                         type: "GET",

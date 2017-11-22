@@ -64,11 +64,11 @@
             }
 
             self.searchProjectsUrl = ko.computed(function () {
-                return 'api/Task/Search?ProjectId=' + (self.Project() != undefined ? self.Project().Id : '0');
+                return 'api/Task/Search?ProjectId=' + (self.Project() !== undefined ? self.Project().Id : '0');
             }, this);
 
             self.insertProjectsUrl = ko.computed(function () {
-                return 'api/Task/Create?ProjectId=' + (self.Project() != undefined ? self.Project().Id : '0');
+                return 'api/Task/Create?ProjectId=' + (self.Project() !== undefined ? self.Project().Id : '0');
             }, this);
 
             self.doRecordActivity = function () {
