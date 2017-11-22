@@ -3,6 +3,7 @@ using System.Web.Http;
 using Daily.Hours.Web.Services;
 using System.Collections.Generic;
 using Daily.Hours.Web.ViewModels;
+using System;
 
 namespace Daily.Hours.Web.Controllers
 {
@@ -30,7 +31,7 @@ namespace Daily.Hours.Web.Controllers
         [HttpGet]
         public bool Delete(int taskId)
         {
-            return _taskService.Delete(taskId);
+            return _taskService.Delete(taskId, AuthenticatedUserId);
         }
 
         [HttpGet]

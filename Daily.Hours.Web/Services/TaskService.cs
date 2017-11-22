@@ -49,9 +49,20 @@ namespace Daily.Hours.Web.Services
             return tasksList.ToList().Select(t => TaskViewModel.From(t)).ToList();
         }
 
-        internal bool Delete(int taskId)
+        internal bool Delete(int taskId, int userId)
         {
-            _context.Tasks.Remove(_context.Tasks.SingleOrDefaultAsync(u=>u.TaskId == taskId).Result);
+            var taskToRemove = _context.Tasks.Single(t => t.TaskId == taskId);
+            if (!taskToRemove.Project.Users.Any(u=>u.UserId == userId) && taskToRemove.Project.Owner.UserId != userId)
+            {
+                throw new UnauthorizedAccessException("You do not have access to this task");
+            }
+
+            if (_context.WorkLogs.Any(l=>l.Task.TaskId == taskId))
+            {
+                throw new InvalidOperationException("Work was already reported on this task");
+            }
+
+            _context.Tasks.Remove(taskToRemove);
             _context.SaveChanges();
             return true;
         }
