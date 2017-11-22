@@ -91,6 +91,18 @@ ko.bindingHandlers.dialog = {
 };
 
 ko.bindingHandlers.autoComplete = {
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        var selectedItem = valueAccessor();
+        if (selectedItem().Id) {
+            $(element).val(selectedItem().Id);
+            $(element).siblings('.ui-combobox').find('.ui-autocomplete-input').val(selectedItem().Name);
+        }
+        else {
+            $(element).val('');
+            $(element).siblings('.ui-combobox').find('.ui-autocomplete-input').val('');
+        }
+
+    },
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
         var getUrl = allBindingsAccessor().getUrl;
         var insertUrl = allBindingsAccessor().insertUrl;
@@ -105,7 +117,7 @@ ko.bindingHandlers.autoComplete = {
             autoFocus: true,
             source: function (request, response) {
                 $.ajax({
-                    url: getUrl,
+                    url: ko.isObservable(getUrl) ? getUrl() : getUrl,
                     data: {
                         term: request.term
                     },
@@ -118,7 +130,8 @@ ko.bindingHandlers.autoComplete = {
                             return {
                                 label: t.Name,
                                 value: t.Name,
-                                Id: t.Id
+                                Name: t.Name,
+                                Id: t.Id,
                             }
                         }));
 
@@ -141,7 +154,7 @@ ko.bindingHandlers.autoComplete = {
 
                                 $("#" + insertButtonId).click(function () {
                                     $.ajax({
-                                        url: self.insertUrl,
+                                        url: ko.isObservable(insertUrl) ? insertUrl() : insertUrl,
                                         data: {
                                             Name: $(element).val()
                                         },

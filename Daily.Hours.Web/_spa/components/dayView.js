@@ -13,12 +13,13 @@
 
             self.activityDescription = ko.observable();
 
-            self.showEditor = ko.observable(false);
+            self.showEditDialog = ko.observable(false);
+            self.showAddDialog = ko.observable(false);
             self.showDescriptionDialog = ko.observable(false);
 
             self.Id = ko.observable();
-            self.Project = ko.observable().extend({ required: true });
-            self.Task = ko.observable().extend({ required: true });
+            self.Project = ko.observable({ Id: undefined, Name: '' }).extend({ required: true });
+            self.Task = ko.observable({ Id: undefined, Name: '' }).extend({ required: true });
             self.Hours = ko.observable().extend({ required: true , min: 1, max: 8});
             self.Description = ko.observable();
 
@@ -34,31 +35,41 @@
                 self.filterDate(self.filterDate().add(1, "days"));
             };
 
+            self.showAddDialog.subscribe(function (newValue) {
+                    $('#task').autocomplete("option", "appendTo", ".eventInsForm");
+                    $('#project').autocomplete("option", "appendTo", ".eventInsForm");
+            });
+
+            self.showEditDialog.subscribe(function (newValue) {
+                $('#task').autocomplete("option", "appendTo", ".eventInsForm");
+                $('#project').autocomplete("option", "appendTo", ".eventInsForm");
+            });
+
             self.doShowRecordActivity = function () {
                 self.Id("");
-                self.Project("");
-                self.Task("");
+                self.Task({ Id: undefined, Name: '' });
                 self.Hours("");
                 self.Description("");
-                self.showEditor(true);
+                self.showAddDialog(true);
             };
 
             self.doEditWorkLog = function (workLog) {
                 self.Id(workLog.Id);
-                self.Project(workLog.Project);
-                self.Task(workLog.Task);
+                self.Project({ Id: workLog.ProjectId, Name: workLog.ProjectName });
+                self.Task({ Id: workLog.TaskId, Name: workLog.TaskName });
                 self.Hours(workLog.Hours);
                 self.Description(workLog.Description);
 
-                self.showEditor(true);
+                self.showEditDialog(true);
             }
 
-            self.showEditor.subscribe(function (newValue) {
-                if (newValue) {
-                    $('#task').autocomplete("option", "appendTo", ".eventInsForm");
-                    $('#project').autocomplete("option", "appendTo", ".eventInsForm");
-                }
-            });
+            self.searchProjectsUrl = ko.computed(function () {
+                return 'api/Task/Search?ProjectId=' + (self.Project() != undefined ? self.Project().Id : '0');
+            }, this);
+
+            self.insertProjectsUrl = ko.computed(function () {
+                return 'api/Task/Create?ProjectId=' + (self.Project() != undefined ? self.Project().Id : '0');
+            }, this);
 
             self.doRecordActivity = function () {
                 self.validationErrors = ko.validation.group(this, { deep: true })
@@ -83,7 +94,8 @@
                     },
                     success: function (data) {
                         self.load();
-                        self.showEditor(false);
+                        self.showEditDialog(false);
+                        self.showAddDialog(false);
                     },
                     error: function (error) {
                         HandleError(error);

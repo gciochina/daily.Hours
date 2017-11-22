@@ -59,29 +59,50 @@
             </tbody>
         </table>
     </div>
-    <div id="recordActivityPopup" data-bind="dialog: { width: 500, modal: true, autoOpen: false, title: 'Log work for ' }, dialogVisible: showEditor, onEnter: doRecordActivity">
+    <div id="recordActivityPopup" data-bind="dialog: { width: 500, modal: true, autoOpen: false, title: 'Log work for ' }, dialogVisible: showAddDialog, onEnter: doRecordActivity">
         <div class="form-group">
             <div data-bind="text: filterDateText"></div>
             <div class="col-sm-12 col-md-12">
-                <label for="project">Project:</label>
+                <label for="task">Project:</label>
                 <div>
-                    <input type="text" id="project" data-bind="autoComplete: Project, getUrl: 'api/Project/Search', insertUrl: 'api/Project/Create', canInsert: currentUser() && currentUser().IsAdmin" class="col-md-12" />
+                    <input type="text" id="project" data-bind="autoComplete: Project, 
+                           getUrl: 'api/Project/Search', 
+                           insertUrl: 'api/Project/Create', 
+                           canInsert: currentUser() && currentUser().IsAdmin" class="form-control" />
                     <span data-bind="validationElement: Project">
                         <input class="hidden" type="text" data-bind="value: Project" />
                     </span>
                 </div>
             </div>
-            <!-- ko with : Project -->
             <div class="col-sm-12 col-md-12">
                 <label for="task">Task:</label>
                 <div>
-                    <input type="text" id="task" data-bind="autoComplete: $parent.Task, getUrl: 'api/Task/Search?ProjectId=' + Id, insertUrl: 'api/Task/Create?ProjectId=' + Id, canInsert: true" class="col-md-12" />
-                    <span data-bind="validationElement: $parent.Task">
-                        <input class="hidden" type="text" data-bind="value: $parent.Task" />
+                    <input type="text" id="task" data-bind="autoComplete: Task, 
+                           getUrl: searchProjectsUrl, 
+                           insertUrl: insertProjectsUrl, 
+                           canInsert: Project()" class="form-control" />
+                    <span data-bind="validationElement: Task">
+                        <input class="hidden" type="text" data-bind="value: Task" />
                     </span>
                 </div>
             </div>
-            <!-- /ko  -->
+            <div class="col-sm-12 col-md-12">
+                <label for="hours">Hours:</label>
+                <input id="hours" max="8" min="1" type="number" class="form-control" data-bind="value: Hours">
+            </div>
+            <div class="col-sm-12 col-md-12">
+                <label for="decription">Description:</label>
+                <textarea id="description" type="number" class="form-control" data-bind="value: Description"></textarea>
+            </div>
+            <div class="col-sm-2 col-md-2">
+                <label>&nbsp;</label>
+                <button type="button" class="btn btn-default" data-bind="click:doRecordActivity">Record</button>
+            </div>
+        </div>
+    </div>
+    <div id="editWorkLogPopup" data-bind="dialog: { width: 500, modal: true, autoOpen: false, title: 'Edit work log ' }, dialogVisible: showEditDialog, onEnter: doRecordActivity">
+        <div class="form-group">
+            <div data-bind="text: filterDateText"></div>
             <div class="col-sm-12 col-md-12">
                 <label for="hours">Hours:</label>
                 <input id="hours" max="8" min="1" type="number" class="form-control" data-bind="value: Hours">
