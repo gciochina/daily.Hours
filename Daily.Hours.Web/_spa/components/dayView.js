@@ -83,7 +83,7 @@
                     : "api/Activity/Create";
 
                 $.ajax({
-                    method: 'PUT',
+                    method: 'POST',
                     url: urlAction,
                     data: {
                         Id: self.Id(),

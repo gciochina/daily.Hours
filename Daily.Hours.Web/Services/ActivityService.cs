@@ -45,16 +45,12 @@ namespace Daily.Hours.Web.Services
 
         internal ActivityViewModel Update(ActivityViewModel workLog)
         {
-            //var workLogToUpdate = _context.Activities.SingleAsync(u => u.Id == workLog.Id).Result;
-            //workLogToUpdate.Date = workLog.Date;
-            //workLogToUpdate.Hours = workLog.Hours;
-            //workLogToUpdate.Task = workLog.Task;
-            //workLogToUpdate.User = workLog.User;
+            var workLogToUpdate = _context.WorkLogs.Single(u => u.WorkLogId == workLog.Id);
+            workLogToUpdate.Hours = workLog.Hours;
+            workLogToUpdate.Description = workLog.Description;
+            _context.SaveChanges();
 
-            //_context.SaveChanges();
-
-            //return workLogToUpdate;
-            return null;
+            return ActivityViewModel.From(workLogToUpdate);
         }
 
         internal bool Delete(int workLogId, int userId)

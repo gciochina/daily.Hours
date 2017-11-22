@@ -12,7 +12,7 @@ namespace Daily.Hours.Web.Controllers
     {
         private ActivityService _activityService = new ActivityService();
 
-        [HttpPut]
+        [HttpPost]
         public ActivityViewModel Create(ActivityViewModel workLog)
         {
             workLog.UserId = AuthenticatedUserId;
