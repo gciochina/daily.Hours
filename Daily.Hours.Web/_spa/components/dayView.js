@@ -19,7 +19,7 @@
             self.Id = ko.observable();
             self.Project = ko.observable().extend({ required: true });
             self.Task = ko.observable().extend({ required: true });
-            self.Hours = ko.observable().extend({ required: true });
+            self.Hours = ko.observable().extend({ required: true , min: 1, max: 8});
             self.Description = ko.observable();
 
             self.workLogTotalHours = ko.computed(function () {
