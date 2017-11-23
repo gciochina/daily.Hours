@@ -8,7 +8,7 @@
             self.activities = ko.observableArray();
             self.filterDate = ko.observable(new Date());
             self.filterDateText = ko.computed(function () {
-                return moment(self.filterDate()).format('dddd, MMMM DD YYYY');
+                return moment(self.filterDate()).calendar();
             });
 
             self.activityDescription = ko.observable();
@@ -28,11 +28,11 @@
             }, this);
 
             self.goPreviousDay = function () {
-                self.filterDate(self.filterDate().subtract(1, "days"));
+                self.filterDate(moment(self.filterDate()).subtract(1, "days").format("YYYY-MM-DD"));
             };
 
             self.goNextDay = function () {
-                self.filterDate(self.filterDate().add(1, "days"));
+                self.filterDate(moment(self.filterDate()).add(1, "days").format("YYYY-MM-DD"));
             };
 
             self.showAddDialog.subscribe(function (newValue) {
@@ -89,7 +89,7 @@
                         Id: self.Id(),
                         Hours: self.Hours(),
                         TaskId: self.Task().Id,
-                        Date: self.filterDate().toISOString(),
+                        Date: self.filterDate(),
                         Description: self.Description()
                     },
                     success: function (data) {
@@ -134,7 +134,7 @@
                     url: "api/Activity/List",
                     data: {
                         userId: self.currentUser().Id,
-                        filterDate: self.filterDate().toISOString(),
+                        filterDate: self.filterDate()
                     },
                     success: function (data) {
                         self.activities(data);

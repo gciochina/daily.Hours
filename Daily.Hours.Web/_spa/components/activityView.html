@@ -6,11 +6,11 @@
             <div class='input-group date dateTimes' data-bind="datepicker: startDate">
                 <input type="text" class="form-control"/> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
-            <label data-bind="text: moment(startDate()).format('dddd, MMMM DD YYYY')"></label>
+            <label data-bind="text: moment(startDate()).calendar()"></label>
             <div class='input-group date dateTimes' data-bind="datepicker: endDate">
                 <input type="text" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
-            <label data-bind="text: moment(endDate()).format('dddd, MMMM DD YYYY')"></label>
+            <label data-bind="text: moment(endDate()).calendar()"></label>
         </div>
     </div>
     <div class="col-md-9">

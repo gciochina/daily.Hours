@@ -12,51 +12,55 @@
     }
 };
 
+var formatDateTime = function (date) {
+    return moment(date).format("YYYY-MM-DD");
+}
+
+//datetime picker
 ko.bindingHandlers.datepicker = {
-    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+    init: function (element, valueAccessor, allBindingsAccessor) {
         //initialize datepicker with some optional options
-        var options = {
-            format: 'DD/MM/YYYY',
-            defaultDate: valueAccessor()()
-        };
-
-        if (allBindingsAccessor() !== undefined) {
-            if (allBindingsAccessor().datepickerOptions !== undefined) {
-                options.format = allBindingsAccessor().datepickerOptions.format !== undefined ? allBindingsAccessor().datepickerOptions.format : options.format;
-            }
-        }
-
+        var options = allBindingsAccessor().dateTimePickerOptions || {};
         $(element).datetimepicker(options);
 
         //when a user changes the date, update the view model
         ko.utils.registerEventHandler(element, "dp.change", function (event) {
             var value = valueAccessor();
             if (ko.isObservable(value)) {
-                value(event.date);
+                if (event.date != null && !(event.date instanceof Date)) {
+                    if (event.date === false) {
+                        value(null);
+                    }
+                    else {
+                        value(formatDateTime(event.date.toDate()));
+                    }
+                } else {
+                    value(event.date);
+                }
             }
         });
 
-        var defaultVal = $(element).val() || new Date();
-        var value = valueAccessor();
-        value(moment(defaultVal, options.format));
-    },
-    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-        var thisFormat = 'DD/MM/YYYY';
-
-        if (allBindingsAccessor() !== undefined) {
-            if (allBindingsAccessor().datepickerOptions !== undefined) {
-                thisFormat = allBindingsAccessor().datepickerOptions.format !== undefined ? allBindingsAccessor().datepickerOptions.format : thisFormat;
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            var picker = $(element).data("DateTimePicker");
+            if (picker) {
+                picker.destroy();
             }
-        }
+        });
+    },
+    update: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
 
-        var value = valueAccessor();
-        var unwrapped = ko.utils.unwrapObservable(value());
+        var picker = $(element).data("DateTimePicker");
+        //when the view model is updated, update the widget
+        if (picker) {
+            var koDate = moment(ko.utils.unwrapObservable(valueAccessor()));
 
-        if (unwrapped === undefined || unwrapped === null) {
-            element.value = new moment(new Date());
-            console.log("undefined");
-        } else {
-            $(element).data("DateTimePicker").date(unwrapped.format(thisFormat));
+            //in case return from server datetime i am get in this form for example /Date(93989393)/ then fomat this
+            koDate = (typeof (koDate) !== 'object') ? new Date(parseFloat(koDate.replace(/[^0-9]/g, ''))) : koDate;
+
+            //check if there is actually a date
+            koDate = koDate < moment(0) ? moment() : koDate;
+
+            picker.date(koDate);
         }
     }
 };

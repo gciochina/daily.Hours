@@ -5,15 +5,8 @@
             self.currentUser = params.currentUser;
             self.navModel = params.navModel;
 
-            self.startDate = ko.observable(new Date());
-            self.startDate.subscribe(function (newValue) {
-                self.load();
-            });
-
-            self.endDate = ko.observable(new Date());
-            self.endDate.subscribe(function (newValue) {
-                self.load();
-            });
+            self.startDate = ko.observable(moment().format("YYYY-MM-DD"));
+            self.endDate = ko.observable(moment().format("YYYY-MM-DD"));
 
             self.activities = ko.observableArray();
 
@@ -26,8 +19,8 @@
                     method: 'GET',
                     url: "api/Activity/Report",
                     data: {
-                        startDate: (self.startDate() || new Date()).toISOString(),
-                        endDate: (self.endDate() || new Date()).toISOString(),
+                        startDate: (self.startDate() || new Date()),
+                        endDate: (self.endDate() || new Date()),
                     },
                     success: function (data) {
                         self.activities(data);
@@ -38,7 +31,12 @@
                 });
             }
 
-            self.load();
+            ko.computed(function () {
+                self.startDate();
+                self.endDate();
+                self.load();
+            });
+
         };
 
         return { viewModel: activityView, template: templateString };

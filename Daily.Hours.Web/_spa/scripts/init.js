@@ -28,6 +28,17 @@
         ko.components.register('peopleView', { require: 'components/peopleView' });
     });
 
+    moment.locale('yourlang', {
+        calendar: {
+            lastDay: '[Yesterday]',
+            sameDay: '[Today]',
+            nextDay: '[Tomorrow]',
+            lastWeek: '[last] dddd',
+            nextWeek: 'dddd',
+            sameElse: 'L'
+        }
+    });
+
     ko.validation.rules.pattern.message = 'Invalid.';
 
     ko.validation.configure({
