@@ -3,7 +3,7 @@
         var callback = valueAccessor();
         $(element).keyup(function (event) {
             var keyCode = (event.which ? event.which : event.keyCode);
-            if (keyCode === 13) {
+            if (!event.ctrlKey && keyCode === 13) {
                 callback.call(viewModel);
                 return false;
             }

@@ -37,10 +37,10 @@
             </tr>
         </tbody>
     </table>
-    <div id="addProjectPopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Add project' }, dialogVisible: showAddDialog, onEnter: doAddProject">
+    <div id="addProjectPopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Add project' }, dialogVisible: showAddDialog">
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" data-bind="value: Name">
+            <input type="text" class="form-control" id="name" data-bind="value: Name, onEnter: doAddProject">
         </div>
         <button type="button" class="btn btn-default" data-bind="click:doAddProject">Create</button>
     </div>

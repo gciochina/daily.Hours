@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Daily.Hours.Web.ViewModels;
 using Daily.Hours.Web.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Daily.Hours.Web.Services
 {
@@ -13,6 +14,9 @@ namespace Daily.Hours.Web.Services
 
         internal ActivityViewModel Create(ActivityViewModel activityViewModel)
         {
+            if (activityViewModel.TaskId == 0)
+                throw new ValidationException("Please select a task!");
+
             var startDate = activityViewModel.Date.Date;
             var endDate = activityViewModel.Date.Date.AddDays(1);
 
