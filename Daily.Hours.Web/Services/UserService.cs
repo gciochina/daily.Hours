@@ -10,6 +10,8 @@ using Daily.Hours.Web.ViewModels;
 using System.Net;
 using System.Web;
 using System.Text;
+using System.Security.Cryptography;
+using System.IO;
 
 namespace Daily.Hours.Web.Services
 {
@@ -17,17 +19,23 @@ namespace Daily.Hours.Web.Services
     {
         DailyHoursContext _context = new DailyHoursContext();
 
+        private const string EncryptionKey = "MAKV2SPBNI99212";
+
+        private readonly byte[] SaltKey = new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 };
+
         internal UserViewModel Create(UserViewModel user, int? inviterId)
         {
             if (_context.Users.AnyAsync(u => u.EmailAddress == user.EmailAddress).Result)
                 throw new ArgumentException("This email address is already registered");
+
+            var plainPassword = System.Web.Security.Membership.GeneratePassword(8, 1);
 
             var userModel = new User
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 EmailAddress = user.EmailAddress,
-                Password = System.Web.Security.Membership.GeneratePassword(8, 1),
+                Password = Encrypt(plainPassword),
                 IsAdmin = false,
                 IsActivated = false
             };
@@ -56,7 +64,7 @@ An account registration was started for your email address.<br />
 <br />
 Here are your login details:<br />
 User: {userModel.EmailAddress}<br />
-Pass: {userModel.Password}<br />
+Pass: {plainPassword}<br />
 In order to prevent spammers, please confirm you email by clicking the link below:<br />
 <a href='{activationLink}'>Yes, that's me!</a><br />
 <br />
@@ -130,8 +138,12 @@ daily.Hours"
             userToUpdate.FirstName = user.FirstName;
             userToUpdate.IsAdmin = user.IsAdmin;
             userToUpdate.LastName = user.LastName;
-            userToUpdate.Password = user.Password;
             userToUpdate.EmailAddress = user.EmailAddress;
+
+            if (!string.IsNullOrWhiteSpace(user.Password))
+            {
+                userToUpdate.Password = Encrypt(user.Password);
+            }
 
             _context.SaveChanges();
 
@@ -159,8 +171,70 @@ daily.Hours"
 
         internal UserViewModel Login(string emailAddress, string password)
         {
-            var user = _context.Users.Single(u => u.EmailAddress == emailAddress && u.Password == password && u.IsActivated);
+            var user = _context.Users.SingleOrDefault(u => u.EmailAddress == emailAddress && u.IsActivated);
+
+            if (user == null)
+            {
+                throw new UnauthorizedAccessException("Incorrect user or password");
+            }
+
+            if (Decrypt(user.Password) != password)
+            {
+                throw new UnauthorizedAccessException("Incorrect user or password");
+            }
+
             return UserViewModel.From(user);
+        }
+
+        private string Encrypt(string clearText)
+        {
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, SaltKey);
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+                    clearText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return clearText;
+        }
+
+        private string Decrypt(string cipherText)
+        {
+            try
+            {
+                byte[] cipherBytes = Convert.FromBase64String(cipherText);
+                using (Aes encryptor = Aes.Create())
+                {
+                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(EncryptionKey, SaltKey);
+                    encryptor.Key = pdb.GetBytes(32);
+                    encryptor.IV = pdb.GetBytes(16);
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                        {
+                            cs.Write(cipherBytes, 0, cipherBytes.Length);
+                            cs.Close();
+                        }
+                        cipherText = Encoding.Unicode.GetString(ms.ToArray());
+                    }
+                }
+            }
+            catch
+            {
+                //ToDo: encrypt all passwords!
+                //sink exception for now, for users that haven't encrypted their passwords, the decryption is not going to work!
+            }
+
+            return cipherText;
         }
     }
 }
