@@ -37,16 +37,16 @@
             </tr>
         </tbody>
     </table>
-    <div id="invitePeoplePopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Invite member to team' }, dialogVisible: showAddDialog, onEnter: doInvitePeople">
+    <div id="invitePeoplePopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Invite member to team' }, dialogVisible: showAddDialog">
         <div class="form-group">
             <label for="firstName">First name:</label>
-            <input type="text" class="form-control" id="firstName" data-bind="value: FirstName">
+            <input type="text" class="form-control" id="firstName" data-bind="value: FirstName, onEnter: doInvitePeople">
             <br />
             <label for="lastName">Last name:</label>
-            <input type="text" class="form-control" id="lastName" data-bind="value: LastName">
+            <input type="text" class="form-control" id="lastName" data-bind="value: LastName, onEnter: doInvitePeople">
             <br />
             <label for="emailAddress">Email address:</label>
-            <input type="text" class="form-control" id="emailAddress" data-bind="value: EmailAddress">
+            <input type="text" class="form-control" id="emailAddress" data-bind="value: EmailAddress, onEnter: doInvitePeople">
         </div>
         <button type="button" class="btn btn-default" data-bind="click:doInvitePeople">Invite</button>
     </div>
