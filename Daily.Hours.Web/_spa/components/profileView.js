@@ -9,7 +9,7 @@
             self.emailAddress = ko.observable(self.currentUser().EmailAddress).extend({ required: true });
             self.firstName = ko.observable(self.currentUser().FirstName).extend({ required: true });
             self.lastName = ko.observable(self.currentUser().LastName).extend({ required: true });
-            self.password = ko.observable(self.currentUser().Password).extend({ required: true });
+            self.password = ko.observable(self.currentUser().Password);
 
             self.doUpdate = function () {
                 self.validationErrors = ko.validation.group(this, { deep: true })
@@ -20,7 +20,7 @@
 
                 $.ajax({
                     method: 'POST',
-                    url: "api/User/Update",
+                    url: "api/User/UpdateProfile",
                     data: {
                         Id: self.currentUser().Id,
                         EmailAddress: self.emailAddress(),

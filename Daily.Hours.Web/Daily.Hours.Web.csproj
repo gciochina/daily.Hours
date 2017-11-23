@@ -191,6 +191,7 @@
     <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="_spa\css\themes\images\logo.png" />
     <Content Include="_spa\css\themes\images\ui-bg_flat_0_888888_40x100.png" />
     <Content Include="_spa\css\themes\images\ui-bg_glass_25_e1f0f5_1x400.png" />
     <Content Include="_spa\css\themes\images\ui-bg_glass_55_444444_1x400.png" />

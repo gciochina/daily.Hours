@@ -3,7 +3,7 @@
         <h1>Tasks</h1>
     </div>
     <div class="col-md-6">
-        <a id="taskCreate" href="#" class="btn btn-primary col-md-offset-8" data-bind="click: doShowAddTask"><i class="glyphicon glyphicon-plus"></i><br />Create</a>
+        <button id="taskCreate" class="btn btn-warning col-md-offset-8" data-bind="click: doShowAddTask"><i class="glyphicon glyphicon-plus"></i>&nbsp;Create</button>
     </div>
     <table class="table table-hover table-condensed table-responsive" >
         <thead>
@@ -31,7 +31,7 @@
     <div id="addTaskPopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Add task' }, dialogVisible: showAddDialog">
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" data-bind="value: Name, onEnter: doSaveAddTask">
+            <input type="text" class="form-control" id="nameAdd" data-bind="value: Name, onEnter: doSaveAddTask">
             <br/>
             <label for="project">Project:</label>
             <select class="form-control" id="project" data-bind="options: projects, optionsText: 'Name', value: Project, onEnter: doSaveAddTask"></select>
@@ -41,7 +41,7 @@
     <div id="editTaskPopup" data-bind="dialog: {width: 500, modal: true, autoOpen: false, title: 'Edit task' }, dialogVisible: showEditDialog">
         <div class="form-group">
             <label for="name">Name:</label>
-            <input type="text" class="form-control" id="name" data-bind="value: Name, onEnter: doSaveEditTask">
+            <input type="text" class="form-control" id="nameEdit" data-bind="value: Name, onEnter: doSaveEditTask">
         </div>
         <button type="button" class="btn btn-default" data-bind="click:doSaveEditTask">Save</button>
     </div>

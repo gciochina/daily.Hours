@@ -34,11 +34,11 @@ namespace Daily.Hours.Web.Controllers
         }
 
         [HttpPost]
-        public UserViewModel Update(UserViewModel user)
+        public UserViewModel UpdateProfile(UserViewModel user)
         {
             if (AuthenticatedUserIsAdmin || AuthenticatedUserId == user.Id )
             {
-                return _userService.Update(user);
+                return _userService.UpdateProfile(user);
             }
             else
             {

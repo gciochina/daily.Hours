@@ -132,11 +132,10 @@ daily.Hours"
             return UserViewModel.From(user);
         }
 
-        internal UserViewModel Update(UserViewModel user)
+        internal UserViewModel UpdateProfile(UserViewModel user)
         {
             var userToUpdate = _context.Users.SingleAsync(u => u.UserId == user.Id).Result;
             userToUpdate.FirstName = user.FirstName;
-            userToUpdate.IsAdmin = user.IsAdmin;
             userToUpdate.LastName = user.LastName;
             userToUpdate.EmailAddress = user.EmailAddress;
 

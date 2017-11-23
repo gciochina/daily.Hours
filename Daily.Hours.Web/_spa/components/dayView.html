@@ -1,29 +1,28 @@
 ﻿<div class="container">
     <div class="col-sm-12 col-md-4">
-        <div>
-            <div class="col-sm-3 col-md-3">
-                <button data-bind="click: goPreviousDay" id="previousDay" class="btn btn-info"><span class="glyphicon glyphicon-chevron-left "></span></button>
-            </div>
-            <div class="col-sm-6 col-md-6">
-                <div class='input-group date dateTimes' data-bind="datepicker: filterDate">
-                    <input type="text" class="form-control filterDatePicker" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                </div>
-            </div>
-            <div class="col-sm-3 col-md-3">
-                <button data-bind="click: goNextDay" id="nextDay" class="btn btn-info"><span class="glyphicon glyphicon-chevron-right glyphicon glyphicon-large"></span></button>
-            </div>
-        </div>
+        <table class="col-sm-12 col-md-12 col-centered table-responsive">
+            <tr>
+                <td><button data-bind="click: goPreviousDay" id="previousDay" class="btn btn-warning"><i class="glyphicon glyphicon-chevron-left"></i></button></td>
+                <td>
+                    <div class='input-group date dateTimes' style="margin:0 15px 0 15px" data-bind="datepicker: filterDate">
+                        <input type="text" class="form-control filterDatePicker" /> <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    </div>
+                </td>
+                <td><button style="clear:both" data-bind="click: goNextDay" id="nextDay" class="btn btn-warning"><i class="glyphicon glyphicon-chevron-right glyphicon glyphicon-large"></i></button></td>
+            </tr>
+        </table>
         <div class="row"></div>
         <div class="dateFilter">
             <label data-bind="text: filterDateText"></label>
         </div>
         <div class="row"></div>
-        <div class="col-sm-12 col-md-4 col-centered">
-            <button data-bind="click: doShowRecordActivity" id="addActivity" class="btn btn-block btn-primary"><span class="glyphicon glyphicon-plus glyphicon glyphicon-large"></span><br>Add</button>
+        <div class="col-sm-12 col-md-12 col-centered">
+            <button data-bind="click: doShowRecordActivity" id="addActivity" class="btn btn-block btn-warning"><i class="glyphicon glyphicon-plus"></i>&nbsp;Add</button>
         </div>
+        <br/>
     </div>
     <div class="col-sm-12 col-md-8">
-        <table class="table table-hover table-condensed table-responsive">
+        <table class="table table-hover table-condensed table-responsive" data-bind="visible: activities().length > 0">
             <thead>
                 <tr>
                     <th class="col-md-2">Project</th>
@@ -39,7 +38,7 @@
                     <td class="bold" data-bind="text: workLogTotalHours"></td>
                 </tr>
             </tfoot>
-            <tbody data-bind="visible: activities().length > 0, foreach: activities">
+            <tbody data-bind="foreach: activities">
                 <tr>
                     <td data-bind="text: ProjectName"></td>
                     <td data-bind="text: TaskName"></td>
@@ -71,7 +70,7 @@
                     <input type="text" id="project" data-bind="autoComplete: Project, 
                            getUrl: 'api/Project/Search', 
                            insertUrl: 'api/Project/Create', 
-                           canInsert: currentUser() && currentUser().IsAdmin" class="form-control" />
+                           canInsert: currentUser() && currentUser().IsAdmin" class="form-control" placeholder="Start typing a project..."/>
                     <span data-bind="validationElement: Project">
                         <input class="hidden" type="text" data-bind="value: Project, onEnter: doRecordActivity" />
                     </span>
@@ -83,7 +82,7 @@
                     <input type="text" id="task" data-bind="autoComplete: Task, 
                            getUrl: searchProjectsUrl, 
                            insertUrl: insertProjectsUrl, 
-                           canInsert: Project()" class="form-control" />
+                           canInsert: Project()" class="form-control" placeholder="Start typing a task..."/>
                     <span data-bind="validationElement: Task">
                         <input class="hidden" type="text" data-bind="value: Task, onEnter: doRecordActivity" />
                     </span>
@@ -91,11 +90,11 @@
             </div>
             <div class="col-sm-12 col-md-12">
                 <label for="hours">Hours:</label>
-                <input id="hours" max="8" min="1" type="number" class="form-control" data-bind="value: Hours, onEnter: doRecordActivity">
+                <input id="hours" max="8" min="1" type="number" class="form-control" data-bind="value: Hours, onEnter: doRecordActivity" placeholder="Time spent">
             </div>
             <div class="col-sm-12 col-md-12">
                 <label for="decription">Description:</label>
-                <textarea id="description" type="number" class="form-control" data-bind="value: Description"></textarea>
+                <textarea id="description" type="number" class="form-control" data-bind="value: Description" placeholder="What's done"></textarea>
             </div>
             <div class="col-sm-2 col-md-2">
                 <label>&nbsp;</label>
@@ -108,11 +107,11 @@
             <div data-bind="text: filterDateText"></div>
             <div class="col-sm-12 col-md-12">
                 <label for="hours">Hours:</label>
-                <input id="hours" max="8" min="1" type="number" class="form-control" data-bind="value: Hours, onEnter: doRecordActivity">
+                <input id="hours" max="8" min="1" type="number" class="form-control" data-bind="value: Hours, onEnter: doRecordActivity" placeholder="Time spent">
             </div>
             <div class="col-sm-12 col-md-12">
                 <label for="decription">Description:</label>
-                <textarea id="description" type="number" class="form-control" data-bind="value: Description"></textarea>
+                <textarea id="description" type="number" class="form-control" data-bind="value: Description" placeholder="What's done"></textarea>
             </div>
             <div class="col-sm-2 col-md-2">
                 <label>&nbsp;</label>
