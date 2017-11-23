@@ -20,7 +20,7 @@ var formatDateTime = function (date) {
 ko.bindingHandlers.datepicker = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         //initialize datepicker with some optional options
-        var options = allBindingsAccessor().dateTimePickerOptions || {};
+        var options = allBindingsAccessor().dateTimePickerOptions || { format: 'L'};
         $(element).datetimepicker(options);
 
         //when a user changes the date, update the view model

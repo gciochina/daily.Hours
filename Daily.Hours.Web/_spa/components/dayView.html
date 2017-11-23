@@ -39,7 +39,7 @@
                     <td class="bold" data-bind="text: workLogTotalHours"></td>
                 </tr>
             </tfoot>
-            <tbody data-bind="foreach: activities">
+            <tbody data-bind="visible: activities().length > 0, foreach: activities">
                 <tr>
                     <td data-bind="text: ProjectName"></td>
                     <td data-bind="text: TaskName"></td>
@@ -58,6 +58,9 @@
                 </tr>
             </tbody>
         </table>
+        <h3 data-bind="visible: activities().length == 0" class="text-center">
+            No log reported for this day
+        </h3>
     </div>
     <div id="recordActivityPopup" data-bind="dialog: { width: 500, modal: true, autoOpen: false, title: 'Log work for ' }, dialogVisible: showAddDialog">
         <div class="form-group">
