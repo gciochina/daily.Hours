@@ -48,7 +48,7 @@ namespace Daily.Hours.Web.Services
             var tasksList = _context.Tasks.Where(t => (t.Project.Users.Any(u => u.UserId == userId) || t.Project.Owner.UserId == userId) && t.Project.ProjectId == projectId);
             if (!string.IsNullOrEmpty(term))
             {
-                tasksList = tasksList.Where(t => t.Name.Contains(term));
+                tasksList = tasksList.Where(t => t.Name.StartsWith(term));
             }
             return tasksList.ToList().Select(t => TaskViewModel.From(t)).ToList();
         }
