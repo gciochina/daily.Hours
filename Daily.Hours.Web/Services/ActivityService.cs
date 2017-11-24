@@ -22,13 +22,13 @@ namespace Daily.Hours.Web.Services
 
             var workLog = _context.WorkLogs.SingleOrDefault(l => l.Task.TaskId == activityViewModel.TaskId
             && l.User.UserId == activityViewModel.UserId
-            && l.Date > startDate && l.Date < endDate);
+            && l.Date >= startDate && l.Date <= endDate);
 
             if (workLog == null)
             {
                 workLog = new WorkLog
                 {
-                    Date = activityViewModel.Date,
+                    Date = activityViewModel.Date + DateTime.Now.TimeOfDay,
                     Hours = activityViewModel.Hours,
                     Description = activityViewModel.Description,
                     Task = _context.Tasks.Single(t => t.TaskId == activityViewModel.TaskId),

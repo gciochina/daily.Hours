@@ -36,7 +36,7 @@ namespace Daily.Hours.Web.Services
                 LastName = user.LastName,
                 EmailAddress = user.EmailAddress,
                 Password = Encrypt(plainPassword),
-                IsAdmin = false,
+                IsAdmin = user.IsAdmin,
                 IsActivated = false
             };
 
@@ -128,6 +128,8 @@ daily.Hours"
             user.IsActivated = true;
 
             _context.SaveChanges();
+
+            user.Password = Decrypt(user.Password);
 
             return UserViewModel.From(user);
         }

@@ -97,6 +97,7 @@ namespace Daily.Hours.Web.Controllers
         [HttpPost]
         public UserViewModel Register(UserViewModel user)
         {
+            user.IsAdmin = true;
             return _userService.Create(user, null);
         }
 
