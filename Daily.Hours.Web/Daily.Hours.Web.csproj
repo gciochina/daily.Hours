@@ -273,8 +273,6 @@
     <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\docs\theme\nav.html" />
     <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\docs\theme\toc.html" />
     <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\Gruntfile.js" />
-    <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\src\js\bootstrap-datetimepicker.js" />
-    <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\src\nuget\NuGet.exe" />
     <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\tasks\bump_version.js" />
     <Content Include="_spa\lib\jquery-ui\jquery-ui.js" />
     <Content Include="_spa\css\themes\jquery-ui.css" />
@@ -839,13 +837,6 @@
     <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\mkdocs.yml" />
     <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\package.json" />
     <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\README.md" />
-    <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\src\less\bootstrap-datetimepicker-build.less" />
-    <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\src\less\_bootstrap-datetimepicker.less" />
-    <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\src\nuget\Bootstrap.v3.Datetimepicker.CSS.nuspec" />
-    <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\src\nuget\Bootstrap.v3.Datetimepicker.nuspec" />
-    <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\src\nuget\install.ps1" />
-    <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\src\sass\bootstrap-datetimepicker-build.scss" />
-    <Content Include="_spa\lib\eonasdan-bootstrap-datetimepicker\src\sass\_bootstrap-datetimepicker.scss" />
     <Content Include="_spa\lib\moment\.bower.json" />
     <Content Include="_spa\lib\moment\bower.json" />
     <Content Include="_spa\lib\moment\CHANGELOG.md" />
