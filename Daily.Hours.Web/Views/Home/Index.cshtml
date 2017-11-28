@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="~/_spa/css/site.css">
     <script type="text/javascript" src="~/_spa/lib/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="~/_spa/lib/jquery-ui/jquery-ui.js"></script>
+    <script type="text/javascript" src="~/_spa/lib/jquery.activity-indicator/jquery.activity-indicator.min.js"></script>
     <script type="text/javascript" src="~/_spa/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="~/_spa/lib/moment/min/moment.min.js"></script>
     <script type="text/javascript" src="~/_spa/lib/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
@@ -28,6 +29,8 @@
     <script src="https://use.fontawesome.com/027bf5df14.js"></script>
 </head>
 <body>
+    <div id="busyindicator" style="z-index: 99999"></div>
+    <div id="splashscreen"></div>
     <section data-bind="component: { name: 'mainView', params: {currentUser: currentUser, navModel: navModel} }"></section>
 </body>
 </html>

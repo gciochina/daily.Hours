@@ -102,13 +102,18 @@ namespace Daily.Hours.Web.Services
             return activitiesList.ToList();
         }
 
-        internal List<ActivityViewModel> Report(DateTime startDate, DateTime endDate, int userId)
+        internal List<ActivityViewModel> Report(DateTime startDate, DateTime endDate, int authenticatedUserId, int? userId)
         {
             startDate = startDate.Date;
             endDate = endDate.Date.AddDays(1);
 
             var workLogs = _context.WorkLogs.Where(l => l.Date > startDate && l.Date < endDate
-                && (l.Task.Project.Users.Any(u => u.UserId == userId) || l.Task.Project.Owner.UserId == userId))
+                && (l.Task.Project.Users.Any(u => u.UserId == authenticatedUserId) || l.Task.Project.Owner.UserId == authenticatedUserId));
+
+            if (userId.HasValue)
+                workLogs = workLogs.Where(l => l.User.UserId == userId);
+
+            var groupedWorkLogs = workLogs
                 .GroupBy(a => a.Task.TaskId)
                 .ToList()
                 .Select(calc => new ActivityViewModel
@@ -123,7 +128,7 @@ namespace Daily.Hours.Web.Services
                     Description = string.Join(System.Environment.NewLine, calc.Select(a => a.Description))
                 });
 
-            return workLogs.ToList();
+            return groupedWorkLogs.ToList();
         }
 
         internal ActivityViewModel Get(int workLogId)

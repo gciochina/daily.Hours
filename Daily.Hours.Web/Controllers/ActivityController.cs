@@ -11,6 +11,7 @@ namespace Daily.Hours.Web.Controllers
     public class ActivityController : BaseController
     {
         private ActivityService _activityService = new ActivityService();
+        private UserService _userService = new UserService();
 
         [HttpPost]
         public ActivityViewModel Create(ActivityViewModel workLog)
@@ -44,9 +45,16 @@ namespace Daily.Hours.Web.Controllers
         }
 
         [HttpGet]
-        public List<ActivityViewModel> Report(DateTime startDate, DateTime endDate)
+        public List<ActivityViewModel> Report(DateTime startDate, DateTime endDate, int? userId = null)
         {
-            return _activityService.Report(startDate, endDate, AuthenticatedUserId);
+            return _activityService.Report(startDate, endDate, AuthenticatedUserId, userId);
+        }
+
+        [HttpGet]
+        public List<UserViewModel> GetActivityUsers()
+        {
+            var currentUser = _userService.Get(AuthenticatedUserId);
+            return _userService.List(currentUser.InviterId.HasValue ? currentUser.InviterId.Value : currentUser.Id);
         }
     }
 }

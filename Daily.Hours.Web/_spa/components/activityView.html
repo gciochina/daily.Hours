@@ -11,6 +11,9 @@
                 <input type="text" class="form-control" /> <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
             <label data-bind="text: moment(endDate()).calendar()"></label>
+            <br />
+            <label for="userFilter">User:</label>
+            <select class="form-control" id="userFilter" data-bind="options: users, optionsText: 'FullName', value: userFilter"></select>
         </div>
     </div>
     <div class="col-md-9">

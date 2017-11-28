@@ -198,6 +198,7 @@
     <Content Include="_spa\css\themes\images\ui-bg_inset-soft_95_fef1ec_1x100.png" />
     <Content Include="_spa\css\themes\images\ui-icons_309bbf_256x240.png" />
     <Content Include="_spa\css\themes\images\ui-icons_bf3030_256x240.png" />
+    <Content Include="_spa\lib\jquery.activity-indicator\jquery.activity-indicator.min.js" />
     <Content Include="_spa\lib\underscore\underscore.js" />
     <Content Include="_spa\lib\underscore\underscore.min.js" />
     <Content Include="_spa\components\activityView.html" />

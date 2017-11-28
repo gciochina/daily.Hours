@@ -50,18 +50,44 @@
     });
 
     require(['knockout'],
-		function () {
+        function () {
             function mainAppView() {
                 this.currentUser = ko.observable();
                 this.navModel = ko.observable();
                 window.currentUser = this.currentUser;
                 window.navModel = this.navModel;
-		    }
+            }
             ko.applyBindings(new mainAppView());
-		});
+        });
 })();
 
-HandleError = function (error) {
-    toastr.error((error.responseJSON || { ExceptionMessage: "Something went wrong. Thats all we know" }).ExceptionMessage,
-        (error.responseJSON || { Message: "Whoops" }).Message);
-}
+activityCounter = 0;
+
+$(document).on({
+    ajaxStart: function () { toggleActivity(true); },
+    ajaxStop: function () { toggleActivity(false); }
+});
+
+toggleActivity = function (show) {
+    turnOnActivity = function () {
+        activityCounter++;
+        if (activityCounter == 1) {
+            $('#busyindicator').show();
+        }
+    };
+    turnOffActivity = function () {
+        activityCounter = activityCounter < 1 ? 0 : activityCounter - 1;
+        if (activityCounter == 0) {
+            $('#busyindicator').hide();
+        }
+    };
+
+    var f = show ? turnOnActivity : turnOffActivity;
+    f();
+},
+
+
+    HandleError = function (error) {
+        toastr.error((error.responseJSON || { ExceptionMessage: "Something went wrong. Thats all we know" }).ExceptionMessage,
+            (error.responseJSON || { Message: "Whoops" }).Message);
+    }
