@@ -43,8 +43,9 @@ namespace Daily.Hours.Web.Services
             if (inviterId.HasValue)
             {
                 userModel.Inviter = _context.Users.Single(u => u.UserId == inviterId);
-                userModel.Projects = new List<Project>();
-                userModel.Projects = _context.Projects.Where(p => p.Owner.UserId == inviterId).ToList();
+                //userModel.Projects = _context.Projects.Where(p => p.Owner.UserId == inviterId).ToList();
+                var linkedProjectIds = user.Projects.Select(project => project.Id).ToList();
+                userModel.Projects = _context.Projects.Where(p => linkedProjectIds.Contains(p.ProjectId)).ToList();
             }
 
             _context.Users.Add(userModel);

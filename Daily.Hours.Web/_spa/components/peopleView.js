@@ -6,18 +6,30 @@
             self.navModel = params.navModel;
 
             self.people = ko.observableArray();
+            self.projects = ko.observableArray();
 
             self.FirstName = ko.observable().extend({ required: true });
             self.LastName = ko.observable().extend({ required: true });
             self.EmailAddress = ko.observable().extend({ required: true });
+            self.Project = ko.observable().extend({ required: true });
 
             self.showAddDialog = ko.observable(false);
 
             self.doShowInvitePeople = function () {
-                self.showAddDialog(true);
+                $.ajax({
+                    method: 'GET',
+                    url: "api/Project/List",
+                    success: function (data) {
+                        self.FirstName('');
+                        self.LastName('');
+                        self.showAddDialog(true);
+                        self.projects(data);
+                    },
+                    error: function (error) {
+                        HandleError(error);
+                    }
+                });
             }
-
-            
 
             self.doInvitePeople = function () {
                 self.validationErrors = ko.validation.group(this, { deep: true })
@@ -33,6 +45,7 @@
                         FirstName: self.FirstName(),
                         LastName: self.LastName(),
                         EmailAddress: self.EmailAddress(),
+                        Projects: [ self.Project()],
                         IsActive: false,
                     },
                     success: function (data) {

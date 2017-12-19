@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Daily.Hours.Web.Models;
 
 namespace Daily.Hours.Web.ViewModels
@@ -19,6 +20,8 @@ namespace Daily.Hours.Web.ViewModels
         public bool IsActivated { get; set; }
 
         public string Password { get; set; }
+
+        public List<ProjectViewModel> Projects { get; set; }
 
         public string FullName
         {
@@ -41,7 +44,8 @@ namespace Daily.Hours.Web.ViewModels
 
                 IsActivated = user.IsActivated,
                 IsAdmin = user.IsAdmin,
-                InviterId = user.Inviter?.UserId
+                InviterId = user.Inviter?.UserId,
+                Projects = user.Projects.Select(p => ProjectViewModel.From(p)).ToList()
             };
         }
     }

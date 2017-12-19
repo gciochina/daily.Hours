@@ -47,6 +47,9 @@
             <br />
             <label for="emailAddress">Email address:</label>
             <input type="text" class="form-control" id="emailAddress" data-bind="value: EmailAddress, onEnter: doInvitePeople">
+            <br />
+            <label for="project">Project:</label>
+            <select class="form-control" id="project" data-bind="options: projects, optionsText: 'Name', value: Project, onEnter: doInvitePeople"></select>
         </div>
         <button type="button" class="btn btn-default" data-bind="click:doInvitePeople">Invite</button>
     </div>
