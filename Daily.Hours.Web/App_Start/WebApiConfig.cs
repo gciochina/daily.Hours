@@ -16,6 +16,8 @@ namespace Daily.Hours.Web
             //config.SuppressDefaultHostAuthentication();
             //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
+            config.Filters.Add(new ExceptionLoggerFilter());
+
             //GlobalConfiguration.Configuration.Filters.Add(new AddCustomHeaderFilter());
 
             // Web API routes
