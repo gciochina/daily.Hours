@@ -77,7 +77,7 @@ daily.Hours"
             //send email
             using (var client = new SmtpClient(ConfigurationManager.AppSettings["SmtpServerHost"], Convert.ToInt32(ConfigurationManager.AppSettings["SmtpServerPort"])))
             {
-                client.EnableSsl = true;
+                client.EnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]);
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
                 client.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["NoReplyAddress"], ConfigurationManager.AppSettings["SmtpPassword"]);
